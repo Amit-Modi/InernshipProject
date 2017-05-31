@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="330.0" prefWidth="581.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javaFXPackage.Controller">
+   <center>
+      <AnchorPane fx:id="scene" BorderPane.alignment="CENTER">
+         <children>
+            <StackPane layoutX="169.0" layoutY="21.0" />
+         </children>
+      </AnchorPane>
+   </center>
+   <top>
+      <HBox spacing="5.0" style="-fx-background-color: #B8B8B8;" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#addTextField" text="Add TextField" />
+            <Button mnemonicParsing="false" onAction="#addBrowser" text="Add browser" />
+            <Button mnemonicParsing="false" onAction="#addImage" text="Add Image" />
+            <Button mnemonicParsing="false" onAction="#addVideo" text="Add Video" />
+            <Button mnemonicParsing="false" onAction="#removeNode" text="Delete" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
+   </top>
+</BorderPane>
