@@ -1,16 +1,17 @@
-package javaFXPackage;
+package sample;
 
-import javafx.event.EventType;
-import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.SubScene;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.media.MediaView;
 
 
 /**
@@ -35,20 +36,12 @@ public class MyUtil {
             Main.orgTranslateY=((Node) e.getSource()).getTranslateY();
             ((Node)e.getSource()).setCursor(Cursor.MOVE);
             setToFront((Node)e.getSource());
-
-            try{
-                Main.selectedPane=(StackPane)n;
-            }
-            catch(Exception event){
-
-            }
-
         });
         n.setOnMouseDragged(e->{
-            double offsetX=e.getSceneX()-Main.orgSceneX;
-            double offsetY=e.getSceneY()-Main.orgSceneY;
-            double newTranslateX=Main.orgTranslateX+offsetX;
-            double newTranslateY=Main.orgTranslateY+offsetY;
+            double offsetX=e.getSceneX()- Main.orgSceneX;
+            double offsetY=e.getSceneY()- Main.orgSceneY;
+            double newTranslateX= Main.orgTranslateX+offsetX;
+            double newTranslateY= Main.orgTranslateY+offsetY;
             ((Node) e.getSource()).setTranslateX(newTranslateX);
             ((Node) e.getSource()).setTranslateY(newTranslateY);
             ((Node)e.getSource()).setCursor(Cursor.MOVE);
@@ -76,13 +69,7 @@ public class MyUtil {
         stackPane.maxHeight(Region.USE_COMPUTED_SIZE);
         stackPane.maxWidth(Region.USE_COMPUTED_SIZE);
         MyUtil.makeMovable(stackPane);
-        Rectangle rectangle=new Rectangle();
-        rectangle.setStyle("-fx-background-color: cyan");
-        rectangle.setHeight(5);
-        rectangle.setWidth(5);
-        stackPane.getChildren().addAll(rectangle);
         return stackPane;
     }
-
 
 }

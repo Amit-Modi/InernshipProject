@@ -119,16 +119,14 @@ public class TreeViewClass extends Application {
 
     private void sigleClickAction(){
         //System.out.println("single");
+        System.out.println(treeView.getSelectionModel().getSelectedIndex());
 
     }
     private void doubleClickAction(){
         //System.out.println("double");
         String message="";
-        ObservableList<TreeItem<String>> mans;
-        mans=treeView.getSelectionModel().getSelectedItems();
-        for(TreeItem<String> m:mans){
-            message+=m.getValue()+"\n";
-        }
-        System.out.println(message);
+        TreeItem<String> mans;
+        mans=treeView.getSelectionModel().getSelectedItem();
+        System.out.println(mans.getValue());
     }
 }

@@ -1,12 +1,9 @@
-package javaFXPackage;
+package sample;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -15,9 +12,6 @@ public class Main extends Application {
     public static double orgTranslateX,orgTranslateY;
     public static Parent root;
     public static Stage window;
-
-    public static StackPane selectedPane;
-
     @Override
     public void start(Stage primaryStage) throws Exception{
         window=primaryStage;

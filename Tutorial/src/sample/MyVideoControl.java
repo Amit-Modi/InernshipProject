@@ -1,4 +1,4 @@
-package javaFXPackage;
+package sample;
 
 import javafx.scene.media.MediaView;
 
