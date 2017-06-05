@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
@@ -11,7 +12,7 @@ import javafx.scene.layout.StackPane;
 public class Layouts {
 
     public static StackPane getTitleBox(){
-        TextArea title=new TextArea();
+        TextField title=new TextField();
         title.setPromptText("Enter Title");
 
         StackPane stackPane =MyUtil.getNewStackPane();
@@ -36,10 +37,15 @@ public class Layouts {
         StackPane textArea = getTextBox();
 
         AnchorPane.setTopAnchor(title,50.0);
+        AnchorPane.setLeftAnchor(title,50.0);
+        AnchorPane.setRightAnchor(title,50.0);
         AnchorPane.setTopAnchor(textArea,200.0);
+        AnchorPane.setLeftAnchor(textArea,50.0);
+        AnchorPane.setRightAnchor(textArea,50.0);
 
         AnchorPane newPage=new AnchorPane();
         newPage.setPrefSize(1024,768);
+        newPage.setStyle("-fx-background-color: cyan");
 
         newPage.getChildren().addAll(title,textArea);
 

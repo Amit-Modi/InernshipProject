@@ -32,53 +32,6 @@
         </menus>
       </MenuBar>
    </top>
-   <center>
-      <AnchorPane BorderPane.alignment="CENTER">
-         <children>
-            <ToolBar prefHeight="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <items>
-                <Button mnemonicParsing="false" onAction="#addNewPage" text="Add New Page" />
-                  <Button mnemonicParsing="false" onAction="#removePages" text="Remove Page" />
-                  <Button mnemonicParsing="false" onAction="#scaleWindowtoFitScreen" text="temo" />
-              </items>
-            </ToolBar>
-            <HBox prefHeight="20.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
-            <SplitPane dividerPositions="0.2508361204013378, 0.7993311036789298" layoutX="106.0" layoutY="37.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
-              <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                     <children>
-                        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <tabs>
-                              <Tab text="Index">
-                                 <content>
-                                    <ScrollPane fx:id="indexTab" prefHeight="200.0" prefWidth="200.0" />
-                                 </content>
-                              </Tab>
-                            <Tab text="Slides">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                              </content>
-                            </Tab>
-                              <Tab text="Outline">
-                                <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                </content>
-                              </Tab>
-                          </tabs>
-                        </TabPane>
-                     </children></AnchorPane>
-                  <SplitPane dividerPositions="0.784452296819788" orientation="VERTICAL" prefHeight="303.0" prefWidth="291.0">
-                    <items>
-                        <ScrollPane fx:id="sceneWindow" prefHeight="207.0" prefWidth="318.0" />
-                        <ScrollPane fx:id="pageNote" prefHeight="86.0" prefWidth="318.0" />
-                    </items>
-                  </SplitPane>
-                  <AnchorPane prefHeight="283.0" prefWidth="187.0" />
-              </items>
-            </SplitPane>
-         </children>
-      </AnchorPane>
-   </center>
    <bottom>
       <HBox BorderPane.alignment="CENTER">
          <children>
@@ -86,4 +39,109 @@
          </children>
       </HBox>
    </bottom>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <TabPane style="-fx-background-color: skyblue;" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab text="Home">
+                     <content>
+                        <ToolBar prefHeight="50.0">
+                           <items>
+                              <Button mnemonicParsing="false" onAction="#addNewPage" text="Add New Page" />
+                              <Button mnemonicParsing="false" onAction="#removePages" text="Remove Page" />
+                              <Button mnemonicParsing="false" onAction="#scaleWindowtoFitScreen" text="temo" />
+                           </items>
+                        </ToolBar>
+                     </content>
+                  </Tab>
+                  <Tab text="Insert">
+                     <content>
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                              <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" text="Text">
+                                 <opaqueInsets>
+                                    <Insets bottom="5.0" left="5.0" right="6.0" top="5.0" />
+                                 </opaqueInsets>
+                                 <content>
+                                    <HBox>
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#addTextField" text="Text Box" />
+                                       </children>
+                                    </HBox>
+                                 </content>
+                              </TitledPane>
+                              <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" text="Graphics">
+                                 <content>
+                                    <HBox>
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#addImageBox" text="Image" />
+                                       </children>
+                                    </HBox>
+                                 </content>
+                                 <opaqueInsets>
+                                    <Insets bottom="5.0" left="5.0" right="6.0" top="5.0" />
+                                 </opaqueInsets>
+                              </TitledPane>
+                              <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" text="Media">
+                                 <content>
+                                    <HBox>
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#addVideoPlayer" text="Video" />
+                                       </children>
+                                    </HBox>
+                                 </content>
+                                 <opaqueInsets>
+                                    <Insets bottom="5.0" left="5.0" right="6.0" top="5.0" />
+                                 </opaqueInsets>
+                              </TitledPane>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+            <HBox prefHeight="20.0" prefWidth="200.0" />
+            <SplitPane dividerPositions="0.2508361204013378, 0.7993311036789298" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+               <items>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <tabs>
+                              <Tab text="Index">
+                                 <content>
+                                    <ScrollPane fx:id="indexTab" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" />
+                                 </content>
+                              </Tab>
+                              <Tab text="Slides">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                 </content>
+                              </Tab>
+                              <Tab text="Outline">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                 </content>
+                              </Tab>
+                           </tabs>
+                        </TabPane>
+                     </children>
+                  </AnchorPane>
+                  <SplitPane dividerPositions="0.784452296819788" orientation="VERTICAL" prefHeight="303.0" prefWidth="291.0">
+                     <items>
+                        <ScrollPane fx:id="sceneWindow" prefHeight="207.0" prefViewportHeight="50.0" prefWidth="318.0" />
+                        <ScrollPane fx:id="pageNote" fitToHeight="true" fitToWidth="true" prefHeight="86.0" prefWidth="318.0" />
+                     </items>
+                  </SplitPane>
+                  <AnchorPane fx:id="propertyPane" prefHeight="283.0" prefWidth="187.0">
+
+                  </AnchorPane>
+               </items>
+            </SplitPane>
+         </children>
+      </VBox>
+   </center>
 </BorderPane>

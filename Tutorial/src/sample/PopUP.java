@@ -15,7 +15,8 @@ import javafx.stage.Stage;
  */
 public class PopUP {
 
-    private static String returnValue;
+    private static String string;
+    private static Boolean aBoolean;
 
     public static String getTextInput(String title,String message){
         Stage window =new Stage();
@@ -33,7 +34,7 @@ public class PopUP {
 
         textField.setOnAction(e->{
             if(textField.getText().matches("[a-zA-Z][a-zA-Z0-1_@()']*")){
-                returnValue=textField.getText();
+                string=textField.getText();
                 window.close();
             }
             else{
@@ -45,7 +46,7 @@ public class PopUP {
 
         ok.setOnAction(e->{
             if(textField.getText().matches("[a-zA-Z][a-zA-Z0-1_@()']*")){
-                returnValue=textField.getText();
+                string=textField.getText();
                 window.close();
             }
             else{
@@ -56,7 +57,7 @@ public class PopUP {
         });
 
         cancel.setOnAction(e->{
-            returnValue= "";
+            string= "";
             window.close();
         });
 
@@ -78,7 +79,7 @@ public class PopUP {
         window.setScene(scene);
         window.centerOnScreen();
         window.showAndWait();
-        return returnValue;
+        return string;
     }
 
     public static void display(String title, String messgaes){
@@ -109,6 +110,44 @@ public class PopUP {
     public static void showException(Exception e){
         System.out.println(e.toString());
         PopUP.display("Error","Following error occurred while deleting Selecting Item:\n"+e.getMessage());
+    }
+
+    public static Boolean confermBox(String title,String message){
+        Stage window=new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle(title);
+        window.setMinWidth(200);
+
+        Label label=new Label(message);
+
+        Button yes=new Button("Yes");
+        Button no=new Button("No");
+
+        yes.setOnAction(e->{
+            System.out.println("confermed");
+            aBoolean=true;
+            window.close();
+        });
+        no.setOnAction(e->{
+            System.out.println("action aborted");
+            aBoolean= false;
+            window.close();
+        });
+
+        VBox vbox=new VBox(20);
+        vbox.getChildren().addAll(label);
+        HBox hbox=new HBox(20);
+        hbox.getChildren().addAll(yes,no);
+
+        BorderPane layout=new BorderPane();
+        layout.setCenter(vbox);
+        layout.setBottom(hbox);
+
+        Scene scene=new Scene(layout);
+
+        window.setScene(scene);
+        window.showAndWait();
+        return aBoolean;
     }
 
 }

@@ -81,7 +81,7 @@ public class TreeViewClass extends Application {
             public void handle(MouseEvent event) {
                 if(event.getButton().equals(MouseButton.PRIMARY)){
                     if(!dragFlag){
-                        //System.out.println(++clickCounter+" "+ event.getClickCount());
+                        System.out.println(++clickCounter+" "+ event.getClickCount());
                         if(event.getClickCount()==1){
                             scheduledFuture=executor.schedule(()->sigleClickAction(),500, TimeUnit.MILLISECONDS);
                         }

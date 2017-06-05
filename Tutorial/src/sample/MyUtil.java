@@ -1,17 +1,14 @@
 package sample;
 
+import courseBuilder.Store;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.SubScene;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.media.MediaView;
 
 
 /**
@@ -28,20 +25,22 @@ public class MyUtil {
             n=n.getParent();
         }*/
     }
+
     public static void makeMovable(Node n){
         n.setOnMousePressed(e->{
-            Main.orgSceneX=e.getSceneX();
-            Main.orgSceneY=e.getSceneY();
-            Main.orgTranslateX=((Node) e.getSource()).getTranslateX();
-            Main.orgTranslateY=((Node) e.getSource()).getTranslateY();
+            Store.orgSceneX=e.getSceneX();
+            Store.orgSceneY=e.getSceneY();
+            Store.orgTranslateX=((Node) e.getSource()).getTranslateX();
+            Store.orgTranslateY=((Node) e.getSource()).getTranslateY();
             ((Node)e.getSource()).setCursor(Cursor.MOVE);
             setToFront((Node)e.getSource());
+            setSelected(n);
         });
         n.setOnMouseDragged(e->{
-            double offsetX=e.getSceneX()- Main.orgSceneX;
-            double offsetY=e.getSceneY()- Main.orgSceneY;
-            double newTranslateX= Main.orgTranslateX+offsetX;
-            double newTranslateY= Main.orgTranslateY+offsetY;
+            double offsetX=e.getSceneX()- Store.orgSceneX;
+            double offsetY=e.getSceneY()- Store.orgSceneY;
+            double newTranslateX= Store.orgTranslateX+offsetX;
+            double newTranslateY= Store.orgTranslateY+offsetY;
             ((Node) e.getSource()).setTranslateX(newTranslateX);
             ((Node) e.getSource()).setTranslateY(newTranslateY);
             ((Node)e.getSource()).setCursor(Cursor.MOVE);
@@ -72,4 +71,31 @@ public class MyUtil {
         return stackPane;
     }
 
+    public static TextArea getNewTextBox(double width,double height){
+        TextArea t=new TextArea();
+        t.setPromptText("Enter something");
+        t.setOnMouseClicked(em->{
+            MyUtil.setToFront((Node)em.getSource());
+        });
+        t.setOnKeyTyped(ek->{
+            MyUtil.setToFront((Node)ek.getSource());
+        });
+        t.setPrefSize(width,height);
+        return t;
+    }
+
+    public static Region getNewRegion(){
+        Region r=new Region();
+
+        r.setPrefSize(5,5);
+        r.setMaxSize(r.getPrefWidth(),r.getPrefHeight());
+        r.setMinSize(r.getPrefWidth(),r.getPrefHeight());
+        r.setStyle("-fx-background-color: aqua");
+        return r;
+    }
+
+    public static void setSelected(Node n){
+        Store.selectedNode=n;
+
+    }
 }

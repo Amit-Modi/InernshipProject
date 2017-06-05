@@ -1,11 +1,19 @@
 package course;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.Event;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import sample.Layouts;
+import sample.Main;
 import sample.MyUtil;
 import sample.PopUP;
 
@@ -21,7 +29,24 @@ public class Course {
     public ArrayList<AnchorPane> page;
     public ArrayList<TextArea> pageNote;
 
-    public static Integer selectedPage=0;
+
+    private void removeChildern(TreeItem<String> parent){
+        try {
+            for (TreeItem<String> treeItem : parent.getChildren()) {
+                removeChildern(treeItem);
+            }
+            deletePage(this.index.getRow(parent));
+        }
+        catch (Exception e){
+            PopUP.showException(e);
+        }
+    }
+
+    private void deletePage(Integer idx){
+        this.pageNote.remove(idx);
+        this.page.remove(idx);
+    }
+
 
     public Course(String title){
 //initialising index
@@ -41,17 +66,6 @@ public class Course {
 
 //selecting root index
         this.index.getSelectionModel().select(0);
-    }
-
-    public Integer getIndexOf(TreeItem<String> a,TreeItem<String> b){
-        Integer idx=0;
-        if(a!=b){
-            idx++;
-            for(TreeItem<String> each : b.getChildren()){
-                idx+=getIndexOf(a,each);
-            }
-        }
-        return idx;
     }
 
     public Boolean setTitle(String title){
@@ -78,8 +92,10 @@ public class Course {
             TreeItem<String> item=new TreeItem<>(subTopicName);
             TreeItem<String> parent=this.index.getSelectionModel().getSelectedItem();
             parent.getChildren().add(item);
+            this.index.getSelectionModel().clearSelection();
+            this.index.getSelectionModel().select(item);
 
-            Integer idx=getIndexOf(item,this.index.getRoot());//parent.getChildren().indexOf(item);
+            Integer idx=this.index.getSelectionModel().getSelectedIndex();
 //            System.out.println(idx);
 
             this.page.add(idx, Layouts.getNormalLayout());
@@ -88,14 +104,12 @@ public class Course {
             this.pageNote.add(idx,temp);
 
             parent.setExpanded(true);
-
-            this.index.getSelectionModel().clearAndSelect(idx);
 //            System.out.println("selected");
             return idx;
         }
         catch (Exception exception){
             PopUP.showException(exception);
-            return getIndexOf(this.index.getSelectionModel().getSelectedItem(),this.index.getRoot());
+            return this.index.getSelectionModel().getSelectedIndex();
         }
     }
 
@@ -104,7 +118,7 @@ public class Course {
         try{
             if(this.index.getSelectionModel().getSelectedItems().contains(this.index.getRoot()))
                 throw new Exception("Course Cannot be Deleted From Here");
-            Integer idx=getIndexOf(this.index.getSelectionModel().getSelectedItem(),this.index.getRoot())-1;
+            Integer idx=this.index.getSelectionModel().getSelectedIndex();
             for(TreeItem<String> selected:this.index.getSelectionModel().getSelectedItems()) {
                 removeChildern(selected);
                 selected.getParent().getChildren().remove(selected);
@@ -117,20 +131,15 @@ public class Course {
         }
     }
 
-    private void removeChildern(TreeItem<String> parent){
-        try {
-            for (TreeItem<String> treeItem : parent.getChildren()) {
-                removeChildern(treeItem);
+    public void addNode(Node node){
+        if(this.index.getSelectionModel().getSelectedItems().size()>1){
+            if(PopUP.confermBox("Confermation Box","You have selected multiple pages in index filed.\n\n   Would you like to add text box to all of them?")){
+                for (Integer idx:this.index.getSelectionModel().getSelectedIndices()) {
+                    this.page.get(idx).getChildren().add(node);
+                    return;
+                }
             }
-            deletePage(this.index.getRow(parent));
         }
-        catch (Exception e){
-            PopUP.showException(e);
-        }
-    }
-
-    private void deletePage(Integer idx){
-        this.pageNote.remove(idx);
-        this.page.remove(idx);
+        this.page.get(this.index.getSelectionModel().getSelectedIndex()).getChildren().add(node);
     }
 }

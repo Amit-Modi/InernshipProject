@@ -8,8 +8,6 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    public static double orgSceneX,orgSceneY;
-    public static double orgTranslateX,orgTranslateY;
     public static Parent root;
     public static Stage window;
     @Override

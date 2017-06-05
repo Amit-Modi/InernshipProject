@@ -13,7 +13,6 @@ import javafx.stage.Stage;
  */
 public class Main extends Application{
 
-    public static SubScene selectedScene;
     public static Stage window;
 
     public static void main(String[]args){
