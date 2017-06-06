@@ -1,9 +1,13 @@
 package sample;
 
+import courseBuilder.Element;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+
+import static courseBuilder.Element.getTextBox;
+import static courseBuilder.Element.getTitleBox;
 
 
 /**
@@ -11,25 +15,6 @@ import javafx.scene.layout.StackPane;
  */
 public class Layouts {
 
-    public static StackPane getTitleBox(){
-        TextField title=new TextField();
-        title.setPromptText("Enter Title");
-
-        StackPane stackPane =MyUtil.getNewStackPane();
-        stackPane.setPrefSize(800.0,100.0);
-        stackPane.getChildren().add(title);
-        return stackPane;
-    }
-
-    public static StackPane getTextBox(){
-        TextArea textArea=new TextArea();
-        textArea.setPromptText("Enter Title");
-
-        StackPane stackPane =MyUtil.getNewStackPane();
-        stackPane.setPrefSize(800.0,500.0);
-        stackPane.getChildren().add(textArea);
-        return stackPane;
-    }
 
     public static AnchorPane getNormalLayout(){
 

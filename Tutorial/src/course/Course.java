@@ -131,15 +131,4 @@ public class Course {
         }
     }
 
-    public void addNode(Node node){
-        if(this.index.getSelectionModel().getSelectedItems().size()>1){
-            if(PopUP.confermBox("Confermation Box","You have selected multiple pages in index filed.\n\n   Would you like to add text box to all of them?")){
-                for (Integer idx:this.index.getSelectionModel().getSelectedIndices()) {
-                    this.page.get(idx).getChildren().add(node);
-                    return;
-                }
-            }
-        }
-        this.page.get(this.index.getSelectionModel().getSelectedIndex()).getChildren().add(node);
-    }
 }

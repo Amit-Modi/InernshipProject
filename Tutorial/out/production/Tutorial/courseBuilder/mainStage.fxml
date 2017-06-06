@@ -51,6 +51,7 @@
                               <Button mnemonicParsing="false" onAction="#addNewPage" text="Add New Page" />
                               <Button mnemonicParsing="false" onAction="#removePages" text="Remove Page" />
                               <Button mnemonicParsing="false" onAction="#scaleWindowtoFitScreen" text="temo" />
+                              <Button mnemonicParsing="false" onAction="#deleteElement" text="Delete Element" />
                            </items>
                         </ToolBar>
                      </content>
@@ -66,6 +67,7 @@
                                  <content>
                                     <HBox>
                                        <children>
+                                          <Button mnemonicParsing="false" onAction="#addTitleField" text="Title Box" />
                                           <Button mnemonicParsing="false" onAction="#addTextField" text="Text Box" />
                                        </children>
                                     </HBox>
@@ -88,6 +90,18 @@
                                     <HBox>
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#addVideoPlayer" text="Video" />
+                                       </children>
+                                    </HBox>
+                                 </content>
+                                 <opaqueInsets>
+                                    <Insets bottom="5.0" left="5.0" right="6.0" top="5.0" />
+                                 </opaqueInsets>
+                              </TitledPane>
+                              <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" layoutX="264.0" layoutY="10.0" text="Exersise">
+                                 <content>
+                                    <HBox>
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#addMCQ" text="MCQ" />
                                        </children>
                                     </HBox>
                                  </content>

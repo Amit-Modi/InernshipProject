@@ -1,30 +1,30 @@
 package courseBuilder;
 
 import course.Course;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.FileChooser;
-import sample.MyUtil;
-import sample.MyVideoControl;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import sample.PopUP;
 
 import java.io.File;
+import java.util.ArrayList;
+
+import static courseBuilder.Element.*;
+import static sample.MyUtil.addNode;
 
 /**
  * Created by ghost on 30/5/17.
@@ -120,19 +120,28 @@ public class MainStage {
         addTextField(new Rectangle(0.0,0.0,100.0,100.0));
     }
     @FXML public void addTextField(Rectangle rec){
-        TextArea t=MyUtil.getNewTextBox(rec.getWidth(),rec.getHeight());
 
-        StackPane s=MyUtil.getNewStackPane();
-        s.getChildren().add(t);
-        s.widthProperty().addListener(new ChangeListener(){
-            public void changed(ObservableValue observable, Object oldValue, Object newValue){
-                System.out.println(oldValue+"|"+newValue);
-            }
-        });
+        StackPane box=getTextBox();
+        ((TextArea)box.getChildren().get(0)).setPrefWidth(rec.getWidth());
+        ((TextArea)box.getChildren().get(0)).setPrefHeight(rec.getHeight());
+        AnchorPane.setLeftAnchor(box,rec.getX());
+        AnchorPane.setTopAnchor(box,rec.getY());
+        addNode(Store.selectedCourse,box);
+        Store.selectedNode=box;
+    }
 
-        AnchorPane.setLeftAnchor(s,rec.getX());
-        AnchorPane.setTopAnchor(s,rec.getY());
-        Store.selectedCourse.addNode(s);
+    @FXML public void addTitleField(){
+        addTitleField(new Rectangle(0.0,0.0,100.0,100.0));
+    }
+    @FXML public void addTitleField(Rectangle rec){
+
+        StackPane box=getTitleBox();
+        ((TextArea)box.getChildren().get(0)).setPrefWidth(rec.getWidth());
+        ((TextArea)box.getChildren().get(0)).setPrefHeight(rec.getHeight());
+        AnchorPane.setLeftAnchor(box,rec.getX());
+        AnchorPane.setTopAnchor(box,rec.getY());
+        addNode(Store.selectedCourse,box);
+        Store.selectedNode=box;
     }
 
     @FXML public void addImageBox(){
@@ -142,15 +151,14 @@ public class MainStage {
         FileChooser chooser = new FileChooser();
         File file = chooser.showOpenDialog(sample.Main.window);
         if(file!=null) {
-            StackPane stackPane = MyUtil.getNewStackPane();
-            Image img = new Image(file.toURI().toString());
-            ImageView imgView = new ImageView(img);
-            imgView.setFitHeight(rec.getWidth());
-            imgView.setFitHeight(rec.getHeight());
-            stackPane.getChildren().add(imgView);
+            StackPane stackPane = getImageBox(file);
+            ((ImageView)stackPane.getChildren().get(0)).setFitHeight(rec.getWidth());
+            ((ImageView)stackPane.getChildren().get(0)).setFitHeight(rec.getHeight());
+
             AnchorPane.setLeftAnchor(stackPane,rec.getX());
             AnchorPane.setTopAnchor(stackPane,rec.getY());
-            Store.selectedCourse.addNode(stackPane);
+            addNode(Store.selectedCourse,stackPane);
+            Store.selectedNode=stackPane;
         }
     }
 
@@ -161,26 +169,44 @@ public class MainStage {
         FileChooser chooser = new FileChooser();
         File file = chooser.showOpenDialog(sample.Main.window);
         if (file != null) {
-            StackPane stackPane = MyUtil.getNewStackPane();
-            stackPane.setPrefSize(400, 300);
-            Media videoSource = new Media(file.toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(videoSource);
-            MediaView mediaView = new MediaView();
-            mediaPlayer.setOnEndOfMedia(new Runnable() {
-                @Override
-                public void run() {
-                    mediaPlayer.dispose();
-                }
-            });
-            mediaView.setMediaPlayer(mediaPlayer);
-            MyVideoControl.addVideoControl(mediaView);
-            stackPane.getChildren().addAll(mediaView);
-            mediaView.fitHeightProperty().bind(stackPane.heightProperty());
-            mediaView.fitWidthProperty().bind(stackPane.heightProperty());
-            Store.selectedCourse.addNode(stackPane);
+            StackPane stackPane = getVideoBox(file);
+
+            ((MediaView)stackPane.getChildren().get(0)).setFitHeight(rec.getHeight());
+            ((MediaView)stackPane.getChildren().get(0)).setFitWidth(rec.getWidth());
+
+            addNode(Store.selectedCourse,stackPane);
+            Store.selectedNode=stackPane;
         }
     }
 
+    @FXML public void addMCQ(){
+        addMCQ(new Rectangle(100.0,100.0,600,200.0));
+    }
+    @FXML public void addMCQ(Rectangle rec){
+        ArrayList<String> options=new ArrayList<>();
+        options.add("Option1");
+        options.add("Option2");
+        options.add("Option3");
+        options.add("Option4");
+        StackPane box=getMCQ("Write a question.",options,0,"Write Explanation.");
+
+        ((Pane)box.getChildren().get(0)).setPrefWidth(rec.getWidth());
+        ((Pane)box.getChildren().get(0)).setPrefHeight(rec.getHeight());
+        AnchorPane.setTopAnchor(box,rec.getY());
+        AnchorPane.setLeftAnchor(box,rec.getX());
+
+        addNode(Store.selectedCourse,box);
+    }
+    @FXML public void deleteElement(){
+        try {
+            Pane p=(Pane) Store.selectedNode.getParent();
+            p.getChildren().remove(Store.selectedNode);
+            Store.selectedNode=p.getChildren().get(0);
+        }
+        catch (Exception e){
+            PopUP.showException(e);
+        }
+    }
     @FXML public void makeRectangle(){
         final Rectangle rect = new Rectangle(0, 0, 0, 0);
         try {

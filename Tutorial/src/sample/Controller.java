@@ -1,5 +1,6 @@
 package sample;
 
+import courseBuilder.Element;
 import courseBuilder.Store;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -34,16 +35,8 @@ public class Controller {
 }
 
     @FXML public void addTextField(Event e){
-    TextField t=new TextField();
-    t.setPromptText("Enter something");
-    t.setOnMouseClicked(em->{
-        MyUtil.setToFront((Node)em.getSource());
-    });
-    t.setOnKeyTyped(ek->{
-        MyUtil.setToFront((Node)ek.getSource());
-    });
-    StackPane s=MyUtil.getNewStackPane();
-    s.getChildren().add(t);
+
+    StackPane s=Element.getTextBox();
        // s.widthProperty().addListener(new ChangeListener(){
        //     public void changed(ObservableValue observable, Object oldValue, Object newValue){
        //         System.out.println(oldValue+"|"+newValue);
@@ -71,10 +64,7 @@ public class Controller {
     FileChooser chooser = new FileChooser();
     File file = chooser.showOpenDialog(Main.window);
     if(file!=null) {
-        StackPane stackPane = MyUtil.getNewStackPane();
-        Image img = new Image(file.toURI().toString());
-        ImageView imgView = new ImageView(img);
-        stackPane.getChildren().add(imgView);
+        StackPane stackPane = Element.getImageBox(file);
         ((Pane) Main.root.lookup("#scene")).getChildren().add(stackPane);
     }
 }
@@ -83,22 +73,9 @@ public class Controller {
     FileChooser chooser = new FileChooser();
     File file = chooser.showOpenDialog(Main.window);
     if (file != null) {
-        StackPane stackPane = MyUtil.getNewStackPane();
-        stackPane.setPrefSize(400, 300);
-        Media videoSource = new Media(file.toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(videoSource);
-        MediaView mediaView = new MediaView();
-        mediaPlayer.setOnEndOfMedia(new Runnable() {
-            @Override
-            public void run() {
-                mediaPlayer.dispose();
-            }
-        });
-        mediaView.setMediaPlayer(mediaPlayer);
-        MyVideoControl.addVideoControl(mediaView);
-        stackPane.getChildren().addAll(mediaView);
-        mediaView.fitHeightProperty().bind(stackPane.heightProperty());
-        mediaView.fitWidthProperty().bind(stackPane.heightProperty());
+        StackPane stackPane = Element.getVideoBox(file);
+        ((MediaView)stackPane.getChildren().get(0)).setFitWidth(400);
+        ((MediaView)stackPane.getChildren().get(0)).setFitHeight(300);
         ((Pane) Main.window.getScene().lookup("#scene")).getChildren().addAll(stackPane);
     }
 }
@@ -107,21 +84,13 @@ public class Controller {
     FileChooser chooser = new FileChooser();
     File file=chooser.showOpenDialog(Main.window);
     if(file!=null){
-        StackPane stackPane=MyUtil.getNewStackPane();
-
-        WebView browser=new WebView();
-        WebEngine webEngine = browser.getEngine();
-        webEngine.load(file.toURI().toString());
-
-        stackPane.getChildren().add(browser);
-
+        StackPane stackPane=Element.getBrowser(file);
         ((Pane)Main.window.getScene().lookup("#scene")).getChildren().addAll(stackPane);
     }
 }
 
     @FXML public void makeDraggable(){
         try {
-            MyUtil.makeMovable(Main.root.lookup("#stackpane"));
             Region topleft, topright, bottomleft, bottomright;
             bottomright = (Region)Main.root.lookup("#scene").lookup("#bottomright");
             bottomleft = (Region)Main.root.lookup("#scene").lookup("#bottomleft");
@@ -226,5 +195,25 @@ public class Controller {
         }catch (Exception e){
             System.out.println(e.toString());
         }
+    }
+
+    public static void startVideo(MediaView m){
+        m.getMediaPlayer().play();
+        m.setOnMouseClicked(e->{
+            stopVideo((MediaView) e.getSource());
+        });
+    }
+
+    public static void stopVideo(MediaView m){
+        m.getMediaPlayer().pause();
+        m.setOnMouseClicked(e->{
+            startVideo((MediaView)e.getSource());
+        });
+    }
+
+    public static void addVideoControl(MediaView m){
+        m.setOnMouseClicked(e->{
+            startVideo((MediaView)e.getSource());
+        });
     }
 }
