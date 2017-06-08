@@ -15,6 +15,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,6 +24,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -70,6 +72,8 @@ public class Controller implements Initializable{
     private MenuItem temp;
     @FXML
     public MenuItem c1_0;
+    @FXML
+    public MenuItem c1_1;
     @FXML
     ScrollPane playarea;
     @FXML
@@ -123,6 +127,7 @@ public class Controller implements Initializable{
         try {
             mapChapter = new LinkedHashMap<>();
             mapChapter.put(c1_0, new Pair<>(0,new Pair<>("CHAP1.pdf","/media/ghost/Live Free/Entertainment/videoplayback.mp4")));
+            mapChapter.put(c1_1, new Pair<>(0,new Pair<>("CHAP1.pdf","/media/ghost/Live Free/Entertainment/videoplayback.mp4")));
 
         }catch (Exception e){
             System.out.println("Chapter not set due to :  "+e.toString());
@@ -133,17 +138,41 @@ public class Controller implements Initializable{
             System.out.println("Note Box not set due to : "+e.toString());
         }
         try{
-            timeSlider.valueProperty().addListener(new InvalidationListener() {
-                public void invalidated(Observable ov) {
-                    if (timeSlider.isValueChanging()) {
-                        mediaView.getMediaPlayer().seek(duration.multiply(timeSlider.getValue() / 100.0));
+            currentPage.textProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    if(newValue.matches("")){
+
+                    }
+                    else if(newValue.matches("[1-9][0-9]*")){
+                        int value=Integer.parseInt(newValue)-1;
+                        if(value<Integer.parseInt(totalPages.getText().substring(1))) {
+                            showpdf(value);
+                            if(value==0){
+                                previousButton.setDisable(true);
+                            }
+                            else{
+                                previousButton.setDisable(false);
+                            }
+                            if(value==(Integer.parseInt(totalPages.getText().substring(1))-1)){
+                                nextButton.setDisable(true);
+                            }
+                            else{
+                                nextButton.setDisable(false);
+                            }
+                        }
+                        else{
+                            currentPage.setText(oldValue);
+                        }
+                    }
+                    else{
+                        currentPage.setText(oldValue);
                     }
                 }
             });
         }catch (Exception e){
-            System.out.println("Media time slider not set due to : "+e.toString());
+            System.out.println("current page property"+e.toString());
         }
-
     }
 
     public Controller(){
@@ -235,6 +264,7 @@ public class Controller implements Initializable{
         File file=new File(path);
         if(file!=null) {
             Media media = new Media(file.toURI().toString());
+            duration=media.getDuration();
             MediaPlayer mediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(mediaPlayer);
             mediaView.getMediaPlayer().setOnEndOfMedia(new Runnable() {
@@ -255,6 +285,17 @@ public class Controller implements Initializable{
                     duration=mediaView.getMediaPlayer().getMedia().getDuration();
                 }
             });
+            mediaProgressBar.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if(event.getButton()== MouseButton.PRIMARY){
+                        //System.out.println((event.getSceneX()-leftMenu.getWidth()-playarea.getWidth())/mediaProgressBar.getWidth());
+                        mediaProgressBar.setProgress((event.getSceneX()-leftMenu.getWidth()-playarea.getWidth())/mediaProgressBar.getWidth());
+                        mediaView.getMediaPlayer().seek(duration.multiply(mediaProgressBar.getProgress()));
+                    }
+                }
+            });
+            stopMedia();
         }
     }
 
@@ -291,20 +332,9 @@ public class Controller implements Initializable{
         });
     }
     public void stopMedia(){
-        mediaView.getMediaPlayer().stop();
-        mediaView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                playMedia();
-            }
-        });
-        playButton.setText("Play");
-        playButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                playMedia();
-            }
-        });
+        mediaView.getMediaPlayer().seek(duration.multiply(0.0));
+        mediaProgressBar.setProgress(0.0);
+        pauseMedia();
     }
     public void muteMedia(){
         if(mediaView.getMediaPlayer().isMute()){
@@ -377,21 +407,13 @@ public class Controller implements Initializable{
         }
     }
     private void updateMediaValue(){
-        if(timeSlider!=null && mediaProgressBar!=null && playTime!=null){
+        if(mediaProgressBar!=null && playTime!=null){
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
                     Duration currentTime=mediaView.getMediaPlayer().getCurrentTime();
                     playTime.setText(formatTime(currentTime,duration));
-                    timeSlider.setDisable(duration.isUnknown());
-                    if (!timeSlider.isDisabled() && duration.greaterThan(Duration.ZERO) && !timeSlider.isValueChanging()) {
-                        timeSlider.setValue((currentTime.toMillis()/duration.toMillis()) * 100.0);
-                    }
-                    mediaProgressBar.setDisable(duration.isUnknown() && duration.greaterThan(Duration.ZERO) && !timeSlider.isValueChanging());
-                    if(mediaProgressBar.isDisabled() ){
-                        System.out.println((currentTime.toMillis()/duration.toMillis())*100);
-                        mediaProgressBar.setProgress((currentTime.toMillis()/duration.toMillis())*100);
-                    }
+                    mediaProgressBar.setProgress(currentTime.toMillis()/duration.toMillis());
                 }
             });
         }
@@ -456,29 +478,6 @@ public class Controller implements Initializable{
         textbox.setPrefHeight(84.0);
         textbox.setMinHeight(84.0);
         textbox.setMaxHeight(84.0);
-        mediaProgressBar.progressProperty().addListener((obs,newValue,oldValue)->{
-
-        });
-        currentPage.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if(newValue.matches("")){
-
-                }
-                else if(newValue.matches("[1-9][0-9]*")){
-                    int value=Integer.parseInt(newValue)-1;
-                    if(value<Integer.parseInt(totalPages.getText().substring(1))) {
-                        showpdf(value);
-                    }
-                    else{
-                        currentPage.setText(oldValue);
-                    }
-                }
-                else{
-                    currentPage.setText(oldValue);
-                }
-            }
-        });
     }
 
     public void getNextTopic(ActionEvent event){
