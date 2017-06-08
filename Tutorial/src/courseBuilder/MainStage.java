@@ -2,15 +2,16 @@ package courseBuilder;
 
 import course.Course;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -18,10 +19,13 @@ import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import sample.MyUtil;
 import sample.PopUP;
 
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import static courseBuilder.Element.*;
 import static sample.MyUtil.addNode;
@@ -29,18 +33,43 @@ import static sample.MyUtil.addNode;
 /**
  * Created by ghost on 30/5/17.
  */
-public class MainStage {
-    private EventHandler<MouseEvent> pressEvent,dragEvent,releseEvent;
+public class MainStage implements Initializable{
+
+    ContextMenu indexContextMenu;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        indexContextMenu=new ContextMenu();
+        MenuItem delete = new MenuItem("Delete");
+        delete.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                MyUtil.removeSelectedTopics();
+            }
+        });
+        MenuItem rename = new MenuItem("Rename");
+        MenuItem addSubtopic = new MenuItem("Add Subtopic");
+        MenuItem cut = new MenuItem("Cut");
+        MenuItem copy = new MenuItem("Copy");
+        MenuItem paste = new MenuItem("Paste");
+        MenuItem open = new MenuItem("Open");
+        indexContextMenu.getItems().addAll(open,copy,cut,paste,addSubtopic,rename,delete);
+    }
 
     @FXML public void startNewProject(){
         try {
             String title = PopUP.getTextInput("New Course", "Enter Cource Name :");
             if (title != null) {
-                Store.selectedCourse = new Course(title);
+                MyUtil.startNewCourse(title);
                 ((ScrollPane) Main.window.getScene().lookup("#indexTab")).setContent(Store.selectedCourse.index);
                 (((ScrollPane)Main.window.getScene().lookup("#indexTab")).getContent()).setOnMouseClicked(e->{
     //                System.out.println("Selected course : "+Store.selectedCourse.index.getSelectionModel().getSelectedIndex());
-                    display(Store.selectedCourse.index.getSelectionModel().getSelectedIndex());
+                    if(e.getButton()==MouseButton.PRIMARY){
+                        display(Store.selectedCourse.index.getSelectionModel().getSelectedIndex());
+                    }
+                    else if(e.getButton()==MouseButton.SECONDARY){
+                        indexContextMenu.show((Main.window.getScene().getRoot()),e.getSceneX(),e.getSceneY());
+                    }
                 });
                 display(0);
                 //((ListView)Main.window.getScene().lookup("#indexMenu")).getSelectionModel().select(0);
@@ -53,9 +82,13 @@ public class MainStage {
         }
     }
 
+    @FXML public void removeContextMenu(){
+        indexContextMenu.hide();
+    }
+
     @FXML public void addNewPage(){
         try {
-            display(Store.selectedCourse.addSubTopic("New Subtopic"));
+            display(MyUtil.addTopic("New Subtopic"));
         }
         catch (Exception e){
             PopUP.showException(e);
@@ -69,7 +102,7 @@ public class MainStage {
     @FXML public void removePages(){
 
         try{
-            display(Store.selectedCourse.deleteTopics());
+            display(MyUtil.removeSelectedTopics());
         }
         catch (Exception e){
             PopUP.showException(e);
@@ -84,9 +117,10 @@ public class MainStage {
 
     @FXML public void display(Integer idx){
         try {
-    //        System.out.println("Displaying : "+idx);
+            System.out.println("Displaying : "+idx);
             ((ScrollPane) Main.window.getScene().lookup("#sceneWindow")).setContent(Store.selectedCourse.page.get(idx));
             ((ScrollPane) Main.window.getScene().lookup("#pageNote")).setContent(Store.selectedCourse.pageNote.get(idx));
+            MyUtil.setSelectedPage(idx);
     //        scaleWindowtoFitScreen();
         }
         catch (Exception e){
@@ -126,8 +160,8 @@ public class MainStage {
         ((TextArea)box.getChildren().get(0)).setPrefHeight(rec.getHeight());
         AnchorPane.setLeftAnchor(box,rec.getX());
         AnchorPane.setTopAnchor(box,rec.getY());
-        addNode(Store.selectedCourse,box);
-        Store.selectedNode=box;
+        addNode(box);
+        MyUtil.setSelectedPane(box);
     }
 
     @FXML public void addTitleField(){
@@ -136,12 +170,12 @@ public class MainStage {
     @FXML public void addTitleField(Rectangle rec){
 
         StackPane box=getTitleBox();
-        ((TextArea)box.getChildren().get(0)).setPrefWidth(rec.getWidth());
-        ((TextArea)box.getChildren().get(0)).setPrefHeight(rec.getHeight());
+        ((TextField)box.getChildren().get(0)).setPrefWidth(rec.getWidth());
+        ((TextField)box.getChildren().get(0)).setPrefHeight(rec.getHeight());
         AnchorPane.setLeftAnchor(box,rec.getX());
         AnchorPane.setTopAnchor(box,rec.getY());
-        addNode(Store.selectedCourse,box);
-        Store.selectedNode=box;
+        addNode(box);
+        MyUtil.setSelectedPane(box);
     }
 
     @FXML public void addImageBox(){
@@ -157,8 +191,8 @@ public class MainStage {
 
             AnchorPane.setLeftAnchor(stackPane,rec.getX());
             AnchorPane.setTopAnchor(stackPane,rec.getY());
-            addNode(Store.selectedCourse,stackPane);
-            Store.selectedNode=stackPane;
+            addNode(stackPane);
+            MyUtil.setSelectedPane(stackPane);
         }
     }
 
@@ -174,8 +208,8 @@ public class MainStage {
             ((MediaView)stackPane.getChildren().get(0)).setFitHeight(rec.getHeight());
             ((MediaView)stackPane.getChildren().get(0)).setFitWidth(rec.getWidth());
 
-            addNode(Store.selectedCourse,stackPane);
-            Store.selectedNode=stackPane;
+            addNode(stackPane);
+            MyUtil.setSelectedPane(stackPane);
         }
     }
 
@@ -195,94 +229,16 @@ public class MainStage {
         AnchorPane.setTopAnchor(box,rec.getY());
         AnchorPane.setLeftAnchor(box,rec.getX());
 
-        addNode(Store.selectedCourse,box);
+        addNode(box);
+        MyUtil.setSelectedPane(box);
     }
+
     @FXML public void deleteElement(){
-        try {
-            Pane p=(Pane) Store.selectedNode.getParent();
-            p.getChildren().remove(Store.selectedNode);
-            Store.selectedNode=p.getChildren().get(0);
+        if(Store.selectedPane==null){
+            PopUP.display("Error","No element selected");
         }
-        catch (Exception e){
-            PopUP.showException(e);
-        }
-    }
-    @FXML public void makeRectangle(){
-        final Rectangle rect = new Rectangle(0, 0, 0, 0);
-        try {
-            final Pane group = (AnchorPane) ((ScrollPane) Main.window.getScene().lookup("#sceneWindow")).getContent();
-            Store.flag = false;
-
-            rect.setStroke(Color.BLUE);
-            rect.setStrokeWidth(1);
-            rect.setStrokeLineCap(StrokeLineCap.ROUND);
-            rect.setFill(Color.LIGHTBLUE.deriveColor(0, 1.2, 1, 0.6));
-
-            pressEvent = new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent e) {
-                    if(e.getButton().equals(MouseButton.SECONDARY)) {
-                        System.out.println("mouse clicked at " + e.getSceneX() + "," + e.getSceneY());
-                        System.out.println("mouse clicked at " + group.getTranslateX() + "," + group.getLayoutX());
-                        Store.orgSceneX = e.getSceneX() - group.getLayoutX();
-                        Store.orgSceneY = e.getSceneY() - group.getLayoutY();
-
-                        rect.setX(Store.orgSceneX);
-                        rect.setY(Store.orgSceneY);
-                        rect.setWidth(0);
-                        rect.setHeight(0);
-
-                        group.getChildren().add(rect);
-                    }
-                }
-            };
-            dragEvent = new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent e) {
-                    if(e.getButton().equals(MouseButton.SECONDARY)) {
-                        double offsetX = e.getSceneX() - Store.orgSceneX;
-                        double offsetY = e.getSceneY() - Store.orgSceneY;
-
-                        if (offsetX > 0)
-                            rect.setWidth(offsetX);
-                        else {
-                            rect.setX(e.getSceneX());
-                            rect.setWidth(Store.orgSceneX - rect.getX());
-                        }
-
-                        if (offsetY > 0) {
-                            rect.setHeight(offsetY);
-                        } else {
-                            rect.setY(e.getSceneY());
-                            rect.setHeight(Store.orgSceneY - rect.getY());
-                        }
-                    }
-                }
-            };
-            releseEvent = new EventHandler<MouseEvent>(){
-                public void handle (MouseEvent e) {
-                    if(e.getButton().equals(MouseButton.SECONDARY)) {
-                        double x = rect.getX();
-                        double y = rect.getY();
-                        double w = rect.getWidth();
-                        double h = rect.getHeight();
-
-                        // remove rubberband
-                        rect.setX(0);
-                        rect.setY(0);
-                        rect.setWidth(0);
-                        rect.setHeight(0);
-
-                        group.getChildren().remove(rect);
-                    }
-                }
-            };
-            group.addEventHandler(MouseEvent.MOUSE_PRESSED, pressEvent);
-            group.addEventHandler(MouseEvent.MOUSE_DRAGGED, dragEvent);
-            group.addEventHandler(MouseEvent.MOUSE_RELEASED,releseEvent);
-        }
-        catch (Exception excption){
-            System.out.println("exception while creating rectangle\n"+excption.toString());
+        else {
+            MyUtil.removeNode(Store.selectedPane);
         }
     }
 

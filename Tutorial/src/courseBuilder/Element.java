@@ -15,6 +15,8 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import sample.MyUtil;
+import sample.PopUP;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,12 +26,19 @@ public class Element {
     private static Insets margin=new Insets(10);
 
     private static void setToFront(Node n){
-        n.toFront();
-        if(n.getClass()== TextField.class)
-            n.getParent().toFront();
-        while(n.getClass()!= AnchorPane.class) {
+        try {
             n.toFront();
-            n=n.getParent();
+            if (n.getClass() == TextField.class)
+                n.getParent().toFront();
+            while (n.getParent().getClass() != AnchorPane.class) {
+                n.toFront();
+                n = n.getParent();
+            }
+            n.toFront();
+            MyUtil.setSelectedPane((Pane) n);
+        }
+        catch (Exception e){
+            PopUP.showException(e);
         }
     }
 
@@ -41,7 +50,6 @@ public class Element {
             Store.orgTranslateY=((Node) e.getSource()).getTranslateY();
             ((Node)e.getSource()).setCursor(Cursor.MOVE);
             setToFront(n);
-            Store.selectedNode=n;
 
         });
         n.setOnMouseDragged(e->{
@@ -83,7 +91,7 @@ public class Element {
 
     private static StackPane getContainer(){
         StackPane stackPane=new StackPane();
-        stackPane.setStyle("-fx-background-color: transparent");
+        stackPane.setStyle("-fx-background-color: transparent;-fx-border-width: 1px;-fx-border-style: dashed;-fx-border-color: dimgray");
         stackPane.prefHeight(Region.USE_COMPUTED_SIZE);
         stackPane.prefWidth(Region.USE_COMPUTED_SIZE);
         makeMovable(stackPane);

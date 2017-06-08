@@ -109,7 +109,7 @@ public class PopUP {
 
     public static void showException(Exception e){
         System.out.println(e.toString());
-        PopUP.display("Error","Following error occurred while deleting Selecting Item:\n"+e.getMessage());
+        PopUP.display("Error","Error:\n"+e.getMessage());
     }
 
     public static Boolean confermBox(String title,String message){
