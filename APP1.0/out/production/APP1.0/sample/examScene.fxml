@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="mainContainer" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ExamSceneController">
+<AnchorPane fx:id="mainContainer" prefHeight="500.0" prefWidth="1000.0" stylesheets="@examScene.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ExamSceneController">
    <children>
       <HBox fx:id="topBar" alignment="CENTER" prefHeight="50.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>

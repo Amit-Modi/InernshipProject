@@ -16,6 +16,7 @@ import javafx.util.Callback;
 
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.ResourceBundle;
@@ -41,6 +42,7 @@ public class ExamSceneController implements Initializable{
 
         questionsContainer.setPageCount(questions.size());
         questionsContainer.setMaxPageIndicatorCount(questions.size());
+        ArrayList<VBox> questionList;
         for(MCQ each:questions){
             questionsContainer.setPageFactory(new Callback<Integer, Node>() {
                 @Override
