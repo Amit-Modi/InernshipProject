@@ -1,0 +1,30 @@
+.pagination{
+    -fx-base:white;
+}
+.pagination .toggle-button {
+    -fx-background-radius:15px;
+}
+.pagination .button{
+    -fx-padding: 8 10 8 10px;
+    -fx-background-color: transparent;
+}
+.pagination .label{
+    -fx-text-fill:white;
+}
+.pagination-control{
+    -fx-page-information-alignment: left;
+    -fx-arrows-visible: false;
+}
+.pagination .pagination-control .left-arrow{
+    -fx-padding: 50 50 0 0px;
+    -fx-translate-x: -35px;
+}
+.pagination .pagination-control .right-arrow{
+    -fx-padding: 50 50 0 0px;
+    -fx-translate-x: 35px;
+}
+.pagination .control-box{
+    -fx-spacing: 20;
+    -fx-background-color:linear-gradient(to bottom,black,transparent);;
+    -fx-padding:-11 0 0 0px;
+}

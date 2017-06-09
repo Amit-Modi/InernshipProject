@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="mainContainer" prefHeight="500.0" prefWidth="1000.0" stylesheets="@examScene.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ExamSceneController">
+   <children>
+      <HBox fx:id="topBar" alignment="CENTER" prefHeight="50.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label prefHeight="50.0" text="Time-" />
+            <Label text="00:00:00/00:00:00" />
+            <Region prefHeight="50.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="finish" mnemonicParsing="false" onAction="#finishExam" text="Finish Exam" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
+      <Pagination fx:id="questionsContainer" maxPageIndicatorCount="1" pageCount="2" stylesheets="@examScene.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+         <padding>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+         </padding>
+      </Pagination>
+   </children>
+</AnchorPane>
