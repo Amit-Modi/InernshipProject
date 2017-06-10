@@ -13,19 +13,21 @@ import java.util.Set;
 public class MCQ implements Serializable{
     private String question;
     private ArrayList<String> options;
-    private Set<Integer> correctOptions;
+    //private Set<Integer> correctOptions;
+    private Integer correctOptions;
     private String reason;
 
     public MCQ(){
         options=new ArrayList<>();
-        correctOptions =new HashSet<Integer>(){
+        correctOptions=0;
+        /*correctOptions =new HashSet<Integer>(){
             public boolean add(String string) {
                 Integer integer=options.indexOf(string);
                 if(integer>=-1)
                     return super.add(integer);
                 return false;
             }
-        };
+        };*/
     }
 
     public String getQuestion() {
@@ -52,15 +54,23 @@ public class MCQ implements Serializable{
         this.options = options;
     }
 
-    public Set<Integer> getCorrectOptions() {
+    /*public Set<Integer> getCorrectOptions() {
         return correctOptions;
     }
 
     public void setCorrectOptions(Set<Integer> correctOptions) {
         this.correctOptions = correctOptions;
+    }*/
+
+    public Integer getCorrectOptions(){
+        return this.correctOptions;
     }
 
-    public Boolean checkResult(ArrayList<String> answer){
+    public void setCorrectOptions(Integer correctOptions){
+        this.correctOptions=correctOptions;
+    }
+
+    /*public Boolean checkResult(ArrayList<String> answer){
         if(answer.size()!=correctOptions.size())
             return false;
         for(Integer idx : this.correctOptions){
@@ -69,5 +79,11 @@ public class MCQ implements Serializable{
             }
         }
         return true;
+    }*/
+    public Boolean checkResult(String answer){
+        if(answer.equals(options.get(correctOptions))){
+            return true;
+        }
+        return false;
     }
 }

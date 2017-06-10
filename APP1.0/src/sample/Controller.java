@@ -9,10 +9,12 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -46,8 +48,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.*;
 
 public class Controller implements Initializable{
 
@@ -67,10 +68,7 @@ public class Controller implements Initializable{
     private LinkedHashMap<Integer,Pair<String,Pair<String,String>>> chapterno;
     private Document document;
     private Duration duration;
-    private ScheduledThreadPoolExecutor executor;
-    private ScheduledFuture<?> scheduledFuture;
     private MenuItem temp;
-    private EventHandler<?> exitFullScreenHandler;
     private String examFilePath;
     private static int checkChapNo;
 
@@ -235,7 +233,6 @@ public class Controller implements Initializable{
 
 
 
-
     @FXML
     HBox topBar;
     @FXML
@@ -274,6 +271,8 @@ public class Controller implements Initializable{
     Label playTime;
     @FXML
     MenuButton volumeButton;
+    @FXML
+    Slider volumeSlider;
     @FXML
     Button fullScreenButton;
     @FXML
@@ -413,7 +412,6 @@ public class Controller implements Initializable{
 
 
         try {
-//            textbox.setContent(new TextArea());
             image1 = new Image("file:///home/arnab/Desktop/download.jpg");
             image2 = new Image("file:///home/arnab/IdeaProjects/APP1.0/download%20(1).jpg");
 
@@ -429,6 +427,7 @@ public class Controller implements Initializable{
         }catch (Exception e){
             System.out.println("ErrorLoading images: "+e.toString());
         }
+
         try{
             currentPage.textProperty().addListener(new ChangeListener<String>() {
                 @Override
@@ -465,12 +464,6 @@ public class Controller implements Initializable{
         }catch (Exception e){
             System.out.println("current page property"+e.toString());
         }
-    }
-
-    public Controller(){
-        super();
-        executor=new ScheduledThreadPoolExecutor(1);
-        executor.setRemoveOnCancelPolicy(true);
     }
 
     public void onExit(MouseEvent e) throws IOException{
@@ -602,6 +595,7 @@ public class Controller implements Initializable{
                     }
                 }
             });
+            mediaView.getMediaPlayer().volumeProperty().bindBidirectional(volumeSlider.valueProperty());
             stopMedia();
         }
     }
@@ -652,6 +646,16 @@ public class Controller implements Initializable{
         }
     }
 
+    public void showVolumeSlider(){
+        if(!volumeButton.isShowing())
+            volumeButton.show();
+    }
+    public void hideVolumeSlider(){
+        if(volumeButton.isShowing()){
+            volumeButton.hide();
+        }
+    }
+
     public void setMediaToFullScreen() {
         Main.window.setFullScreen(true);
         topBar.setPrefHeight(0.0);
@@ -674,14 +678,7 @@ public class Controller implements Initializable{
         fullScreenButton.setOnAction(event -> {
             exitMediaFromFullScreen();
         });
-        exitFullScreenHandler=new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if(event.getCode()== KeyCode.ESCAPE){
-                    exitMediaFromFullScreen();
-                }
-            }
-        };
+
 //        Main.window.getScene().getRoot().addEventHandler(KeyEvent,exitFullScreenHandler);
 
     }

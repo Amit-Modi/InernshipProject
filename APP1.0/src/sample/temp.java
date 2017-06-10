@@ -53,13 +53,13 @@ public class temp {
         q1.setQuestion("Is this a question?");
         q1.getOptions().add("Yes");
         q1.getOptions().add("No");
-        q1.getCorrectOptions().add(0);
+        q1.setCorrectOptions(0);
         questions.add(q1);
         q1=new MCQ();
         q1.setQuestion("Is this also a question?");
-        q1.getOptions().add("Yes");
-        q1.getOptions().add("No");
-        q1.getCorrectOptions().add(0);
+        q1.getOptions().add("True");
+        q1.getOptions().add("False");
+        q1.setCorrectOptions(0);
         questions.add(q1);
 
         FileOutputStream fos =new FileOutputStream("Question.qtn");

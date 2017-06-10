@@ -39,16 +39,19 @@
                                                 <ProgressBar fx:id="mediaProgressBar" prefHeight="10.0" prefWidth="446.0" progress="0.0" HBox.hgrow="ALWAYS" />
                                             </children>
                                         </HBox>
-                                        <HBox fx:id="buttonContainer" alignment="CENTER" prefHeight="50.0" spacing="10.0" style="-fx-background-color: black;">
+                                        <HBox fx:id="buttonContainer" alignment="CENTER" onMouseEntered="#hideVolumeSlider" onMouseExited="#hideVolumeSlider" prefHeight="50.0" spacing="10.0" style="-fx-background-color: black;">
                                             <children>
                                                 <Button fx:id="playButton" mnemonicParsing="false" onAction="#playMedia" text="Play" />
                                                 <Button mnemonicParsing="false" onAction="#stopMedia" text="Stop" />
-                                                <MenuButton fx:id="volumeButton" mnemonicParsing="false" onAction="#muteMedia" popupSide="TOP" text="Volume">
-                                                    <items>
-                                                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                                                        <MenuItem mnemonicParsing="false" text="Action 2" />
-                                                    </items>
-                                                </MenuButton>
+                                    <MenuButton fx:id="volumeButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#muteMedia" onMouseEntered="#showVolumeSlider" popupSide="TOP" text="Volume">
+                                      <items>
+                                        <MenuItem mnemonicParsing="false">
+                                             <graphic>
+                                                <Slider fx:id="volumeSlider" blockIncrement="0.1" max="1.0" onMouseEntered="#showVolumeSlider" onMouseExited="#hideVolumeSlider" orientation="VERTICAL" value="0.8" />
+                                             </graphic>
+                                          </MenuItem>
+                                      </items>
+                                    </MenuButton>
                                                 <Label fx:id="playTime" text="00:00/00:00" />
                                                 <Button fx:id="fullScreenButton" mnemonicParsing="false" onAction="#setMediaToFullScreen" text="FullScreen" />
                                             </children>
@@ -100,7 +103,7 @@
                             <children>
                                 <VBox fx:id="leftMenu" spacing="10.0">
                                     <children>
-                                        <MenuButton mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" stylesheets="@sample.css" text="Chapter 1" VBox.vgrow="NEVER">
+                                        <MenuButton alignment="CENTER" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" prefWidth="125.0" stylesheets="@sample.css" text="Chapter 1" textAlignment="CENTER" VBox.vgrow="NEVER">
                                             <items>
                                                 <MenuItem fx:id="c1_1" mnemonicParsing="false" onAction="#onMenuItemClick" text="Physical Nature of Matter" />
                                                 <MenuItem fx:id="c1_2" mnemonicParsing="false" onAction="#onMenuItemClick" text="Characteristics of Particles ofMatter" />
@@ -115,7 +118,7 @@
                                                 <Insets />
                                             </VBox.margin>
                                         </MenuButton>
-                                        <MenuButton layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" stylesheets="@sample.css" text="Chapter 2">
+                                        <MenuButton alignment="CENTER" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" prefWidth="125.0" stylesheets="@sample.css" text="Chapter 2" textAlignment="CENTER">
                                             <items>
                                                 <MenuItem fx:id="c2_1" mnemonicParsing="false" onAction="#onMenuItemClick" text="What is a Mixture?" />
                                                 <MenuItem fx:id="c2_2" mnemonicParsing="false" onAction="#onMenuItemClick" text="What is a Solution?" />
@@ -127,7 +130,7 @@
                                                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                                             </padding>
                                         </MenuButton>
-                                        <MenuButton layoutX="20.0" layoutY="66.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" stylesheets="@sample.css" text="Chapter 3">
+                                        <MenuButton alignment="CENTER" layoutX="20.0" layoutY="66.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" prefWidth="125.0" stylesheets="@sample.css" text="Chapter 3" textAlignment="CENTER">
                                             <items>
                                                 <MenuItem fx:id="c3_1" mnemonicParsing="false" onAction="#onMenuItemClick" text="Laws of Chemical Combination" />
                                                 <MenuItem fx:id="c3_2" mnemonicParsing="false" onAction="#onMenuItemClick" text="What is an Atom?" />
@@ -139,7 +142,7 @@
                                                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                                             </padding>
                                         </MenuButton>
-                                        <MenuButton layoutX="20.0" layoutY="112.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" stylesheets="@sample.css" text="Chapter 4">
+                                        <MenuButton alignment="CENTER" layoutX="20.0" layoutY="112.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" prefWidth="125.0" stylesheets="@sample.css" text="Chapter 4" textAlignment="CENTER">
                                             <items>
                                                 <MenuItem fx:id="c4_1" mnemonicParsing="false" onAction="#onMenuItemClick" text="Charged Particles in Matter" />
                                                 <MenuItem fx:id="c4_2" mnemonicParsing="false" onAction="#onMenuItemClick" text="The Structure of an Atom" />
@@ -151,7 +154,7 @@
                                                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                                             </padding>
                                         </MenuButton>
-                                        <MenuButton layoutX="20.0" layoutY="158.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" stylesheets="@sample.css" text="Chapter 5">
+                                        <MenuButton alignment="CENTER" layoutX="20.0" layoutY="158.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" prefWidth="125.0" stylesheets="@sample.css" text="Chapter 5" textAlignment="CENTER">
                                             <items>
                                                 <MenuItem fx:id="c5_1" mnemonicParsing="false" onAction="#onMenuItemClick" text="What are Living OrganismsMade Up of ?" />
                                                 <MenuItem fx:id="c5_2" mnemonicParsing="false" onAction="#onMenuItemClick" text="What is a Cell Made Up of ?" />
@@ -160,7 +163,7 @@
                                                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                                             </padding>
                                         </MenuButton>
-                                        <MenuButton layoutX="20.0" layoutY="250.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" stylesheets="@sample.css" text="Chapter 7">
+                                        <MenuButton alignment="CENTER" layoutX="20.0" layoutY="250.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" prefWidth="125.0" stylesheets="@sample.css" text="Chapter 7" textAlignment="CENTER">
                                             <items>
                                                 <MenuItem fx:id="c7_1" mnemonicParsing="false" onAction="#onMenuItemClick" text="What is the Basis ofClassification?" />
                                                 <MenuItem fx:id="c7_2" mnemonicParsing="false" onAction="#onMenuItemClick" text="Classification and Evolution" />
@@ -173,7 +176,7 @@
                                                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                                             </padding>
                                         </MenuButton>
-                                        <MenuButton layoutX="20.0" layoutY="296.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" stylesheets="@sample.css" text="Chapter 8">
+                                        <MenuButton alignment="CENTER" layoutX="20.0" layoutY="296.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" prefWidth="125.0" stylesheets="@sample.css" text="Chapter 8" textAlignment="CENTER">
                                             <items>
                                                 <MenuItem fx:id="c8_1" mnemonicParsing="false" onAction="#onMenuItemClick" text="Describing Motion" />
                                                 <MenuItem fx:id="c8_2" mnemonicParsing="false" onAction="#onMenuItemClick" text="Measuring the Rate of Motion" />
@@ -186,7 +189,7 @@
                                                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                                             </padding>
                                         </MenuButton>
-                                        <MenuButton layoutX="20.0" layoutY="342.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" stylesheets="@sample.css" text="Chapter 9">
+                                        <MenuButton alignment="CENTER" layoutX="20.0" layoutY="342.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" prefWidth="125.0" stylesheets="@sample.css" text="Chapter 9" textAlignment="CENTER">
                                             <items>
                                                 <MenuItem fx:id="c9_1" mnemonicParsing="false" onAction="#onMenuItemClick" text="Balanced and UnbalancedForces" />
                                                 <MenuItem fx:id="c9_2" mnemonicParsing="false" onAction="#onMenuItemClick" text="First Law of Motion" />
@@ -199,7 +202,7 @@
                                                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                                             </padding>
                                         </MenuButton>
-                                        <MenuButton layoutX="20.0" layoutY="388.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" stylesheets="@sample.css" text="Chapter 10">
+                                        <MenuButton alignment="CENTER" layoutX="20.0" layoutY="388.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" prefWidth="125.0" stylesheets="@sample.css" text="Chapter 10" textAlignment="CENTER">
                                             <items>
                                                 <MenuItem fx:id="c10_1" mnemonicParsing="false" onAction="#onMenuItemClick" text="Gravitation" />
                                                 <MenuItem fx:id="c10_2" mnemonicParsing="false" onAction="#onMenuItemClick" text="Free Fall" />
@@ -212,7 +215,7 @@
                                                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                                             </padding>
                                         </MenuButton>
-                                        <MenuButton layoutX="20.0" layoutY="434.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" stylesheets="@sample.css" text="Chapter 11">
+                                        <MenuButton alignment="CENTER" layoutX="20.0" layoutY="434.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" prefWidth="125.0" stylesheets="@sample.css" text="Chapter 11" textAlignment="CENTER">
                                             <items>
                                                 <MenuItem fx:id="c11_1" mnemonicParsing="false" onAction="#onMenuItemClick" text="Work" />
                                                 <MenuItem fx:id="c11_2" mnemonicParsing="false" onAction="#onMenuItemClick" text="Energy" />
@@ -222,7 +225,7 @@
                                                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                                             </padding>
                                         </MenuButton>
-                                        <MenuButton layoutX="20.0" layoutY="480.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" stylesheets="@sample.css" text="Chapter 12">
+                                        <MenuButton alignment="CENTER" layoutX="20.0" layoutY="480.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" prefWidth="125.0" stylesheets="@sample.css" text="Chapter 12" textAlignment="CENTER">
                                             <items>
                                                 <MenuItem fx:id="c12_1" mnemonicParsing="false" onAction="#onMenuItemClick" text=" Production of Sound" />
                                                 <MenuItem fx:id="c12_2" mnemonicParsing="false" onAction="#onMenuItemClick" text="Propagation of Sound" />
@@ -235,7 +238,7 @@
                                                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                                             </padding>
                                         </MenuButton>
-                                        <MenuButton layoutX="20.0" layoutY="480.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" stylesheets="@sample.css" text="Chapter 13">
+                                        <MenuButton alignment="CENTER" layoutX="20.0" layoutY="480.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" prefWidth="125.0" stylesheets="@sample.css" text="Chapter 13" textAlignment="CENTER">
                                             <items>
                                                 <MenuItem fx:id="c13_1" mnemonicParsing="false" onAction="#onMenuItemClick" text="Health and its Failure" />
                                                 <MenuItem fx:id="c13_2" mnemonicParsing="false" onAction="#onMenuItemClick" text="Disease and Its Causes" />
@@ -245,7 +248,7 @@
                                                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                                             </padding>
                                         </MenuButton>
-                                        <MenuButton layoutX="20.0" layoutY="572.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" stylesheets="@sample.css" text="Chapter 14">
+                                        <MenuButton alignment="CENTER" layoutX="20.0" layoutY="572.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" prefWidth="125.0" stylesheets="@sample.css" text="Chapter 14" textAlignment="CENTER">
                                             <items>
                                                 <MenuItem fx:id="c14_1" mnemonicParsing="false" onAction="#onMenuItemClick" text="The Breath of Life: Air" />
                                                 <MenuItem fx:id="c14_2" mnemonicParsing="false" onAction="#onMenuItemClick" text="Water: A Wonder Liquid" />
@@ -257,7 +260,7 @@
                                                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                                             </padding>
                                         </MenuButton>
-                                        <MenuButton layoutX="20.0" layoutY="250.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" stylesheets="@sample.css" text="Chapter 15">
+                                        <MenuButton alignment="CENTER" layoutX="20.0" layoutY="250.0" mnemonicParsing="false" onMouseEntered="#onEntered" onMouseExited="#onExit" popupSide="RIGHT" prefWidth="125.0" stylesheets="@sample.css" text="Chapter 15" textAlignment="CENTER">
                                             <items>
                                                 <MenuItem fx:id="c15_1" mnemonicParsing="false" onAction="#onMenuItemClick" text="Improvement in Crop Yields" />
                                                 <MenuItem fx:id="c15_2" mnemonicParsing="false" onAction="#onMenuItemClick" text="Animal Husbandry" />
