@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane pickOnBounds="false" prefHeight="264.0" prefWidth="587.0" style="-fx-background-color: linear-gradient(to right, black 0%,white 100%);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.StartingStage">
+   <children>
+      <Button layoutX="356.0" layoutY="70.0" mnemonicParsing="false" onAction="#startNewCourse" prefHeight="38.0" prefWidth="171.0" text="Start New Course">
+         <font>
+            <Font name="FreeMono Bold" size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="355.0" layoutY="145.0" mnemonicParsing="false" onAction="#openExistingCourse" prefHeight="38.0" prefWidth="189.0" text="Open Existing Course">
+         <font>
+            <Font name="FreeMono" size="13.0" />
+         </font>
+      </Button>
+      <Label layoutX="33.0" layoutY="56.0" text="Welcome To" textFill="WHITE">
+         <font>
+            <Font name="Padauk Book Bold" size="40.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="144.0" text="Course Builder">
+         <font>
+            <Font name="Serif Bold" size="38.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="1.0" startX="0.07211538461538455">
+               <stops>
+                  <Stop color="#fcfcfc" />
+                  <Stop color="#fcfcfc" offset="0.007407407407407408" />
+                  <Stop color="BLACK" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+   </children>
+</AnchorPane>

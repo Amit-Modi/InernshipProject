@@ -59,55 +59,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
+      <file leaf-file-name="Course.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/course/Course.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="391" column="45" lean-forward="false" selection-start-line="391" selection-start-column="40" selection-end-line="391" selection-end-column="45" />
+            <state relative-caret-position="220">
+              <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1907#1908#0" expanded="true" />
-                <element signature="e#1942#1943#0" expanded="true" />
-                <element signature="e#1995#1996#0" expanded="true" />
-                <element signature="e#2030#2031#0" expanded="true" />
-                <element signature="class#23096:24471" expanded="false" />
-                <element signature="method#onExit#0;class#Controller#0" expanded="false" />
-                <element signature="method#onEntered#0;class#Controller#0" expanded="false" />
-                <element signature="method#showpdf#0;class#Controller#0" expanded="false" />
-                <element signature="method#getDocument#0;class#Controller#0" expanded="false" />
-                <element signature="method#onMenuItemClick#0;class#Controller#0" expanded="false" />
-                <element signature="method#setVideo#0;class#Controller#0" expanded="false" />
-                <element signature="e#27837#27838#0" expanded="true" />
-                <element signature="e#27888#27889#0" expanded="true" />
-                <element signature="e#28097#28098#0" expanded="true" />
-                <element signature="e#28155#28156#0" expanded="true" />
-                <element signature="e#28300#28301#0" expanded="true" />
-                <element signature="e#28400#28401#0" expanded="true" />
-                <element signature="method#playMedia#0;class#Controller#0" expanded="false" />
-                <element signature="class#29351:29506" expanded="false" />
-                <element signature="e#29451#29452#0" expanded="true" />
-                <element signature="e#29495#29496#0" expanded="true" />
-                <element signature="class#29581:29738" expanded="false" />
-                <element signature="e#29683#29684#0" expanded="true" />
-                <element signature="e#29727#29728#0" expanded="true" />
-                <element signature="method#pauseMedia#0;class#Controller#0" expanded="false" />
-                <element signature="e#29961#29962#0" expanded="true" />
-                <element signature="e#30004#30005#0" expanded="true" />
-                <element signature="e#30191#30192#0" expanded="true" />
-                <element signature="e#30234#30235#0" expanded="true" />
-                <element signature="method#stopMedia#0;class#Controller#0" expanded="false" />
-                <element signature="method#muteMedia#0;class#Controller#0" expanded="false" />
-                <element signature="method#setMediaToFullScreen#0;class#Controller#0" expanded="false" />
-                <element signature="method#exitMediaFromFullScreen#0;class#Controller#0" expanded="false" />
-                <element signature="method#formatTime#0;class#Controller#0" expanded="false" />
-                <element signature="method#updateMediaValue#0;class#Controller#0" expanded="false" />
-                <element signature="method#setProperties#0;class#Controller#0" expanded="false" />
-                <element signature="method#getNextTopic#0;class#Controller#0" expanded="false" />
-                <element signature="method#getPrevTopic#0;class#Controller#0" expanded="false" />
-                <element signature="method#previouseButtonAction#0;class#Controller#0" expanded="false" />
-                <element signature="method#startExam#0;class#Controller#0" expanded="false" />
-                <element signature="method#saveStudentNotes#0;class#Controller#0" expanded="false" />
-                <element signature="method#getStudentNotes#0;class#Controller#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Chapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/course/Chapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="10" column="1" lean-forward="false" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Topic.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/course/Topic.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="12" column="1" lean-forward="false" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -116,37 +96,50 @@
       <file leaf-file-name="ExamSceneController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/ExamSceneController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="103" column="112" lean-forward="false" selection-start-line="103" selection-start-column="112" selection-end-line="103" selection-end-column="112" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2113#2114#0" expanded="true" />
-                <element signature="e#2187#2188#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="examScene.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/examScene.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="27" column="19" lean-forward="true" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
+            <state relative-caret-position="613">
+              <caret line="97" column="28" lean-forward="true" selection-start-line="93" selection-start-column="8" selection-end-line="97" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="temp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/temp.java">
+      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="59" column="36" lean-forward="true" selection-start-line="59" selection-start-column="36" selection-end-line="59" selection-end-column="36" />
+            <state relative-caret-position="-263">
+              <caret line="251" column="0" lean-forward="true" selection-start-line="251" selection-start-column="0" selection-end-line="251" selection-end-column="0" />
               <folding>
-                <element signature="docComment;class#temp#0" expanded="false" />
+                <element signature="imports" expanded="true" />
+                <element signature="class#4652:6027" expanded="false" />
+                <element signature="method#showChapterContextMenu#0;class#Controller#0" expanded="false" />
+                <element signature="method#addChapter#0;class#Controller#0" expanded="false" />
+                <element signature="method#onExit#0;class#Controller#0" expanded="false" />
+                <element signature="method#onEntered#0;class#Controller#0" expanded="false" />
+                <element signature="method#showpdf#0;class#Controller#0" expanded="false" />
+                <element signature="method#getDocument#0;class#Controller#0" expanded="false" />
+                <element signature="method#onMenuItemClick#0;class#Controller#0" expanded="false" />
+                <element signature="method#setVideo#0;class#Controller#0" expanded="false" />
+                <element signature="method#playMedia#0;class#Controller#0" expanded="false" />
+                <element signature="method#pauseMedia#0;class#Controller#0" expanded="false" />
+                <element signature="method#stopMedia#0;class#Controller#0" expanded="false" />
+                <element signature="method#muteMedia#0;class#Controller#0" expanded="false" />
+                <element signature="method#showVolumeSlider#0;class#Controller#0" expanded="false" />
+                <element signature="method#hideVolumeSlider#0;class#Controller#0" expanded="false" />
+                <element signature="method#setMediaToFullScreen#0;class#Controller#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PopUp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/PopUp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="163">
+              <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#display#0;class#PopUp#0" expanded="false" />
+                <element signature="method#getName#0;class#PopUp#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -162,130 +155,36 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MCQ.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/MCQ.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
-              <caret line="79" column="6" lean-forward="false" selection-start-line="79" selection-start-column="6" selection-end-line="79" selection-end-column="6" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#790#791#0" expanded="true" />
-                <element signature="e#821#822#0" expanded="true" />
-                <element signature="e#869#870#0" expanded="true" />
-                <element signature="e#909#910#0" expanded="true" />
-                <element signature="e#954#955#0" expanded="true" />
-                <element signature="e#984#985#0" expanded="true" />
-                <element signature="e#1017#1018#0" expanded="true" />
-                <element signature="e#1046#1047#0" expanded="true" />
-                <element signature="e#1090#1091#0" expanded="true" />
-                <element signature="e#1126#1127#0" expanded="true" />
-                <element signature="e#1183#1184#0" expanded="true" />
-                <element signature="e#1221#1222#0" expanded="true" />
-                <element signature="e#1468#1469#0" expanded="true" />
-                <element signature="e#1510#1511#0" expanded="true" />
-                <element signature="e#1570#1571#0" expanded="true" />
-                <element signature="e#1620#1621#0" expanded="true" />
-                <element signature="method#checkResult#0;class#MCQ#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="14" column="76" lean-forward="true" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="76" />
+            <state relative-caret-position="160">
+              <caret line="14" column="25" lean-forward="false" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sample.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/sample.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="55" column="40" lean-forward="false" selection-start-line="55" selection-start-column="40" selection-end-line="55" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sample.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
+      <file leaf-file-name="startingStage.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/startingStage.fxml">
           <provider editor-type-id="JavaFX-Scene-Builder">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-664">
-              <caret line="45" column="172" lean-forward="false" selection-start-line="45" selection-start-column="172" selection-end-line="45" selection-end-column="172" />
+            <state relative-caret-position="180">
+              <caret line="9" column="29" lean-forward="false" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StartingStage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/StartingStage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="21" column="47" lean-forward="true" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
               <folding>
-                <marker date="1497111736839" expanded="true" signature="3261:4477" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="3261:4211" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="3304:3902" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="3350:3852" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="3425:3805" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="3480:3751" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="4265:4429" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="4764:4913" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="4802:4900" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="5009:7038" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="5109:7019" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="5140:6852" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="6359:6516" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="6882:6995" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="7057:27472" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="7176:27452" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="7206:27422" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="7237:27391" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="7276:27225" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="7347:27185" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="7394:26951" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="7663:9001" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="7715:8557" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="8611:8771" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="8829:8947" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="9281:10463" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="9333:10195" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="10249:10409" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="10743:11905" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="10795:11637" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="11691:11851" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="12186:13374" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="12238:13106" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="13160:13320" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="13655:14360" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="13707:14092" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="14146:14306" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="14641:15946" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="14693:15678" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="15732:15892" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="16227:17570" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="16279:17302" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="17356:17516" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="17851:19155" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="17903:18887" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="18941:19101" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="19437:20703" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="19489:20435" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="20489:20649" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="20985:21792" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="21037:21524" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="21578:21738" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="22074:23380" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="22126:23112" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="23166:23326" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="23662:24503" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="23714:24235" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="24289:24449" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="24785:25936" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="24837:25668" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="25722:25882" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="26218:26903" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="26270:26635" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="26689:26849" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="26997:27145" ph="..." />
-                <marker date="1497111736839" expanded="true" signature="27263:27359" ph="..." />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -296,8 +195,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="CSS File" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -306,6 +205,7 @@
     <findStrings>
       <find>contextm</find>
       <find>volume</find>
+      <find>file</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -338,6 +238,13 @@
         <option value="$PROJECT_DIR$/src/sample/temp.java" />
         <option value="$PROJECT_DIR$/src/sample/ExamSceneController.java" />
         <option value="$PROJECT_DIR$/src/sample/sample.fxml" />
+        <option value="$PROJECT_DIR$/src/sample/startingStage.fxml" />
+        <option value="$PROJECT_DIR$/src/course/Chapter.java" />
+        <option value="$PROJECT_DIR$/src/course/Course.java" />
+        <option value="$PROJECT_DIR$/src/course/Topic.java" />
+        <option value="$PROJECT_DIR$/src/sample/StartingStage.java" />
+        <option value="$PROJECT_DIR$/src/sample/Main.java" />
+        <option value="$PROJECT_DIR$/src/sample/PopUp.java" />
         <option value="$PROJECT_DIR$/src/sample/Controller.java" />
       </list>
     </option>
@@ -350,10 +257,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="65" />
-    <option name="y" value="-4" />
+    <option name="x" value="75" />
+    <option name="y" value="34" />
     <option name="width" value="1301" />
-    <option name="height" value="772" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
@@ -373,7 +280,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -404,10 +313,26 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="APP1.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="APP1.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="course" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -430,6 +355,9 @@
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/src/sample/temperary.java" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/sample" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/sample" />
     </key>
@@ -905,14 +833,16 @@
       <workItem from="1496864753676" duration="2162000" />
       <workItem from="1496917771029" duration="24641000" />
       <workItem from="1497007479794" duration="44293000" />
+      <workItem from="1497294022567" duration="4730000" />
+      <workItem from="1497352882934" duration="6549000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72398000" />
+    <option name="totallyTimeSpent" value="83677000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
+    <frame x="75" y="34" width="1301" height="744" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -924,20 +854,20 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32419354" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2621514" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27171314" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -963,7 +893,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <option name="time" value="5" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -972,73 +902,202 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/javafx-src.zip!/com/sun/glass/ui/gtk/GtkApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1820">
+          <caret line="135" column="21" lean-forward="false" selection-start-line="135" selection-start-column="21" selection-end-line="135" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#9911#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2203#2204#0" expanded="false" />
+            <element signature="e#2243#2244#0" expanded="false" />
+            <element signature="e#4539#4540#0" expanded="false" />
+            <element signature="e#4566#4567#0" expanded="false" />
+            <element signature="e#5557#5558#0" expanded="false" />
+            <element signature="e#5601#5602#0" expanded="false" />
+            <element signature="e#7050#7051#0" expanded="false" />
+            <element signature="e#7099#7100#0" expanded="false" />
+            <element signature="e#7145#7146#0" expanded="false" />
+            <element signature="e#7181#7182#0" expanded="false" />
+            <element signature="e#7239#7240#0" expanded="false" />
+            <element signature="e#7281#7282#0" expanded="false" />
+            <element signature="e#7358#7359#0" expanded="false" />
+            <element signature="e#7408#7409#0" expanded="false" />
+            <element signature="e#7575#7576#0" expanded="false" />
+            <element signature="e#7635#7636#0" expanded="false" />
+            <element signature="e#7723#7724#0" expanded="false" />
+            <element signature="e#7780#7781#0" expanded="false" />
+            <element signature="e#7867#7868#0" expanded="false" />
+            <element signature="e#7924#7925#0" expanded="false" />
+            <element signature="e#8154#8155#0" expanded="false" />
+            <element signature="e#8212#8213#0" expanded="false" />
+            <element signature="e#8260#8261#0" expanded="false" />
+            <element signature="e#8297#8298#0" expanded="false" />
+            <element signature="e#8362#8363#0" expanded="false" />
+            <element signature="e#8407#8408#0" expanded="false" />
+            <element signature="e#9647#9648#0" expanded="false" />
+            <element signature="e#9674#9675#0" expanded="false" />
+            <element signature="e#9810#9811#0" expanded="false" />
+            <element signature="e#9838#9839#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="13680">
+          <caret line="939" column="8" lean-forward="true" selection-start-line="939" selection-start-column="8" selection-end-line="940" selection-end-column="57" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1907#1908#0" expanded="true" />
-            <element signature="e#1942#1943#0" expanded="true" />
-            <element signature="e#1995#1996#0" expanded="true" />
-            <element signature="e#2030#2031#0" expanded="true" />
-            <element signature="class#23096:24471" expanded="false" />
+            <element signature="class#4652:6027" expanded="false" />
+            <element signature="method#showChapterContextMenu#0;class#Controller#0" expanded="false" />
+            <element signature="method#addChapter#0;class#Controller#0" expanded="false" />
             <element signature="method#onExit#0;class#Controller#0" expanded="false" />
             <element signature="method#onEntered#0;class#Controller#0" expanded="false" />
             <element signature="method#showpdf#0;class#Controller#0" expanded="false" />
             <element signature="method#getDocument#0;class#Controller#0" expanded="false" />
             <element signature="method#onMenuItemClick#0;class#Controller#0" expanded="false" />
             <element signature="method#setVideo#0;class#Controller#0" expanded="false" />
-            <element signature="e#27837#27838#0" expanded="true" />
-            <element signature="e#27888#27889#0" expanded="true" />
-            <element signature="e#28097#28098#0" expanded="true" />
-            <element signature="e#28155#28156#0" expanded="true" />
-            <element signature="e#28300#28301#0" expanded="true" />
-            <element signature="e#28400#28401#0" expanded="true" />
             <element signature="method#playMedia#0;class#Controller#0" expanded="false" />
-            <element signature="class#29351:29506" expanded="false" />
-            <element signature="e#29451#29452#0" expanded="true" />
-            <element signature="e#29495#29496#0" expanded="true" />
-            <element signature="class#29581:29738" expanded="false" />
-            <element signature="e#29683#29684#0" expanded="true" />
-            <element signature="e#29727#29728#0" expanded="true" />
             <element signature="method#pauseMedia#0;class#Controller#0" expanded="false" />
-            <element signature="e#29961#29962#0" expanded="true" />
-            <element signature="e#30004#30005#0" expanded="true" />
-            <element signature="e#30191#30192#0" expanded="true" />
-            <element signature="e#30234#30235#0" expanded="true" />
             <element signature="method#stopMedia#0;class#Controller#0" expanded="false" />
             <element signature="method#muteMedia#0;class#Controller#0" expanded="false" />
+            <element signature="method#showVolumeSlider#0;class#Controller#0" expanded="false" />
+            <element signature="method#hideVolumeSlider#0;class#Controller#0" expanded="false" />
             <element signature="method#setMediaToFullScreen#0;class#Controller#0" expanded="false" />
-            <element signature="method#exitMediaFromFullScreen#0;class#Controller#0" expanded="false" />
-            <element signature="method#formatTime#0;class#Controller#0" expanded="false" />
-            <element signature="method#updateMediaValue#0;class#Controller#0" expanded="false" />
-            <element signature="method#setProperties#0;class#Controller#0" expanded="false" />
-            <element signature="method#getNextTopic#0;class#Controller#0" expanded="false" />
-            <element signature="method#getPrevTopic#0;class#Controller#0" expanded="false" />
-            <element signature="method#previouseButtonAction#0;class#Controller#0" expanded="false" />
-            <element signature="method#startExam#0;class#Controller#0" expanded="false" />
-            <element signature="method#saveStudentNotes#0;class#Controller#0" expanded="false" />
-            <element signature="method#getStudentNotes#0;class#Controller#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/mediaViewer.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/sample/ExamSceneController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="12" column="45" lean-forward="false" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="45" />
+        <state relative-caret-position="1580">
+          <caret line="103" column="112" lean-forward="false" selection-start-line="103" selection-start-column="112" selection-end-line="103" selection-end-column="112" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/MediaViewer.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/temp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="29" column="30" lean-forward="false" selection-start-line="29" selection-start-column="30" selection-end-line="29" selection-end-column="30" />
+        <state relative-caret-position="1080">
+          <caret line="59" column="36" lean-forward="false" selection-start-line="59" selection-start-column="36" selection-end-line="59" selection-end-column="36" />
+          <folding>
+            <element signature="docComment;class#temp#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/examScene.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="7" column="29" lean-forward="false" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="17" column="75" lean-forward="false" selection-start-line="17" selection-start-column="75" selection-end-line="17" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/startingStage.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="9" column="29" lean-forward="false" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/StartingStage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="620">
+          <caret line="39" column="52" lean-forward="true" selection-start-line="39" selection-start-column="52" selection-end-line="39" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#4652:6027" expanded="false" />
+            <element signature="method#showChapterContextMenu#0;class#Controller#0" expanded="false" />
+            <element signature="method#addChapter#0;class#Controller#0" expanded="false" />
+            <element signature="method#onExit#0;class#Controller#0" expanded="false" />
+            <element signature="method#onEntered#0;class#Controller#0" expanded="false" />
+            <element signature="method#showpdf#0;class#Controller#0" expanded="false" />
+            <element signature="method#getDocument#0;class#Controller#0" expanded="false" />
+            <element signature="method#onMenuItemClick#0;class#Controller#0" expanded="false" />
+            <element signature="method#setVideo#0;class#Controller#0" expanded="false" />
+            <element signature="method#playMedia#0;class#Controller#0" expanded="false" />
+            <element signature="method#pauseMedia#0;class#Controller#0" expanded="false" />
+            <element signature="method#stopMedia#0;class#Controller#0" expanded="false" />
+            <element signature="method#muteMedia#0;class#Controller#0" expanded="false" />
+            <element signature="method#showVolumeSlider#0;class#Controller#0" expanded="false" />
+            <element signature="method#hideVolumeSlider#0;class#Controller#0" expanded="false" />
+            <element signature="method#setMediaToFullScreen#0;class#Controller#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/ExamSceneController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2060">
+          <caret line="103" column="112" lean-forward="false" selection-start-line="103" selection-start-column="112" selection-end-line="103" selection-end-column="112" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/examScene.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="27" column="19" lean-forward="true" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/temp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1080">
+          <caret line="59" column="36" lean-forward="true" selection-start-line="59" selection-start-column="36" selection-end-line="59" selection-end-column="36" />
+          <folding>
+            <element signature="docComment;class#temp#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/examScene.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="7" column="29" lean-forward="false" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/MCQ.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1200">
+          <caret line="79" column="6" lean-forward="false" selection-start-line="79" selection-start-column="6" selection-end-line="79" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="14" column="76" lean-forward="true" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="76" />
           <folding />
         </state>
       </provider>
@@ -1047,7 +1106,52 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1100">
           <caret line="55" column="40" lean-forward="false" selection-start-line="55" selection-start-column="40" selection-end-line="55" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="45" column="172" lean-forward="false" selection-start-line="45" selection-start-column="172" selection-end-line="45" selection-end-column="172" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#4652:6027" expanded="false" />
+            <element signature="method#showChapterContextMenu#0;class#Controller#0" expanded="false" />
+            <element signature="method#addChapter#0;class#Controller#0" expanded="false" />
+            <element signature="method#onExit#0;class#Controller#0" expanded="false" />
+            <element signature="method#onEntered#0;class#Controller#0" expanded="false" />
+            <element signature="method#showpdf#0;class#Controller#0" expanded="false" />
+            <element signature="method#getDocument#0;class#Controller#0" expanded="false" />
+            <element signature="method#onMenuItemClick#0;class#Controller#0" expanded="false" />
+            <element signature="method#setVideo#0;class#Controller#0" expanded="false" />
+            <element signature="method#playMedia#0;class#Controller#0" expanded="false" />
+            <element signature="method#pauseMedia#0;class#Controller#0" expanded="false" />
+            <element signature="method#stopMedia#0;class#Controller#0" expanded="false" />
+            <element signature="method#muteMedia#0;class#Controller#0" expanded="false" />
+            <element signature="method#showVolumeSlider#0;class#Controller#0" expanded="false" />
+            <element signature="method#hideVolumeSlider#0;class#Controller#0" expanded="false" />
+            <element signature="method#setMediaToFullScreen#0;class#Controller#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/mediaViewer.fxml" />
+    <entry file="file://$PROJECT_DIR$/src/sample/MediaViewer.java" />
+    <entry file="file://$PROJECT_DIR$/src/sample/sample.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1100">
+          <caret line="55" column="40" lean-forward="false" selection-start-line="55" selection-start-column="40" selection-end-line="55" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -1058,74 +1162,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
           <caret line="8" column="33" lean-forward="true" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
-          <folding>
-            <marker date="1497111736839" expanded="true" signature="3261:4477" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="3261:4211" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="3304:3902" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="3350:3852" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="3425:3805" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="3480:3751" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="4265:4429" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="4764:4913" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="4802:4900" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="5009:7038" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="5109:7019" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="5140:6852" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="6359:6516" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="6882:6995" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7057:27472" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7176:27452" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7206:27422" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7237:27391" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7276:27225" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7347:27185" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7394:26951" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7663:9001" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7715:8557" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="8611:8771" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="8829:8947" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="9281:10463" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="9333:10195" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="10249:10409" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="10743:11905" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="10795:11637" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="11691:11851" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="12186:13374" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="12238:13106" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="13160:13320" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="13655:14360" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="13707:14092" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="14146:14306" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="14641:15946" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="14693:15678" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="15732:15892" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="16227:17570" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="16279:17302" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="17356:17516" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="17851:19155" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="17903:18887" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="18941:19101" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="19437:20703" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="19489:20435" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="20489:20649" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="20985:21792" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="21037:21524" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="21578:21738" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="22074:23380" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="22126:23112" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="23166:23326" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="23662:24503" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="23714:24235" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="24289:24449" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="24785:25936" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="24837:25668" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="25722:25882" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="26218:26903" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="26270:26635" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="26689:26849" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="26997:27145" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="27263:27359" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1135,48 +1172,22 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1907#1908#0" expanded="true" />
-            <element signature="e#1942#1943#0" expanded="true" />
-            <element signature="e#1995#1996#0" expanded="true" />
-            <element signature="e#2030#2031#0" expanded="true" />
-            <element signature="class#23096:24471" expanded="false" />
+            <element signature="class#4652:6027" expanded="false" />
+            <element signature="method#showChapterContextMenu#0;class#Controller#0" expanded="false" />
+            <element signature="method#addChapter#0;class#Controller#0" expanded="false" />
             <element signature="method#onExit#0;class#Controller#0" expanded="false" />
             <element signature="method#onEntered#0;class#Controller#0" expanded="false" />
             <element signature="method#showpdf#0;class#Controller#0" expanded="false" />
             <element signature="method#getDocument#0;class#Controller#0" expanded="false" />
             <element signature="method#onMenuItemClick#0;class#Controller#0" expanded="false" />
             <element signature="method#setVideo#0;class#Controller#0" expanded="false" />
-            <element signature="e#27837#27838#0" expanded="true" />
-            <element signature="e#27888#27889#0" expanded="true" />
-            <element signature="e#28097#28098#0" expanded="true" />
-            <element signature="e#28155#28156#0" expanded="true" />
-            <element signature="e#28300#28301#0" expanded="true" />
-            <element signature="e#28400#28401#0" expanded="true" />
             <element signature="method#playMedia#0;class#Controller#0" expanded="false" />
-            <element signature="class#29351:29506" expanded="false" />
-            <element signature="e#29451#29452#0" expanded="true" />
-            <element signature="e#29495#29496#0" expanded="true" />
-            <element signature="class#29581:29738" expanded="false" />
-            <element signature="e#29683#29684#0" expanded="true" />
-            <element signature="e#29727#29728#0" expanded="true" />
             <element signature="method#pauseMedia#0;class#Controller#0" expanded="false" />
-            <element signature="e#29961#29962#0" expanded="true" />
-            <element signature="e#30004#30005#0" expanded="true" />
-            <element signature="e#30191#30192#0" expanded="true" />
-            <element signature="e#30234#30235#0" expanded="true" />
             <element signature="method#stopMedia#0;class#Controller#0" expanded="false" />
             <element signature="method#muteMedia#0;class#Controller#0" expanded="false" />
+            <element signature="method#showVolumeSlider#0;class#Controller#0" expanded="false" />
+            <element signature="method#hideVolumeSlider#0;class#Controller#0" expanded="false" />
             <element signature="method#setMediaToFullScreen#0;class#Controller#0" expanded="false" />
-            <element signature="method#exitMediaFromFullScreen#0;class#Controller#0" expanded="false" />
-            <element signature="method#formatTime#0;class#Controller#0" expanded="false" />
-            <element signature="method#updateMediaValue#0;class#Controller#0" expanded="false" />
-            <element signature="method#setProperties#0;class#Controller#0" expanded="false" />
-            <element signature="method#getNextTopic#0;class#Controller#0" expanded="false" />
-            <element signature="method#getPrevTopic#0;class#Controller#0" expanded="false" />
-            <element signature="method#previouseButtonAction#0;class#Controller#0" expanded="false" />
-            <element signature="method#startExam#0;class#Controller#0" expanded="false" />
-            <element signature="method#saveStudentNotes#0;class#Controller#0" expanded="false" />
-            <element signature="method#getStudentNotes#0;class#Controller#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1196,74 +1207,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
           <caret line="7" column="11" lean-forward="true" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
-          <folding>
-            <marker date="1497111736839" expanded="true" signature="3261:4477" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="3261:4211" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="3304:3902" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="3350:3852" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="3425:3805" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="3480:3751" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="4265:4429" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="4764:4913" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="4802:4900" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="5009:7038" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="5109:7019" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="5140:6852" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="6359:6516" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="6882:6995" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7057:27472" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7176:27452" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7206:27422" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7237:27391" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7276:27225" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7347:27185" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7394:26951" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7663:9001" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7715:8557" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="8611:8771" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="8829:8947" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="9281:10463" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="9333:10195" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="10249:10409" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="10743:11905" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="10795:11637" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="11691:11851" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="12186:13374" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="12238:13106" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="13160:13320" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="13655:14360" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="13707:14092" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="14146:14306" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="14641:15946" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="14693:15678" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="15732:15892" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="16227:17570" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="16279:17302" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="17356:17516" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="17851:19155" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="17903:18887" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="18941:19101" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="19437:20703" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="19489:20435" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="20489:20649" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="20985:21792" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="21037:21524" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="21578:21738" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="22074:23380" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="22126:23112" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="23166:23326" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="23662:24503" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="23714:24235" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="24289:24449" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="24785:25936" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="24837:25668" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="25722:25882" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="26218:26903" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="26270:26635" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="26689:26849" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="26997:27145" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="27263:27359" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1273,48 +1217,22 @@
           <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1907#1908#0" expanded="true" />
-            <element signature="e#1942#1943#0" expanded="true" />
-            <element signature="e#1995#1996#0" expanded="true" />
-            <element signature="e#2030#2031#0" expanded="true" />
-            <element signature="class#23096:24471" expanded="false" />
+            <element signature="class#4652:6027" expanded="false" />
+            <element signature="method#showChapterContextMenu#0;class#Controller#0" expanded="false" />
+            <element signature="method#addChapter#0;class#Controller#0" expanded="false" />
             <element signature="method#onExit#0;class#Controller#0" expanded="false" />
             <element signature="method#onEntered#0;class#Controller#0" expanded="false" />
             <element signature="method#showpdf#0;class#Controller#0" expanded="false" />
             <element signature="method#getDocument#0;class#Controller#0" expanded="false" />
             <element signature="method#onMenuItemClick#0;class#Controller#0" expanded="false" />
             <element signature="method#setVideo#0;class#Controller#0" expanded="false" />
-            <element signature="e#27837#27838#0" expanded="true" />
-            <element signature="e#27888#27889#0" expanded="true" />
-            <element signature="e#28097#28098#0" expanded="true" />
-            <element signature="e#28155#28156#0" expanded="true" />
-            <element signature="e#28300#28301#0" expanded="true" />
-            <element signature="e#28400#28401#0" expanded="true" />
             <element signature="method#playMedia#0;class#Controller#0" expanded="false" />
-            <element signature="class#29351:29506" expanded="false" />
-            <element signature="e#29451#29452#0" expanded="true" />
-            <element signature="e#29495#29496#0" expanded="true" />
-            <element signature="class#29581:29738" expanded="false" />
-            <element signature="e#29683#29684#0" expanded="true" />
-            <element signature="e#29727#29728#0" expanded="true" />
             <element signature="method#pauseMedia#0;class#Controller#0" expanded="false" />
-            <element signature="e#29961#29962#0" expanded="true" />
-            <element signature="e#30004#30005#0" expanded="true" />
-            <element signature="e#30191#30192#0" expanded="true" />
-            <element signature="e#30234#30235#0" expanded="true" />
             <element signature="method#stopMedia#0;class#Controller#0" expanded="false" />
             <element signature="method#muteMedia#0;class#Controller#0" expanded="false" />
+            <element signature="method#showVolumeSlider#0;class#Controller#0" expanded="false" />
+            <element signature="method#hideVolumeSlider#0;class#Controller#0" expanded="false" />
             <element signature="method#setMediaToFullScreen#0;class#Controller#0" expanded="false" />
-            <element signature="method#exitMediaFromFullScreen#0;class#Controller#0" expanded="false" />
-            <element signature="method#formatTime#0;class#Controller#0" expanded="false" />
-            <element signature="method#updateMediaValue#0;class#Controller#0" expanded="false" />
-            <element signature="method#setProperties#0;class#Controller#0" expanded="false" />
-            <element signature="method#getNextTopic#0;class#Controller#0" expanded="false" />
-            <element signature="method#getPrevTopic#0;class#Controller#0" expanded="false" />
-            <element signature="method#previouseButtonAction#0;class#Controller#0" expanded="false" />
-            <element signature="method#startExam#0;class#Controller#0" expanded="false" />
-            <element signature="method#saveStudentNotes#0;class#Controller#0" expanded="false" />
-            <element signature="method#getStudentNotes#0;class#Controller#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1322,97 +1240,23 @@
     <entry file="file://$PROJECT_DIR$/src/sample/chapButtons.java" />
     <entry file="file://$PROJECT_DIR$/src/sample/mediaPane.fxml" />
     <entry file="file://$PROJECT_DIR$/src/sample/MediaPane.java" />
-    <entry file="file://$PROJECT_DIR$/src/sample/MediaViewer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="29" column="30" lean-forward="false" selection-start-line="29" selection-start-column="30" selection-end-line="29" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/mediaViewer.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="12" column="45" lean-forward="false" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Options.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/MediaViewer.java" />
+    <entry file="file://$PROJECT_DIR$/src/sample/mediaViewer.fxml" />
+    <entry file="file://$PROJECT_DIR$/src/sample/Options.java" />
     <entry file="file://$PROJECT_DIR$/src/sample/sample.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
+        <state relative-caret-position="1100">
           <caret line="55" column="40" lean-forward="false" selection-start-line="55" selection-start-column="40" selection-end-line="55" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/StartExam.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="14" column="76" lean-forward="true" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Controller2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="934" column="1" lean-forward="false" selection-start-line="934" selection-start-column="1" selection-end-line="934" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/temperary.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2559">
-          <caret line="917" column="32" lean-forward="true" selection-start-line="917" selection-start-column="32" selection-end-line="917" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/StartExam.java" />
+    <entry file="file://$PROJECT_DIR$/src/sample/Controller2.java" />
+    <entry file="file://$PROJECT_DIR$/src/sample/temperary.java" />
     <entry file="file://$PROJECT_DIR$/src/sample/MCQ.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
+        <state relative-caret-position="1200">
           <caret line="79" column="6" lean-forward="false" selection-start-line="79" selection-start-column="6" selection-end-line="79" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#790#791#0" expanded="true" />
-            <element signature="e#821#822#0" expanded="true" />
-            <element signature="e#869#870#0" expanded="true" />
-            <element signature="e#909#910#0" expanded="true" />
-            <element signature="e#954#955#0" expanded="true" />
-            <element signature="e#984#985#0" expanded="true" />
-            <element signature="e#1017#1018#0" expanded="true" />
-            <element signature="e#1046#1047#0" expanded="true" />
-            <element signature="e#1090#1091#0" expanded="true" />
-            <element signature="e#1126#1127#0" expanded="true" />
-            <element signature="e#1183#1184#0" expanded="true" />
-            <element signature="e#1221#1222#0" expanded="true" />
-            <element signature="e#1468#1469#0" expanded="true" />
-            <element signature="e#1510#1511#0" expanded="true" />
-            <element signature="e#1570#1571#0" expanded="true" />
-            <element signature="e#1620#1621#0" expanded="true" />
-            <element signature="method#checkResult#0;class#MCQ#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1421,30 +1265,18 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="27" column="19" lean-forward="true" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
+        <state relative-caret-position="540">
+          <caret line="27" column="19" lean-forward="false" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/temp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="59" column="36" lean-forward="true" selection-start-line="59" selection-start-column="36" selection-end-line="59" selection-end-column="36" />
+        <state relative-caret-position="1080">
+          <caret line="59" column="36" lean-forward="false" selection-start-line="59" selection-start-column="36" selection-end-line="59" selection-end-column="36" />
           <folding>
             <element signature="docComment;class#temp#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/ExamSceneController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="103" column="112" lean-forward="false" selection-start-line="103" selection-start-column="112" selection-end-line="103" selection-end-column="112" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2113#2114#0" expanded="true" />
-            <element signature="e#2187#2188#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1454,75 +1286,49 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-664">
-          <caret line="45" column="172" lean-forward="false" selection-start-line="45" selection-start-column="172" selection-end-line="45" selection-end-column="172" />
+        <state relative-caret-position="1960">
+          <caret line="98" column="72" lean-forward="false" selection-start-line="98" selection-start-column="72" selection-end-line="98" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/javafx-src.zip!/com/sun/glass/ui/gtk/GtkApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1820">
+          <caret line="135" column="21" lean-forward="false" selection-start-line="135" selection-start-column="21" selection-end-line="135" selection-end-column="21" />
           <folding>
-            <marker date="1497111736839" expanded="true" signature="3261:4477" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="3261:4211" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="3304:3902" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="3350:3852" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="3425:3805" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="3480:3751" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="4265:4429" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="4764:4913" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="4802:4900" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="5009:7038" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="5109:7019" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="5140:6852" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="6359:6516" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="6882:6995" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7057:27472" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7176:27452" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7206:27422" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7237:27391" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7276:27225" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7347:27185" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7394:26951" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7663:9001" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="7715:8557" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="8611:8771" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="8829:8947" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="9281:10463" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="9333:10195" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="10249:10409" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="10743:11905" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="10795:11637" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="11691:11851" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="12186:13374" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="12238:13106" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="13160:13320" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="13655:14360" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="13707:14092" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="14146:14306" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="14641:15946" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="14693:15678" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="15732:15892" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="16227:17570" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="16279:17302" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="17356:17516" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="17851:19155" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="17903:18887" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="18941:19101" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="19437:20703" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="19489:20435" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="20489:20649" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="20985:21792" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="21037:21524" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="21578:21738" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="22074:23380" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="22126:23112" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="23166:23326" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="23662:24503" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="23714:24235" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="24289:24449" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="24785:25936" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="24837:25668" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="25722:25882" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="26218:26903" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="26270:26635" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="26689:26849" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="26997:27145" ph="..." />
-            <marker date="1497111736839" expanded="true" signature="27263:27359" ph="..." />
+            <element signature="e#0#9911#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2203#2204#0" expanded="false" />
+            <element signature="e#2243#2244#0" expanded="false" />
+            <element signature="e#4539#4540#0" expanded="false" />
+            <element signature="e#4566#4567#0" expanded="false" />
+            <element signature="e#5557#5558#0" expanded="false" />
+            <element signature="e#5601#5602#0" expanded="false" />
+            <element signature="e#7050#7051#0" expanded="false" />
+            <element signature="e#7099#7100#0" expanded="false" />
+            <element signature="e#7145#7146#0" expanded="false" />
+            <element signature="e#7181#7182#0" expanded="false" />
+            <element signature="e#7239#7240#0" expanded="false" />
+            <element signature="e#7281#7282#0" expanded="false" />
+            <element signature="e#7358#7359#0" expanded="false" />
+            <element signature="e#7408#7409#0" expanded="false" />
+            <element signature="e#7575#7576#0" expanded="false" />
+            <element signature="e#7635#7636#0" expanded="false" />
+            <element signature="e#7723#7724#0" expanded="false" />
+            <element signature="e#7780#7781#0" expanded="false" />
+            <element signature="e#7867#7868#0" expanded="false" />
+            <element signature="e#7924#7925#0" expanded="false" />
+            <element signature="e#8154#8155#0" expanded="false" />
+            <element signature="e#8212#8213#0" expanded="false" />
+            <element signature="e#8260#8261#0" expanded="false" />
+            <element signature="e#8297#8298#0" expanded="false" />
+            <element signature="e#8362#8363#0" expanded="false" />
+            <element signature="e#8407#8408#0" expanded="false" />
+            <element signature="e#9647#9648#0" expanded="false" />
+            <element signature="e#9674#9675#0" expanded="false" />
+            <element signature="e#9810#9811#0" expanded="false" />
+            <element signature="e#9838#9839#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1535,54 +1341,105 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/startingStage.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="391" column="45" lean-forward="false" selection-start-line="391" selection-start-column="40" selection-end-line="391" selection-end-column="45" />
+        <state relative-caret-position="180">
+          <caret line="9" column="29" lean-forward="false" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/course/Course.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1907#1908#0" expanded="true" />
-            <element signature="e#1942#1943#0" expanded="true" />
-            <element signature="e#1995#1996#0" expanded="true" />
-            <element signature="e#2030#2031#0" expanded="true" />
-            <element signature="class#23096:24471" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/course/Topic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="12" column="1" lean-forward="false" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/course/Chapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="10" column="1" lean-forward="false" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/StartingStage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="21" column="47" lean-forward="true" selection-start-line="21" selection-start-column="47" selection-end-line="21" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="14" column="25" lean-forward="false" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/ExamSceneController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="613">
+          <caret line="97" column="28" lean-forward="true" selection-start-line="93" selection-start-column="8" selection-end-line="97" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/PopUp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#display#0;class#PopUp#0" expanded="false" />
+            <element signature="method#getName#0;class#PopUp#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-263">
+          <caret line="251" column="0" lean-forward="true" selection-start-line="251" selection-start-column="0" selection-end-line="251" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#4652:6027" expanded="false" />
+            <element signature="method#showChapterContextMenu#0;class#Controller#0" expanded="false" />
+            <element signature="method#addChapter#0;class#Controller#0" expanded="false" />
             <element signature="method#onExit#0;class#Controller#0" expanded="false" />
             <element signature="method#onEntered#0;class#Controller#0" expanded="false" />
             <element signature="method#showpdf#0;class#Controller#0" expanded="false" />
             <element signature="method#getDocument#0;class#Controller#0" expanded="false" />
             <element signature="method#onMenuItemClick#0;class#Controller#0" expanded="false" />
             <element signature="method#setVideo#0;class#Controller#0" expanded="false" />
-            <element signature="e#27837#27838#0" expanded="true" />
-            <element signature="e#27888#27889#0" expanded="true" />
-            <element signature="e#28097#28098#0" expanded="true" />
-            <element signature="e#28155#28156#0" expanded="true" />
-            <element signature="e#28300#28301#0" expanded="true" />
-            <element signature="e#28400#28401#0" expanded="true" />
             <element signature="method#playMedia#0;class#Controller#0" expanded="false" />
-            <element signature="class#29351:29506" expanded="false" />
-            <element signature="e#29451#29452#0" expanded="true" />
-            <element signature="e#29495#29496#0" expanded="true" />
-            <element signature="class#29581:29738" expanded="false" />
-            <element signature="e#29683#29684#0" expanded="true" />
-            <element signature="e#29727#29728#0" expanded="true" />
             <element signature="method#pauseMedia#0;class#Controller#0" expanded="false" />
-            <element signature="e#29961#29962#0" expanded="true" />
-            <element signature="e#30004#30005#0" expanded="true" />
-            <element signature="e#30191#30192#0" expanded="true" />
-            <element signature="e#30234#30235#0" expanded="true" />
             <element signature="method#stopMedia#0;class#Controller#0" expanded="false" />
             <element signature="method#muteMedia#0;class#Controller#0" expanded="false" />
+            <element signature="method#showVolumeSlider#0;class#Controller#0" expanded="false" />
+            <element signature="method#hideVolumeSlider#0;class#Controller#0" expanded="false" />
             <element signature="method#setMediaToFullScreen#0;class#Controller#0" expanded="false" />
-            <element signature="method#exitMediaFromFullScreen#0;class#Controller#0" expanded="false" />
-            <element signature="method#formatTime#0;class#Controller#0" expanded="false" />
-            <element signature="method#updateMediaValue#0;class#Controller#0" expanded="false" />
-            <element signature="method#setProperties#0;class#Controller#0" expanded="false" />
-            <element signature="method#getNextTopic#0;class#Controller#0" expanded="false" />
-            <element signature="method#getPrevTopic#0;class#Controller#0" expanded="false" />
-            <element signature="method#previouseButtonAction#0;class#Controller#0" expanded="false" />
-            <element signature="method#startExam#0;class#Controller#0" expanded="false" />
-            <element signature="method#saveStudentNotes#0;class#Controller#0" expanded="false" />
-            <element signature="method#getStudentNotes#0;class#Controller#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -1,5 +1,7 @@
 package sample;
 
+import com.sun.org.apache.bcel.internal.generic.POP;
+import course.Chapter;
 import javafx.application.Platform;
 import javafx.beans.*;
 import javafx.beans.Observable;
@@ -14,7 +16,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -36,6 +37,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.Popup;
+import javafx.stage.PopupWindow;
 import javafx.util.Duration;
 import javafx.util.Pair;
 import org.icepdf.core.exceptions.PDFException;
@@ -48,7 +51,8 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
-import java.util.concurrent.*;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 public class Controller implements Initializable{
 
@@ -64,173 +68,19 @@ public class Controller implements Initializable{
         }
     };
     private MenuButton b1;
-    private LinkedHashMap<MenuItem,Pair<Integer,Pair<Integer,String>>> mapChapter;
-    private LinkedHashMap<Integer,Pair<String,Pair<String,String>>> chapterno;
+    private LinkedHashMap<MenuItem,Pair<Integer,Pair<MenuButton,String>>> mapChapter;
+    private LinkedHashMap<MenuButton,Pair<String,Pair<String,String>>> chapterno;
     private Document document;
     private Duration duration;
+    private ScheduledThreadPoolExecutor executor;
+    private ScheduledFuture<?> scheduledFuture;
     private MenuItem temp;
+    private EventHandler<?> exitFullScreenHandler;
     private String examFilePath;
-    private static int checkChapNo;
+    private static MenuButton checkChapNo;
 
     public ImageView buttonImage1,buttonImage2;
     public Image image1,image2;
-
-    @FXML
-    public MenuItem c1_1;
-    @FXML
-    public MenuItem c1_2;
-    @FXML
-    public MenuItem c1_3;
-    @FXML
-    public MenuItem c1_4;
-    @FXML
-    public MenuItem c1_5;
-    @FXML
-    public MenuItem c2_1;
-    @FXML
-    public MenuItem c2_2;
-    @FXML
-    public MenuItem c2_3;
-    @FXML
-    public MenuItem c2_4;
-    @FXML
-    public MenuItem c2_5;
-    @FXML
-    public MenuItem c3_5;
-    @FXML
-    public MenuItem c3_4;
-    @FXML
-    public MenuItem c3_3;
-    @FXML
-    public MenuItem c3_2;
-    @FXML
-    public MenuItem c3_1;
-
-    @FXML
-    public MenuItem c4_1;
-    @FXML
-    public MenuItem c4_2;
-    @FXML
-    public MenuItem c4_3;
-    @FXML
-    public MenuItem c4_4;
-    @FXML
-    public MenuItem c4_5;
-
-    @FXML
-    public MenuItem c5_1;
-    @FXML
-    public MenuItem c5_2;
-
-    @FXML
-    public MenuItem c6_1;
-    @FXML
-    public MenuItem c6_2;
-    @FXML
-    public MenuItem c6_3;
-
-    @FXML
-    public MenuItem c7_1;
-    @FXML
-    public MenuItem c7_2;
-    @FXML
-    public MenuItem c7_3;
-    @FXML
-    public MenuItem c7_4;
-    @FXML
-    public MenuItem c7_5;
-    @FXML
-    public MenuItem c7_6;
-
-    @FXML
-    public MenuItem c8_1;
-    @FXML
-    public MenuItem c8_2;
-    @FXML
-    public MenuItem c8_3;
-    @FXML
-    public MenuItem c8_4;
-    @FXML
-    public MenuItem c8_5;
-    @FXML
-    public MenuItem c8_6;
-
-    @FXML
-    public MenuItem c9_1;
-    @FXML
-    public MenuItem c9_2;
-    @FXML
-    public MenuItem c9_3;
-    @FXML
-    public MenuItem c9_4;
-    @FXML
-    public MenuItem c9_5;
-    @FXML
-    public MenuItem c9_6;
-
-    @FXML
-    public MenuItem c10_1;
-    @FXML
-    public MenuItem c10_2;
-    @FXML
-    public MenuItem c10_3;
-    @FXML
-    public MenuItem c10_5;
-    @FXML
-    public MenuItem c10_6;
-    @FXML
-    public MenuItem c10_7;
-
-    @FXML
-    public MenuItem c11_1;
-    @FXML
-    public MenuItem c11_2;
-    @FXML
-    public MenuItem c11_3;
-
-    @FXML
-    public MenuItem c12_1;
-    @FXML
-    public MenuItem c12_2;
-    @FXML
-    public MenuItem c12_3;
-    @FXML
-    public MenuItem c12_4;
-    @FXML
-    public MenuItem c12_5;
-    @FXML
-    public MenuItem c12_6;
-
-
-    @FXML
-    public MenuItem c13_1;
-    @FXML
-    public MenuItem c13_2;
-    @FXML
-    public MenuItem c13_3;
-
-    @FXML
-    public MenuItem c14_1;
-    @FXML
-    public MenuItem c14_2;
-    @FXML
-    public MenuItem c14_3;
-    @FXML
-    public MenuItem c14_4;
-    @FXML
-    public MenuItem c14_5;
-
-    @FXML
-    public MenuItem c15_1;
-    @FXML
-    public MenuItem c15_2;
-
-
-
-
-
-
-
 
 
     @FXML
@@ -251,6 +101,8 @@ public class Controller implements Initializable{
     AnchorPane scene;
     @FXML
     ScrollPane scrollLeftMenu;
+    @FXML
+    ListView<MenuButton> leftMenu;
     @FXML
     BorderPane totalContainer;
     @FXML
@@ -296,121 +148,6 @@ public class Controller implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        checkChapNo=0;
-        try {
-            mapChapter = new LinkedHashMap<>();
-            mapChapter.put(c1_1, new Pair<>(0,new Pair<>(1,"banana.mp4")));
-            mapChapter.put(c1_2, new Pair<>(1,new Pair<>(1,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c1_3, new Pair<>(3,new Pair<>(1,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c1_4, new Pair<>(5,new Pair<>(1,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c1_5, new Pair<>(8,new Pair<>(1,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-
-            mapChapter.put(c2_1, new Pair<>(0,new Pair<>(2,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c2_2, new Pair<>(1,new Pair<>(2,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c2_3, new Pair<>(5,new Pair<>(2,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c2_4, new Pair<>(10,new Pair<>(2,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c2_5, new Pair<>(11,new Pair<>(2,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-
-            mapChapter.put(c3_1, new Pair<>(0,new Pair<>(3,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c3_2, new Pair<>(2,new Pair<>(3,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c3_3, new Pair<>(4,new Pair<>(3,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c3_4, new Pair<>(6,new Pair<>(3,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c3_5, new Pair<>(8,new Pair<>(3,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-
-            mapChapter.put(c4_1, new Pair<>(0,new Pair<>(4,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c4_2, new Pair<>(1,new Pair<>(4,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c4_3, new Pair<>(3,new Pair<>(4,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c4_4, new Pair<>(4,new Pair<>(4,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c4_5, new Pair<>(6,new Pair<>(4,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-
-            mapChapter.put(c5_1, new Pair<>(0,new Pair<>(5,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c5_2, new Pair<>(2,new Pair<>(5,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-
-            mapChapter.put(c6_1, new Pair<>(0,new Pair<>(6,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c6_2, new Pair<>(1,new Pair<>(6,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c6_3, new Pair<>(3,new Pair<>(6,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-
-            mapChapter.put(c7_1, new Pair<>(0,new Pair<>(7,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c7_2, new Pair<>(2,new Pair<>(7,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c7_3, new Pair<>(3,new Pair<>(7,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c7_4, new Pair<>(5,new Pair<>(7,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c7_5, new Pair<>(9,new Pair<>(7,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c7_6, new Pair<>(16,new Pair<>(7,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-
-            mapChapter.put(c8_1, new Pair<>(0,new Pair<>(8,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c8_2, new Pair<>(2,new Pair<>(8,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c8_3, new Pair<>(4,new Pair<>(8,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c8_4, new Pair<>(6,new Pair<>(8,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c8_5, new Pair<>(9,new Pair<>(8,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c8_6, new Pair<>(12,new Pair<>(8,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-
-            mapChapter.put(c9_1, new Pair<>(0,new Pair<>(9,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c9_2, new Pair<>(2,new Pair<>(9,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c9_3, new Pair<>(4,new Pair<>(9,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c9_4, new Pair<>(4,new Pair<>(9,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c9_5, new Pair<>(8,new Pair<>(9,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c9_6, new Pair<>(9,new Pair<>(9,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-
-            mapChapter.put(c10_1, new Pair<>(0,new Pair<>(10,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c10_2, new Pair<>(3,new Pair<>(10,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c10_3, new Pair<>(5,new Pair<>(10,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c10_5, new Pair<>(7,new Pair<>(10,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c10_6, new Pair<>(10,new Pair<>(10,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c10_7, new Pair<>(11,new Pair<>(10,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-
-            mapChapter.put(c11_1, new Pair<>(0,new Pair<>(11,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c11_2, new Pair<>(3,new Pair<>(11,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c11_3, new Pair<>(9,new Pair<>(11,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-
-            mapChapter.put(c12_1, new Pair<>(0,new Pair<>(12,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c12_2, new Pair<>(1,new Pair<>(12,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c12_3, new Pair<>(7,new Pair<>(12,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c12_4, new Pair<>(9,new Pair<>(12,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c12_5, new Pair<>(10,new Pair<>(12,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c12_6, new Pair<>(10,new Pair<>(12,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-
-            mapChapter.put(c13_1, new Pair<>(0,new Pair<>(13,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c13_2, new Pair<>(2,new Pair<>(13,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c13_3, new Pair<>(4,new Pair<>(13,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-
-
-            mapChapter.put(c14_1, new Pair<>(0,new Pair<>(14,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c14_2, new Pair<>(4,new Pair<>(14,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c14_3, new Pair<>(6,new Pair<>(14,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c14_4, new Pair<>(7,new Pair<>(14,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c14_5, new Pair<>(11,new Pair<>(14,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-
-            mapChapter.put(c15_1, new Pair<>(0,new Pair<>(15,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-            mapChapter.put(c15_2, new Pair<>(6,new Pair<>(15,"/media/arnab/Collections/Videos/&#39;Tu Jo Mila&#39; VIDEO Song - K.K. _ Salman Khan, Nawazuddin, Harshaali _ Bajrangi Bhaijaan - YouTube (1080p).mp4")));
-
-        }catch (Exception e){
-            System.out.println("Chapter not set due to :  "+e.toString());
-        }
-
-        try{
-            chapterno=new LinkedHashMap<>();
-            chapterno.put(1,new Pair<>("CHAP1.pdf",new Pair<>("CHAP1.txt","CHAP1.qtn")));
-            chapterno.put(2,new Pair<>("CHAP2.pdf",new Pair<>("CHAP2.txt","CHAP2.qtn")));
-            chapterno.put(3,new Pair<>("CHAP 3.pdf",new Pair<>("CHAP3.txt","CHAP3.qtn")));
-            chapterno.put(4,new Pair<>("CHAP 4.pdf",new Pair<>("CHAP4.txt","CHAP4.qtn")));
-            chapterno.put(5,new Pair<>("CHAP 5.pdf",new Pair<>("CHAP5.txt","CHAP5.qtn")));
-            chapterno.put(6,new Pair<>("CHAP 6.pdf",new Pair<>("CHAP6.txt","CHAP6.qtn")));
-            chapterno.put(7,new Pair<>("CHAP 7.pdf",new Pair<>("CHAP7.txt","CHAP7.qtn")));
-            chapterno.put(8,new Pair<>("CHAP 8.pdf",new Pair<>("CHAP8.txt","CHAP8.qtn")));
-            chapterno.put(9,new Pair<>("CHAP 9.pdf",new Pair<>("CHAP9.txt","CHAP9.qtn")));
-            chapterno.put(10,new Pair<>("CHAP 10.pdf",new Pair<>("CHAP10.txt","CHAP10.qtn")));
-            chapterno.put(11,new Pair<>("CHAP 11.pdf",new Pair<>("CHAP11.txt","CHAP11.qtn")));
-            chapterno.put(12,new Pair<>("CHAP 12.pdf",new Pair<>("CHAP12.txt","CHAP12.qtn")));
-            chapterno.put(13,new Pair<>("CHAP 13.pdf",new Pair<>("CHAP13.txt","CHAP13.qtn")));
-            chapterno.put(14,new Pair<>("CHAP 14.pdf",new Pair<>("CHAP14.txt","CHAP14.qtn")));
-            chapterno.put(15,new Pair<>("CHAP 15.pdf",new Pair<>("CHAP15.txt","CHAP15.qtn")));
-
-
-        }catch (Exception e){
-            System.out.println("Chapter number not set due to:  "+e.toString());
-        }
-
-
         try {
             image1 = new Image("file:///home/arnab/Desktop/download.jpg");
             image2 = new Image("file:///home/arnab/IdeaProjects/APP1.0/download%20(1).jpg");
@@ -427,7 +164,6 @@ public class Controller implements Initializable{
         }catch (Exception e){
             System.out.println("ErrorLoading images: "+e.toString());
         }
-
         try{
             currentPage.textProperty().addListener(new ChangeListener<String>() {
                 @Override
@@ -464,9 +200,69 @@ public class Controller implements Initializable{
         }catch (Exception e){
             System.out.println("current page property"+e.toString());
         }
+//        checkChapNo=mapChapter.get(c15_2).getValue().getKey();
+        /*try{
+            ContextMenu leftMenuContextMenu=new ContextMenu();
+            MenuItem addChapter=new MenuItem("Add Chapter");
+            addChapter.setOnAction(e->{
+                addChapter();
+            });
+            leftMenuContextMenu.getItems().add(addChapter);
+            leftMenu.setContextMenu(leftMenuContextMenu);
+        }catch (Exception e){
+            System.out.println(e);
+        }*/
+    }
+
+    public void showChapterContextMenu(){
+        try {
+            if (leftMenu.getContextMenu().isShowing()) {
+                leftMenu.getContextMenu().hide();
+            }
+            leftMenu.getContextMenu().show(Main.window);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
+    public void addChapter(){
+        try {
+            String chapterName = "Chapter" + String.valueOf(Main.course.chapters.size()+1);
+            Chapter newChapter = new Chapter();
+            newChapter.chapterName = chapterName;
+            newChapter.topics=new ArrayList<>();
+            Main.course.chapters.add(newChapter);
+            MenuButton menuButton = new MenuButton(chapterName);
+            ContextMenu contextMenu=new ContextMenu();
+            MenuItem addTopic=new MenuItem("Add Topic");
+            MenuItem deleteChapter=new MenuItem("Delete");
+            MenuItem renameChapter=new MenuItem("Rename");
+            contextMenu.getItems().addAll(addTopic,deleteChapter,renameChapter);
+            menuButton.setContextMenu(contextMenu);
+            menuButton.setOnContextMenuRequested(e->{
+                menuButton.getContextMenu().show(Main.window);
+            });
+            leftMenu.getItems().add(menuButton);
+            Main.selectedChapter = Main.course.chapters.size()-1;
+            renameChapter();
+        }catch (Exception e){
+            System.out.println("Exception in addChapter\n"+e);
+        }
+    }
+
+    public void renameChapter(){
+        try {
+//            System.out.println(Main.course.chapters.size()+"\n"+Main.selectedChapter.getText());;
+            String newName = PopUp.getName(Main.course.chapters.get(Main.selectedChapter).chapterName);
+            Main.course.chapters.get(Main.selectedChapter).chapterName = newName;
+            leftMenu.getItems().get(Main.selectedChapter).setText(newName);
+        } catch (Exception e){
+            System.out.println("Exception in renameChapter\n"+e);
+        }
     }
 
     public void onExit(MouseEvent e) throws IOException{
+        if(checkChapNo!=(MenuButton)e.getSource())
 
         ((MenuButton)e.getSource()).setStyle("-fx-background-color: white");
 
@@ -524,8 +320,9 @@ public class Controller implements Initializable{
     }
 
     public void onMenuItemClick(ActionEvent event){
+        checkChapNo.setStyle("-fx-background-color: floralwhite");
 
-        int chapno=0;
+        MenuButton chapno=null;
 
 
         String video=null;
@@ -534,6 +331,7 @@ public class Controller implements Initializable{
             topicLabel.setText(((MenuItem)event.getSource()).getText());
             pageno=mapChapter.get(event.getSource()).getKey();
             chapno= mapChapter.get(event.getSource()).getValue().getKey();
+            chapno.setStyle("-fx-background-color: rgba(119,255,47,0.42)");
             video = mapChapter.get(event.getSource()).getValue().getValue();
             examFilePath="Question.qtn";
         }
@@ -678,7 +476,6 @@ public class Controller implements Initializable{
         fullScreenButton.setOnAction(event -> {
             exitMediaFromFullScreen();
         });
-
 //        Main.window.getScene().getRoot().addEventHandler(KeyEvent,exitFullScreenHandler);
 
     }
@@ -837,7 +634,12 @@ public class Controller implements Initializable{
 
 
         int pageno=mapChapter.get(tempkey).getKey();
-        int chapno= mapChapter.get(tempkey).getValue().getKey();
+        MenuButton chapno= mapChapter.get(tempkey).getValue().getKey();
+        if(checkChapNo!=chapno){
+            checkChapNo.setStyle("-fx-background-color: white");
+            checkChapNo=chapno;
+        }
+        chapno.setStyle("-fx-background-color: rgba(119,255,47,0.42)");
         video = mapChapter.get(tempkey).getValue().getValue();
         pdf=chapterno.get(chapno).getKey();
 
@@ -864,7 +666,12 @@ public class Controller implements Initializable{
 
 
         int pageno=mapChapter.get(tempkey).getKey();
-        int chapno= mapChapter.get(tempkey).getValue().getKey();
+        MenuButton chapno= mapChapter.get(tempkey).getValue().getKey();
+        if(checkChapNo!=chapno){
+            checkChapNo.setStyle("-fx-background-color: white");
+            checkChapNo=chapno;
+        }
+        chapno.setStyle("-fx-background-color: rgba(119,255,47,0.42)");
         video = mapChapter.get(tempkey).getValue().getValue();
         pdf=chapterno.get(chapno).getKey();
 
@@ -897,7 +704,7 @@ public class Controller implements Initializable{
 
     public void saveStudentNotes(ActionEvent event){
         try{
-            int chapno=mapChapter.get(temp).getValue().getKey();
+           MenuButton chapno=mapChapter.get(temp).getValue().getKey();
             FileWriter fileWriter;
             fileWriter = new FileWriter(new File(chapterno.get(chapno).getValue().getKey()));
             fileWriter.write(notes.getText());
@@ -911,13 +718,16 @@ public class Controller implements Initializable{
 
     public void getStudentNotes(){
         try{
-            int chapno=mapChapter.get(temp).getValue().getKey();
-            Scanner scanner=new Scanner(new File(chapterno.get(chapno).getValue().getKey()));
+            MenuButton chapno=mapChapter.get(temp).getValue().getKey();
+            BufferedReader br=new BufferedReader(new FileReader(chapterno.get(chapno).getValue().getKey()));
             notes.deleteText(0,notes.getText().length());
-            while(scanner.hasNext()){
-                notes.appendText(scanner.next());
+            String line=br.readLine();
+            while(line!=null){
+                notes.appendText(line);
+                notes.appendText(System.lineSeparator());
+                line=br.readLine();
             }
-        }catch(FileNotFoundException e){
+        }catch(IOException e){
             System.out.println("Getting student notes "+ e.toString());
         }
     }

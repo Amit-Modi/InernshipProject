@@ -10,10 +10,10 @@
     -fx-font-color: blue;
 
 
-    -fx-text-align: left;
+    -fx-text-alignment: center;
 
 
-    -fx-font-size: 14px;
+
 
     -fx-background-radius: 12px;
     -fx-webkit-transition-duration: 0.4s;
@@ -50,10 +50,6 @@
     -fx-border-color: rgba(51,51,51,0.85);
     -fx-border-width: 2px;
 
-}
-
-#volumeButton > .arrow-button > .arrow{
-    -fx-shape: "M 0 -3.5 v 7  4 -3.5 z";
 }
 
 

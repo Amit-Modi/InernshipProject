@@ -1,24 +1,28 @@
 package sample;
 
+import course.Course;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuButton;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
     public static Stage window;
+    public static Course course;
+    public static Integer selectedChapter;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("My Authoring System");
-        Scene s=new Scene(root,1200,600);
-
-        primaryStage.setScene(s);
         window=primaryStage;
-        primaryStage.show();
+        Parent root = FXMLLoader.load(getClass().getResource("startingStage.fxml"));
+
+        Scene s=new Scene(root);
+        window.setResizable(false);
+        window.setScene(s);
+        window.show();
     }
 
 
