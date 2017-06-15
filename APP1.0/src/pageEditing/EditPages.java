@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.MediaView;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import sample.Main;
@@ -31,7 +32,7 @@ import static pageEditing.Element.*;
  */
 public class EditPages implements Initializable{
 
-    public static ArrayList<Pane> pages;
+    public static ArrayList<AnchorPane> pages;
     @FXML
     ListView pageList;
     @FXML
@@ -42,37 +43,47 @@ public class EditPages implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         pageList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-    //    int n=Main.currentTopicPages.size();
-    //    for(Pane each : Main.currentTopicPages){
-    //        Pane eachIndex=each;
-    //        eachIndex.setDisable(true);
-    //        double scale=(paneList.getWidth()-20)/each.getWidth();
-    //        eachIndex.setScaleX(scale);
-    //        eachIndex.setScaleY(scale);
-    //        paneList.getItems().add(eachIndex);
-    //    }
+        for(AnchorPane each : pages){
+            Button indexButton=getIndexButton(pages.indexOf(each));
+            pageList.getItems().add(indexButton);
+        }
+        try {
+            display(0);
+        }catch (Exception e){
+            pageWindow.setContent(new Text("no page to display"));
+        }
     }
 
     public void addPage(){
-        Pane Pane=new Pane();
-        Pane.setPrefWidth(1024);
-        Pane.setPrefHeight(768);
-        Pane.setStyle("-fx-background-color: green");
-        pages.add(Pane);
-        pageWindow.setContent(pages.get(pages.size()-1));
+        AnchorPane anchorPane=new AnchorPane();
+        anchorPane.setPrefWidth(1024);
+        anchorPane.setPrefHeight(768);
+        anchorPane.setStyle("-fx-background-color: green");
+        pages.add(anchorPane);
 
-        Label label=new Label("Page"+String.valueOf(pages.size()));
-        label.setOnMouseClicked(actionEvent->{
+        Button button=getIndexButton(pages.size()-1);
+        pageList.getItems().add(button);
+        display(pages.size()-1);
+    }
+
+    private Button getIndexButton(Integer idx){
+        Button button=new Button("Pages"+(idx+1));
+
+        button.setOnAction(actionEvent->{
             pageList.getSelectionModel().clearSelection();
             pageList.getSelectionModel().select(actionEvent.getSource());
-            pageWindow.setContent(pages.get(pageList.getSelectionModel().getSelectedIndex()));
-            System.out.println(pageList.getSelectionModel().getSelectedIndex());
+            display(idx);
         });
-        pageList.getItems().add(label);
+
+        return button;
     }
+
+    private void display(Integer idx){
+        pageWindow.setContent(pages.get(idx));
+    }
+
     public void deletePage(){
-        System.out.println(pageList.getSelectionModel().getSelectedIndices());
-        ArrayList<Pane> tmp=new ArrayList<>();
+        ArrayList<AnchorPane> tmp=new ArrayList<>();
         for(Integer each : (ObservableList<Integer>)pageList.getSelectionModel().getSelectedIndices()){
             tmp.add(pages.get(each));
         }
@@ -81,7 +92,7 @@ public class EditPages implements Initializable{
     }
 
     @FXML public void addTextField(){
-        addTextField(new Rectangle(0.0,0.0,100.0,100.0));
+        addTextField(new Rectangle(100.0,300.0,412.0,468.0));
     }
     @FXML public void addTextField(Rectangle rec){
 
@@ -91,12 +102,12 @@ public class EditPages implements Initializable{
         AnchorPane.setLeftAnchor(box,rec.getX());
         AnchorPane.setTopAnchor(box,rec.getY());
 
-        ((Pane)pageWindow.getContent()).getChildren().add(box);
+        ((AnchorPane)pageWindow.getContent()).getChildren().add(box);
         setSelectedPane(box);
     }
 
     @FXML public void addTitleField(){
-        addTitleField(new Rectangle(0.0,0.0,100.0,100.0));
+        addTitleField(new Rectangle(100.0,100.0,412.0,100.0));
     }
     @FXML public void addTitleField(Rectangle rec){
 
@@ -106,7 +117,7 @@ public class EditPages implements Initializable{
         AnchorPane.setLeftAnchor(box,rec.getX());
         AnchorPane.setTopAnchor(box,rec.getY());
 
-        ((Pane)pageWindow.getContent()).getChildren().add(box);
+        ((AnchorPane)pageWindow.getContent()).getChildren().add(box);
         setSelectedPane(box);
     }
 
@@ -115,7 +126,7 @@ public class EditPages implements Initializable{
     }
     @FXML public void addImageBox(Rectangle rec){
         FileChooser chooser = new FileChooser();
-        File file = chooser.showOpenDialog(sample.Main.window);
+        File file = chooser.showOpenDialog(pageWindow.getScene().getWindow());
         if(file!=null) {
             StackPane stackPane = getImageBox(file);
             ((ImageView)stackPane.getChildren().get(0)).setFitHeight(rec.getWidth());
@@ -123,7 +134,7 @@ public class EditPages implements Initializable{
 
             AnchorPane.setLeftAnchor(stackPane,rec.getX());
             AnchorPane.setTopAnchor(stackPane,rec.getY());
-            ((Pane)pageWindow.getContent()).getChildren().add(stackPane);
+            ((AnchorPane)pageWindow.getContent()).getChildren().add(stackPane);
             setSelectedPane(stackPane);
         }
     }
@@ -133,37 +144,17 @@ public class EditPages implements Initializable{
     }
     @FXML public void addVideoPlayer(Rectangle rec){
         FileChooser chooser = new FileChooser();
-        File file = chooser.showOpenDialog(sample.Main.window);
+        File file = chooser.showOpenDialog(pageWindow.getScene().getWindow());
         if (file != null) {
             StackPane stackPane = getVideoBox(file);
 
             ((MediaView)stackPane.getChildren().get(0)).setFitHeight(rec.getHeight());
             ((MediaView)stackPane.getChildren().get(0)).setFitWidth(rec.getWidth());
 
-            ((Pane)pageWindow.getContent()).getChildren().add(stackPane);
+            ((AnchorPane)pageWindow.getContent()).getChildren().add(stackPane);
             setSelectedPane(stackPane);
         }
     }
-
-    /*@FXML public void addMCQ(){
-        addMCQ(new Rectangle(100.0,100.0,600,200.0));
-    }
-    @FXML public void addMCQ(Rectangle rec){
-        ArrayList<String> options=new ArrayList<>();
-        options.add("Option1");
-        options.add("Option2");
-        options.add("Option3");
-        options.add("Option4");
-        StackPane box=getMCQ("Write a question.",options,0,"Write Explanation.");
-
-        ((Pane)box.getChildren().get(0)).setPrefWidth(rec.getWidth());
-        ((Pane)box.getChildren().get(0)).setPrefHeight(rec.getHeight());
-        Pane.setTopAnchor(box,rec.getY());
-        Pane.setLeftAnchor(box,rec.getX());
-
-        addNode(box);
-        MyUtil.setSelectedPane(box);
-    }*/
 
     public void tempFunction(){
         System.out.println(pages);

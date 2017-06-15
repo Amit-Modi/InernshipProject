@@ -29,14 +29,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.Pair;
@@ -256,8 +255,8 @@ public class Controller implements Initializable{
             newTopic.pages=new ArrayList<>();
             chapter.topics.add(newTopic);
 
-            Label label=new Label(topicName);
             MenuItem menuItem1=new MenuItem();
+            Label label=new Label(topicName);
 
             label.textProperty().addListener((observable, oldValue, newValue) -> {
                 newTopic.topicName=newValue;
@@ -297,6 +296,9 @@ public class Controller implements Initializable{
                     if(event.getButton()==MouseButton.SECONDARY){
                         event.consume();
                     }
+                    else{
+                        display(newTopic.pages);
+                    }
                 }
             });
             menuItem1.setOnAction(actionEvent-> {
@@ -329,20 +331,32 @@ public class Controller implements Initializable{
         return menuButton;
     }
 
-    private ArrayList<Pane> editPages(String topicName,ArrayList<Pane> pages) throws Exception{
-        EditPages.pages=pages;
-        Parent root = FXMLLoader.load(getClass().getResource("../pageEditing/editPages.fxml"));
-        Stage newWindow=new Stage();
-        newWindow.setTitle(topicName);
-        newWindow.setScene(new Scene(root));
-        newWindow.showAndWait();
-        return EditPages.pages;
+    private ArrayList<AnchorPane> editPages(String topicName,ArrayList<AnchorPane> pages) throws Exception{
+        try {
+            EditPages.pages = pages;
+            Parent root = FXMLLoader.load(getClass().getResource("../pageEditing/editPages.fxml"));
+            Stage newWindow = new Stage();
+            newWindow.initModality(Modality.APPLICATION_MODAL);
+            newWindow.setTitle(topicName);
+            newWindow.setScene(new Scene(root));
+            newWindow.showAndWait();
+            return EditPages.pages;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return pages;
     }
 
-    private void display(ArrayList<Pane> pages) {
-        Main.currentTopicPages=pages;
-        totalPages.setText("/"+String.valueOf(pages.size()));
-        currentPage.setText("0");
+    private void display(ArrayList<AnchorPane> pages) {
+        try {
+            Main.currentTopicPages = pages;
+            totalPages.setText("/" + String.valueOf(pages.size()));
+            currentPage.setText("1");
+        }catch (Exception e){
+            if(totalPages.getText()=="/0")
+                playarea.setContent(new Text("no Slides added"));
+            e.printStackTrace();
+        }
     }
     private void display(Integer value){
         playarea.setContent(Main.currentTopicPages.get(value));
@@ -409,7 +423,11 @@ public class Controller implements Initializable{
 
                 MenuItem editTopic= new MenuItem("editTopic");
                 editTopic.setOnAction(ee->{
-
+                    try {
+                        eachTopic.pages = editPages(eachTopic.topicName,eachTopic.pages);
+                    }catch (Exception exception){
+                        System.out.println(exception);
+                    }
                 });
 
                 MenuItem deleteTopic= new MenuItem("deleteTopic");
@@ -433,6 +451,9 @@ public class Controller implements Initializable{
                     public void handle(MouseEvent event) {
                         if(event.getButton()==MouseButton.SECONDARY){
                             event.consume();
+                        }
+                        else{
+                            display(eachTopic.pages);
                         }
                     }
                 });

@@ -29,7 +29,7 @@ public class Element {
             n.toFront();
             if (n.getClass() == TextField.class)
                 n.getParent().toFront();
-            while (n.getParent().getClass() != Pane.class) {
+            while (n.getParent().getClass() != AnchorPane.class) {
                 n.toFront();
                 n = n.getParent();
             }

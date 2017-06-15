@@ -1,6 +1,7 @@
 package course;
 
-import javafx.scene.layout.Pane;
+
+import javafx.scene.layout.AnchorPane;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by ghost on 13/6/17.
  */
-public class Topic implements Serializable{
+public class Topic implements Serializable {
     public String topicName;
-    public ArrayList<Pane> pages;
+    public ArrayList<AnchorPane> pages;
 }

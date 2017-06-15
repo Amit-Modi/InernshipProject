@@ -20,7 +20,7 @@ public class Main extends Application {
     public static Integer selectedChapter;
     public static String courseFileLocation;
     public static Boolean changesMade;
-    public static ArrayList<Pane> currentTopicPages;
+    public static ArrayList<AnchorPane> currentTopicPages;
     public static double orgSceneX;
     public static double orgSceneY;
     public static double orgTranslateX;
