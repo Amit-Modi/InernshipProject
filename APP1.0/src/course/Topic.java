@@ -1,13 +1,14 @@
 package course;
 
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by ghost on 13/6/17.
  */
-public class Topic {
+public class Topic implements Serializable{
     public String topicName;
-    public ArrayList<AnchorPane> pages;
+    public ArrayList<Pane> pages;
 }

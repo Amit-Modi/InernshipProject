@@ -9,15 +9,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane pickOnBounds="false" prefHeight="264.0" prefWidth="587.0" style="-fx-background-color: linear-gradient(to right, black 0%,white 100%);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.StartingStage">
+<AnchorPane fx:id="welcomeScene" pickOnBounds="false" prefHeight="264.0" prefWidth="587.0" style="-fx-background-color: linear-gradient(to right, black 0%,white 100%);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.StartingStage">
    <children>
-      <Button layoutX="356.0" layoutY="70.0" mnemonicParsing="false" onAction="#startNewCourse" prefHeight="38.0" prefWidth="171.0" text="Start New Course">
+      <Button fx:id="startButton" layoutX="356.0" layoutY="70.0" mnemonicParsing="false" onAction="#startNewCourse" prefHeight="38.0" prefWidth="171.0" text="Start New Course">
          <font>
             <Font name="FreeMono Bold" size="13.0" />
          </font>
       </Button>
-      <Button layoutX="355.0" layoutY="145.0" mnemonicParsing="false" onAction="#openExistingCourse" prefHeight="38.0" prefWidth="189.0" text="Open Existing Course">
+      <Button fx:id="openButton" layoutX="355.0" layoutY="145.0" mnemonicParsing="false" onAction="#openExistingCourse" prefHeight="38.0" prefWidth="189.0" text="Open Existing Course">
          <font>
             <Font name="FreeMono" size="13.0" />
          </font>

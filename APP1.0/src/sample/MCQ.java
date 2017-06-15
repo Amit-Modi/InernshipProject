@@ -1,5 +1,8 @@
 package sample;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,6 +15,7 @@ import java.util.Set;
 
 public class MCQ implements Serializable{
     private String question;
+    private TempClass tempClass;
     private ArrayList<String> options;
     //private Set<Integer> correctOptions;
     private Integer correctOptions;

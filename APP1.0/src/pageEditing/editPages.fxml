@@ -9,51 +9,58 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#removeContextMenu" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="courseBuilder.MainStage">
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-                  <MenuItem mnemonicParsing="false" onAction="#startNewProject" text="New" />
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
-   <bottom>
-      <HBox BorderPane.alignment="CENTER">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status" />
-         </children>
-      </HBox>
-   </bottom>
-   <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pageEditing.EditPages">
+   <children>
+      <VBox layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <TabPane style="-fx-background-color: skyblue;" tabClosingPolicy="UNAVAILABLE">
                <tabs>
                   <Tab text="Home">
                      <content>
-                        <ToolBar prefHeight="50.0">
-                           <items>
-                              <Button mnemonicParsing="false" onAction="#addNewPage" text="Add New Page" />
-                              <Button mnemonicParsing="false" onAction="#removePages" text="Remove Page" />
-                              <Button mnemonicParsing="false" onAction="#scaleWindowtoFitScreen" text="temo" />
-                              <Button mnemonicParsing="false" onAction="#deleteElement" text="Delete Element" />
-                           </items>
-                        </ToolBar>
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                              <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" text="Pages">
+                                 <content>
+                                    <HBox>
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#addPage" text="Add New Page" />
+                                          <Button mnemonicParsing="false" onAction="#deletePage" text="Remove Page" />
+                                       </children>
+                                    </HBox>
+                                 </content>
+                                 <opaqueInsets>
+                                    <Insets bottom="5.0" left="5.0" right="6.0" top="5.0" />
+                                 </opaqueInsets>
+                              </TitledPane>
+                              <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" text="Elements">
+                                 <content>
+                                    <HBox>
+                                       <children>
+                                          <Button mnemonicParsing="false" text="Delete Element" />
+                                       </children>
+                                    </HBox>
+                                 </content>
+                                 <opaqueInsets>
+                                    <Insets bottom="5.0" left="5.0" right="6.0" top="5.0" />
+                                 </opaqueInsets>
+                              </TitledPane>
+                              <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" text="Temp">
+                                 <content>
+                                    <HBox>
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#tempFunction" text="temo" />
+                                       </children>
+                                    </HBox>
+                                 </content>
+                                 <opaqueInsets>
+                                    <Insets bottom="5.0" left="5.0" right="6.0" top="5.0" />
+                                 </opaqueInsets>
+                              </TitledPane>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
                      </content>
                   </Tab>
                   <Tab text="Insert">
@@ -61,9 +68,6 @@
                         <HBox alignment="CENTER_LEFT">
                            <children>
                               <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" text="Text">
-                                 <opaqueInsets>
-                                    <Insets bottom="5.0" left="5.0" right="6.0" top="5.0" />
-                                 </opaqueInsets>
                                  <content>
                                     <HBox>
                                        <children>
@@ -72,6 +76,9 @@
                                        </children>
                                     </HBox>
                                  </content>
+                                 <opaqueInsets>
+                                    <Insets bottom="5.0" left="5.0" right="6.0" top="5.0" />
+                                 </opaqueInsets>
                               </TitledPane>
                               <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" text="Graphics">
                                  <content>
@@ -90,6 +97,7 @@
                                     <HBox>
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#addVideoPlayer" text="Video" />
+                                          <Button layoutX="20.0" layoutY="20.0" mnemonicParsing="false" text="Audio" />
                                        </children>
                                     </HBox>
                                  </content>
@@ -101,7 +109,7 @@
                                  <content>
                                     <HBox>
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#addMCQ" text="MCQ" />
+                                          <Button mnemonicParsing="false" text="MCQ" />
                                        </children>
                                     </HBox>
                                  </content>
@@ -119,43 +127,39 @@
                </tabs>
             </TabPane>
             <HBox prefHeight="20.0" prefWidth="200.0" />
-            <SplitPane dividerPositions="0.2508361204013378, 0.7993311036789298" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <SplitPane dividerPositions="0.156312625250501, 0.812625250501002" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <items>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
                         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <tabs>
-                              <Tab text="Index">
+                              <Tab text="Page">
                                  <content>
-                                    <ScrollPane fx:id="indexTab" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" />
+                                    <ListView fx:id="pageList" prefHeight="200.0" prefWidth="200.0">
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </ListView>
                                  </content>
                               </Tab>
                               <Tab text="Slides">
                                  <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                 </content>
-                              </Tab>
-                              <Tab text="Outline">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    <ListView fx:id="paneList">
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </ListView>
                                  </content>
                               </Tab>
                            </tabs>
                         </TabPane>
                      </children>
                   </AnchorPane>
-                  <SplitPane dividerPositions="0.784452296819788" orientation="VERTICAL" prefHeight="303.0" prefWidth="291.0">
-                     <items>
-                        <ScrollPane fx:id="sceneWindow" prefHeight="207.0" prefViewportHeight="50.0" prefWidth="318.0" />
-                        <ScrollPane fx:id="pageNote" fitToHeight="true" fitToWidth="true" prefHeight="86.0" prefWidth="318.0" />
-                     </items>
-                  </SplitPane>
-                  <AnchorPane fx:id="propertyPane" prefHeight="283.0" prefWidth="187.0">
-
-                  </AnchorPane>
+                  <ScrollPane fx:id="pageWindow" prefHeight="207.0" prefViewportHeight="50.0" prefWidth="318.0" />
+                  <AnchorPane fx:id="propertyPane" prefHeight="283.0" prefWidth="187.0" />
                </items>
             </SplitPane>
          </children>
       </VBox>
-   </center>
-</BorderPane>
+   </children>
+</AnchorPane>

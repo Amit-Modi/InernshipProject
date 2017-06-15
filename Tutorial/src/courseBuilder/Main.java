@@ -4,8 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.SubScene;
-import javafx.scene.control.SelectionMode;
 import javafx.stage.Stage;
 
 /**
@@ -24,7 +22,7 @@ public class Main extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         window=primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("mainStage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../../../APP1.0/src/sample/mainStage.fxml"));
         primaryStage.setTitle("Course Builder");
         primaryStage.setScene(new Scene(root, 1200  , 900));
         primaryStage.sizeToScene();

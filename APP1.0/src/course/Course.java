@@ -2,6 +2,7 @@ package course;
 
 import javafx.scene.layout.AnchorPane;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -9,9 +10,7 @@ import java.util.ArrayList;
  */
 
 
-
-
-public class Course {
+public class Course implements Serializable{
 
     public String courseName;
     public ArrayList<Chapter> chapters;

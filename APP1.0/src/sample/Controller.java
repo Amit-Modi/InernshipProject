@@ -1,7 +1,8 @@
 package sample;
 
-import com.sun.org.apache.bcel.internal.generic.POP;
 import course.Chapter;
+import course.Course;
+import course.Topic;
 import javafx.application.Platform;
 import javafx.beans.*;
 import javafx.beans.Observable;
@@ -11,11 +12,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -26,19 +27,17 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.stage.Popup;
-import javafx.stage.PopupWindow;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.Pair;
 import org.icepdf.core.exceptions.PDFException;
@@ -46,6 +45,7 @@ import org.icepdf.core.exceptions.PDFSecurityException;
 import org.icepdf.core.pobjects.Document;
 import org.icepdf.core.pobjects.Page;
 import org.icepdf.core.util.GraphicsRenderingHints;
+import pageEditing.EditPages;
 
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -82,9 +82,12 @@ public class Controller implements Initializable{
     public ImageView buttonImage1,buttonImage2;
     public Image image1,image2;
 
-
     @FXML
-    HBox topBar;
+    VBox topBar;
+    @FXML
+    MenuBar menuBar;
+    @FXML
+    HBox toolBar;
     @FXML
     ScrollPane playarea;
     @FXML
@@ -98,7 +101,7 @@ public class Controller implements Initializable{
     @FXML
     HBox lectureContainer;
     @FXML
-    AnchorPane scene;
+    Pane scene;
     @FXML
     ScrollPane scrollLeftMenu;
     @FXML
@@ -147,7 +150,7 @@ public class Controller implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        refreshCourse();
         try {
             image1 = new Image("file:///home/arnab/Desktop/download.jpg");
             image2 = new Image("file:///home/arnab/IdeaProjects/APP1.0/download%20(1).jpg");
@@ -174,7 +177,7 @@ public class Controller implements Initializable{
                     else if(newValue.matches("[1-9][0-9]*")){
                         int value=Integer.parseInt(newValue)-1;
                         if(value<Integer.parseInt(totalPages.getText().substring(1))) {
-                            showpdf(value);
+                            display(value);
                             if(value==0){
                                 previousButton.setDisable(true);
                             }
@@ -201,17 +204,6 @@ public class Controller implements Initializable{
             System.out.println("current page property"+e.toString());
         }
 //        checkChapNo=mapChapter.get(c15_2).getValue().getKey();
-        /*try{
-            ContextMenu leftMenuContextMenu=new ContextMenu();
-            MenuItem addChapter=new MenuItem("Add Chapter");
-            addChapter.setOnAction(e->{
-                addChapter();
-            });
-            leftMenuContextMenu.getItems().add(addChapter);
-            leftMenu.setContextMenu(leftMenuContextMenu);
-        }catch (Exception e){
-            System.out.println(e);
-        }*/
     }
 
     public void showChapterContextMenu(){
@@ -231,34 +223,229 @@ public class Controller implements Initializable{
             Chapter newChapter = new Chapter();
             newChapter.chapterName = chapterName;
             newChapter.topics=new ArrayList<>();
+            MenuButton menuButton=getNewChapterMenuButton(newChapter);
+
+            menuButton.textProperty().addListener(((observable, oldValue, newValue) -> {
+                newChapter.chapterName=newValue;
+            }));
+
             Main.course.chapters.add(newChapter);
-            MenuButton menuButton = new MenuButton(chapterName);
-            ContextMenu contextMenu=new ContextMenu();
-            MenuItem addTopic=new MenuItem("Add Topic");
-            MenuItem deleteChapter=new MenuItem("Delete");
-            MenuItem renameChapter=new MenuItem("Rename");
-            contextMenu.getItems().addAll(addTopic,deleteChapter,renameChapter);
-            menuButton.setContextMenu(contextMenu);
-            menuButton.setOnContextMenuRequested(e->{
-                menuButton.getContextMenu().show(Main.window);
-            });
             leftMenu.getItems().add(menuButton);
             Main.selectedChapter = Main.course.chapters.size()-1;
-            renameChapter();
+            menuButton.setText(PopUp.getName(menuButton.getText()));
         }catch (Exception e){
-            System.out.println("Exception in addChapter\n"+e);
+            System.out.println("Exception in addChapter");
+            e.printStackTrace();
         }
     }
 
-    public void renameChapter(){
-        try {
-//            System.out.println(Main.course.chapters.size()+"\n"+Main.selectedChapter.getText());;
-            String newName = PopUp.getName(Main.course.chapters.get(Main.selectedChapter).chapterName);
-            Main.course.chapters.get(Main.selectedChapter).chapterName = newName;
-            leftMenu.getItems().get(Main.selectedChapter).setText(newName);
-        } catch (Exception e){
-            System.out.println("Exception in renameChapter\n"+e);
+    public void showCourseChapters(){
+        System.out.println(Main.course.chapters);
+    }
+
+    private MenuButton getNewChapterMenuButton(Chapter chapter){
+        MenuButton menuButton = new MenuButton(chapter.chapterName);
+        ContextMenu contextMenu=new ContextMenu();
+
+        MenuItem addTopic=new MenuItem("Add Topic");
+        addTopic.setOnAction(e->{
+            String topicName="Topic"+String.valueOf(chapter.topics.size()+1);
+
+            Topic newTopic =new Topic();
+            newTopic.topicName=topicName;
+            newTopic.pages=new ArrayList<>();
+            chapter.topics.add(newTopic);
+
+            Label label=new Label(topicName);
+            MenuItem menuItem1=new MenuItem();
+
+            label.textProperty().addListener((observable, oldValue, newValue) -> {
+                newTopic.topicName=newValue;
+            });
+
+            ContextMenu contextMenu1=new ContextMenu();
+
+            MenuItem editTopic= new MenuItem("editTopic");
+            editTopic.setOnAction(ee->{
+                try {
+                    newTopic.pages = editPages(newTopic.topicName,newTopic.pages);
+                }catch (Exception exception){
+                    System.out.println(exception);
+                }
+            });
+
+            MenuItem deleteTopic= new MenuItem("deleteTopic");
+            deleteTopic.setOnAction(ed->{
+                if(menuButton.getItems().remove(menuItem1));
+                    System.out.println("topic removed from list");
+                if(chapter.topics.remove(newTopic))
+                    System.out.println("taopic remobed from course");
+
+            });
+
+            MenuItem renameTopic= new MenuItem("renameTopic");
+            renameTopic.setOnAction(er->{
+                label.setText(PopUp.getName(label.getText()));
+            });
+
+            contextMenu1.getItems().addAll(editTopic,deleteTopic,renameTopic);
+            label.setContextMenu(contextMenu1);
+
+            label.addEventHandler(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if(event.getButton()==MouseButton.SECONDARY){
+                        event.consume();
+                    }
+                }
+            });
+            menuItem1.setOnAction(actionEvent-> {
+                display(newTopic.pages);
+            });
+            menuItem1.setGraphic(label);
+
+            menuButton.getItems().add(menuItem1);
+            label.setText(PopUp.getName(label.getText()));
+
+        });
+
+        MenuItem deleteChapter=new MenuItem("Delete");
+        deleteChapter.setOnAction(e->{
+            Main.course.chapters.remove(chapter);
+            leftMenu.getItems().remove(menuButton);
+        });
+
+        MenuItem renameChapter=new MenuItem("Rename");
+        renameChapter.setOnAction(e->{
+            menuButton.setText(PopUp.getName(menuButton.getText()));
+        });
+
+        contextMenu.getItems().addAll(addTopic,deleteChapter,renameChapter);
+        menuButton.setContextMenu(contextMenu);
+        menuButton.setOnContextMenuRequested(e->{
+            menuButton.getContextMenu().show(Main.window);
+        });
+
+        return menuButton;
+    }
+
+    private ArrayList<Pane> editPages(String topicName,ArrayList<Pane> pages) throws Exception{
+        EditPages.pages=pages;
+        Parent root = FXMLLoader.load(getClass().getResource("../pageEditing/editPages.fxml"));
+        Stage newWindow=new Stage();
+        newWindow.setTitle(topicName);
+        newWindow.setScene(new Scene(root));
+        newWindow.showAndWait();
+        return EditPages.pages;
+    }
+
+    private void display(ArrayList<Pane> pages) {
+        Main.currentTopicPages=pages;
+        totalPages.setText("/"+String.valueOf(pages.size()));
+        currentPage.setText("0");
+    }
+    private void display(Integer value){
+        playarea.setContent(Main.currentTopicPages.get(value));
+    }
+
+    public void newCourse(){
+        Main.course=new Course();
+        Main.course.chapters=new ArrayList<>();
+        Main.course.courseName="My New Course";
+        Main.courseFileLocation=null;
+        refreshCourse();
+    }
+    public void openCourse() throws  Exception{
+        FileChooser fileChooser=new FileChooser();
+        fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("Couser File","course"));
+        File file=fileChooser.showOpenDialog(Main.window);
+        if(file!=null){
+            Main.courseFileLocation=file.getAbsolutePath();
+            FileInputStream fis=new FileInputStream(Main.courseFileLocation);
+            ObjectInputStream ois=new ObjectInputStream(fis);
+            Main.course=(Course)ois.readObject();
+            refreshCourse();
         }
+    }
+
+    public void saveAs() throws Exception{
+        FileChooser fileChooser=new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Course File","course"));
+        File file=fileChooser.showSaveDialog(Main.window);
+        if(file!=null) {
+            Main.courseFileLocation = file.toString();
+            saveCourse();
+        }
+    }
+    public void saveCourse() throws Exception{
+        if(Main.courseFileLocation==null){
+            saveAs();
+        }
+        if(Main.courseFileLocation!=null) {
+            FileOutputStream fos = new FileOutputStream(Main.courseFileLocation);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(Main.course);
+            oos.close();
+        }
+    }
+
+    public void refreshCourse(){
+        leftMenu.getItems().clear();
+        Main.window.setTitle(Main.course.courseName);
+        for(Chapter eachChapter : Main.course.chapters){
+            MenuButton menuButton=getNewChapterMenuButton(eachChapter);
+            menuButton.textProperty().addListener((observable, oldValue, newValue) -> {
+                eachChapter.chapterName=newValue;
+            });
+
+            for(Topic eachTopic : eachChapter.topics){
+                MenuItem menuItem=new MenuItem();
+                Label label=new Label(eachTopic.topicName);
+                label.textProperty().addListener((observable, oldValue, newValue) -> {
+                    eachTopic.topicName=newValue;
+                });
+
+                ContextMenu contextMenu1=new ContextMenu();
+
+                MenuItem editTopic= new MenuItem("editTopic");
+                editTopic.setOnAction(ee->{
+
+                });
+
+                MenuItem deleteTopic= new MenuItem("deleteTopic");
+                deleteTopic.setOnAction(ed->{
+                    if(menuButton.getItems().remove(menuItem));
+                        System.out.println("topic removed from list");
+                    if(eachChapter.topics.remove(eachTopic))
+                        System.out.println("taopic remobed from course");
+                });
+
+                MenuItem renameTopic= new MenuItem("renameTopic");
+                renameTopic.setOnAction(er->{
+                    label.setText(PopUp.getName(label.getText()));
+                });
+
+                contextMenu1.getItems().addAll(editTopic,deleteTopic,renameTopic);
+                label.setContextMenu(contextMenu1);
+
+                label.addEventHandler(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        if(event.getButton()==MouseButton.SECONDARY){
+                            event.consume();
+                        }
+                    }
+                });
+                menuItem.setGraphic(label);
+
+                menuButton.getItems().add(menuItem);
+            }
+
+            leftMenu.getItems().add(menuButton);
+        }
+        try{
+            playarea.setContent(Main.course.chapters.get(0).topics.get(0).pages.get(0));
+        }catch (Exception e){}
     }
 
     public void onExit(MouseEvent e) throws IOException{
@@ -456,9 +643,9 @@ public class Controller implements Initializable{
 
     public void setMediaToFullScreen() {
         Main.window.setFullScreen(true);
-        topBar.setPrefHeight(0.0);
-        topBar.setMinHeight(0.0);
-        topBar.setMaxHeight(0.0);
+        toolBar.setPrefHeight(0.0);
+        toolBar.setMinHeight(0.0);
+        toolBar.setMaxHeight(0.0);
         scrollLeftMenu.setPrefWidth(0.0);
         scrollLeftMenu.setMinWidth(0.0);
         scrollLeftMenu.setMaxWidth(0.0);
@@ -468,7 +655,7 @@ public class Controller implements Initializable{
         playarea.setPrefWidth(0.0);
         playarea.setMinWidth(0.0);
         playarea.setMaxWidth(0.0);
-        topBar.setVisible(false);
+        toolBar.setVisible(false);
         scrollLeftMenu.setVisible(false);
         textbox.setVisible(false);
         playarea.setVisible(false);
@@ -482,9 +669,9 @@ public class Controller implements Initializable{
 
     public void exitMediaFromFullScreen(){
         Main.window.setFullScreen(false);
-        topBar.setPrefHeight(30.0);
-        topBar.setMinHeight(30.0);
-        topBar.setMaxHeight(30.0);
+        toolBar.setPrefHeight(30.0);
+        toolBar.setMinHeight(30.0);
+        toolBar.setMaxHeight(30.0);
         scrollLeftMenu.setPrefWidth(200.0);
         scrollLeftMenu.setMinWidth(200.0);
         scrollLeftMenu.setMaxWidth(200.0);
@@ -494,7 +681,7 @@ public class Controller implements Initializable{
         playarea.setPrefWidth(620.0);
         playarea.setMinWidth(620.0);
         playarea.setMaxWidth(620.0);
-        topBar.setVisible(true);
+        toolBar.setVisible(true);
         scrollLeftMenu.setVisible(true);
         textbox.setVisible(true);
         playarea.setVisible(true);
@@ -704,7 +891,7 @@ public class Controller implements Initializable{
 
     public void saveStudentNotes(ActionEvent event){
         try{
-           MenuButton chapno=mapChapter.get(temp).getValue().getKey();
+            MenuButton chapno=mapChapter.get(temp).getValue().getKey();
             FileWriter fileWriter;
             fileWriter = new FileWriter(new File(chapterno.get(chapno).getValue().getKey()));
             fileWriter.write(notes.getText());
@@ -731,7 +918,5 @@ public class Controller implements Initializable{
             System.out.println("Getting student notes "+ e.toString());
         }
     }
-
-
 
 }

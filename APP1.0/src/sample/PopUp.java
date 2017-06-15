@@ -4,17 +4,14 @@ package sample;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.util.ArrayList;
 
 /**
  * Created by ghost on 13/6/17.
@@ -49,6 +46,7 @@ public class PopUp {
     }
 
     public static String getName(final String defaultName){
+        string=defaultName;
         Stage popUpStage =new Stage();
         popUpStage.initModality(Modality.APPLICATION_MODAL);
         popUpStage.initStyle(StageStyle.UNDECORATED);
@@ -57,14 +55,13 @@ public class PopUp {
 
         textField.setOnAction(e->{
             if(textField.getText().equals("")){
-                string=defaultName;
                 popUpStage.close();
             }
-            else if (textField.getText().matches("[a-zA-Z][a-zA-Z0-1_@()']*")) {
+            else if (textField.getText().matches("[a-zA-Z][-a-zA-Z0-9_()!'   ]*")) {
                 string = textField.getText();
                 popUpStage.close();
             } else {
-                PopUp.display("Warning!", "Not a valid course name.");
+                PopUp.display("Warning!", "Not a valid name.");
                 textField.setStyle("-fx-border-color: red");
                 textField.clear();
             }
@@ -73,7 +70,15 @@ public class PopUp {
         Scene scene =new Scene(textField);
         popUpStage.setScene(scene);
         popUpStage.centerOnScreen();
+        textField.requestFocus();
+        textField.selectAll();
+        textField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if(oldValue==true && newValue==false){
+                popUpStage.close();
+            }
+        });
         popUpStage.showAndWait();
         return string;
     }
+
 }
