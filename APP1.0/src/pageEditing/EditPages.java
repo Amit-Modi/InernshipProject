@@ -3,6 +3,7 @@ package pageEditing;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.SubScene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -19,10 +20,7 @@ import sample.Main;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static pageEditing.Element.*;
 
@@ -39,6 +37,54 @@ public class EditPages implements Initializable{
     ListView paneList;
     @FXML
     ScrollPane pageWindow;
+
+    public static ArrayList<AnchorPane> makePagesEditable(ArrayList<AnchorPane> pages){
+        for(AnchorPane each : pages){
+            each=makePageEditable(each);
+        }
+        return pages;
+    }
+
+    public static ArrayList<AnchorPane> makePagesUneditable(ArrayList<AnchorPane> pages){
+        for(AnchorPane each : pages){
+            each=makePageUneditable(each);
+        }
+        return pages;
+    }
+
+    private static AnchorPane makePageEditable(AnchorPane page){
+        for(Node each : page.getChildren()){
+            Element.enableMovable(each);
+            Node node= ((StackPane) each).getChildren().get(0);
+            System.out.println(each+" "+node);
+            if(node.getClass()==TextField.class){
+                node=Element.enableEdit((TextField) node);
+            }
+            else if(node.getClass()==TextArea.class){
+                node=Element.enableEdit((TextArea) node);
+            }
+            System.out.println("enable ended");
+        }
+        return page;
+    }
+
+    private static AnchorPane makePageUneditable(AnchorPane page){
+        for(Node each : page.getChildren()){
+            Element.disableMovable(each);
+            each.setStyle("-fx-background-color: transparent;" +
+                    "-fx-border-width: 0px");
+            Node node= ((StackPane) each).getChildren().get(0);
+            System.out.println(each+" "+node);
+            if(node.getClass()==TextField.class){
+                node=Element.disableEdit((TextField) node);
+            }
+            else if(node.getClass()==TextArea.class){
+                node=Element.disableEdit((TextArea) node);
+            }
+            System.out.println("disable ended");
+        }
+        return page;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

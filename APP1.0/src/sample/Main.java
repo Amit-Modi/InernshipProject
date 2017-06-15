@@ -1,6 +1,7 @@
 package sample;
 
 import course.Course;
+import course.Topic;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,9 +19,9 @@ public class Main extends Application {
     public static Stage window;
     public static Course course;
     public static Integer selectedChapter;
+    public static Topic currentTopic;
     public static String courseFileLocation;
     public static Boolean changesMade;
-    public static ArrayList<AnchorPane> currentTopicPages;
     public static double orgSceneX;
     public static double orgSceneY;
     public static double orgTranslateX;

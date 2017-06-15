@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class Element {
 
-    private static Insets margin=new Insets(10);
+    private static Insets margin=new Insets(5);
 
     private static void setToFront(Node n){
         try {
@@ -41,7 +41,7 @@ public class Element {
         }
     }
 
-    private static void makeMovable(Node n){
+    public static void enableMovable(Node n){
         n.setOnMousePressed(e->{
             Main.orgSceneX=e.getSceneX();
             Main.orgSceneY=e.getSceneY();
@@ -66,6 +66,15 @@ public class Element {
         n.setOnMouseReleased(e->{
             ((Node)e.getSource()).setCursor(Cursor.OPEN_HAND);
         });
+    }
+
+    public static void disableMovable(Node n){
+        n.setOnMousePressed(anyEvent->{        });
+        n.setOnMouseDragged(anyEvent->{        });
+        n.setOnMouseClicked(anyEvent->{        });
+        n.setOnMouseReleased(anyEvent->{        });
+        n.setOnMouseEntered(anyEvent->{        });
+        n.setOnMouseExited(anyEven->{        });
     }
 
     private static void startVideo(MediaView m){
@@ -93,44 +102,73 @@ public class Element {
         stackPane.setStyle("-fx-background-color: transparent;-fx-border-width: 1px;-fx-border-style: dashed;-fx-border-color: black");
         stackPane.prefHeight(Region.USE_COMPUTED_SIZE);
         stackPane.prefWidth(Region.USE_COMPUTED_SIZE);
-        makeMovable(stackPane);
+        enableMovable(stackPane);
 
         return stackPane;
     }
 
     public static StackPane getTextBox(){
-        TextArea box = new TextArea();
-        StackPane.setMargin(box,margin);
-        box.setPromptText("Click to edit");
-        box.setStyle("-fx-background-color: transparent");
-        box.setOnMouseClicked(em->{
-            setToFront((Node)em.getSource());
-        });
-        box.setOnKeyTyped(ek->{
-            setToFront((Node)ek.getSource());
-        });
+        TextArea textArea = new TextArea();
+        textArea.setStyle("-fx-background-color: transparent");
+        StackPane.setMargin(textArea,margin);
+        textArea=enableEdit(textArea);
 
         StackPane container=getContainer();
-        container.getChildren().add(box);
+        container.getChildren().add(textArea);
         return container;
+    }
+    public static TextArea enableEdit(TextArea textArea){
+        textArea.setEditable(true);
+        textArea.setPromptText("Click to edit");
+        textArea.setOnMouseClicked(em->{
+            setToFront((Node)em.getSource());
+        });
+        textArea.setOnKeyTyped(ek->{
+            setToFront((Node)ek.getSource());
+        });
+        return textArea;
+    }
+    public static TextArea disableEdit(TextArea textArea){
+        textArea.setEditable(false);
+        textArea.setPromptText("");
+        textArea.setOnMouseClicked(em->{
+        });
+        textArea.setOnKeyTyped(ek->{
+        });
+        return textArea;
     }
 
     public static StackPane getTitleBox(){
         TextField box = new TextField();
         StackPane.setMargin(box,margin);
-        box.setPromptText("Click to enter title");
         box.setStyle("-fx-background-color: transparent");
-        box.setOnMouseClicked(em->{
-            setToFront((Node)em.getSource());
-        });
-        box.setOnKeyTyped(ek->{
-            setToFront((Node)ek.getSource());
-        });
+        box=enableEdit(box);
 
         StackPane container=getContainer();
         container.getChildren().add(box);
         return container;
     }
+    public static TextField enableEdit(TextField textField){
+        textField.setEditable(true);
+        textField.setPromptText("Click to enter title");
+        textField.setOnMouseClicked(em->{
+            setToFront((Node)em.getSource());
+        });
+        textField.setOnKeyTyped(ek->{
+            setToFront((Node)ek.getSource());
+        });
+        return textField;
+    }
+    public static TextField disableEdit(TextField textField){
+        textField.setEditable(false);
+        textField.setPromptText("");
+        textField.setOnMouseClicked(em->{
+        });
+        textField.setOnKeyTyped(ek->{
+        });
+        return textField;
+    }
+
 
     public static StackPane getImageBox(File imagePath){
 

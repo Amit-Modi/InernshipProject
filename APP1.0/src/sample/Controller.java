@@ -205,6 +205,72 @@ public class Controller implements Initializable{
 //        checkChapNo=mapChapter.get(c15_2).getValue().getKey();
     }
 
+    public void refreshCourse(){
+        leftMenu.getItems().clear();
+        Main.window.setTitle(Main.course.courseName);
+        for(Chapter eachChapter : Main.course.chapters){
+            MenuButton menuButton=getNewChapterMenuButton(eachChapter);
+            menuButton.textProperty().addListener((observable, oldValue, newValue) -> {
+                eachChapter.chapterName=newValue;
+            });
+
+            for(Topic eachTopic : eachChapter.topics){
+                MenuItem menuItem=new MenuItem();
+                Label label=new Label(eachTopic.topicName);
+                label.textProperty().addListener((observable, oldValue, newValue) -> {
+                    eachTopic.topicName=newValue;
+                });
+
+                ContextMenu contextMenu1=new ContextMenu();
+
+                MenuItem editTopic= new MenuItem("editTopic");
+                editTopic.setOnAction(ee->{
+                    try {
+                        eachTopic.pages = editPages(eachTopic.topicName,eachTopic.pages);
+                    }catch (Exception exception){
+                        System.out.println(exception);
+                    }
+                });
+
+                MenuItem deleteTopic= new MenuItem("deleteTopic");
+                deleteTopic.setOnAction(ed->{
+                    if(menuButton.getItems().remove(menuItem));
+                    System.out.println("topic removed from list");
+                    if(eachChapter.topics.remove(eachTopic))
+                        System.out.println("taopic remobed from course");
+                });
+
+                MenuItem renameTopic= new MenuItem("renameTopic");
+                renameTopic.setOnAction(er->{
+                    label.setText(PopUp.getName(label.getText()));
+                });
+
+                contextMenu1.getItems().addAll(editTopic,deleteTopic,renameTopic);
+                label.setContextMenu(contextMenu1);
+
+                label.addEventHandler(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        if(event.getButton()==MouseButton.SECONDARY){
+                            event.consume();
+                        }
+                        else{
+                            display(eachTopic.pages);
+                        }
+                    }
+                });
+                menuItem.setGraphic(label);
+
+                menuButton.getItems().add(menuItem);
+            }
+
+            leftMenu.getItems().add(menuButton);
+        }
+        try{
+            playarea.setContent(Main.course.chapters.get(0).topics.get(0).pages.get(0));
+        }catch (Exception e){}
+    }
+
     public void showChapterContextMenu(){
         try {
             if (leftMenu.getContextMenu().isShowing()) {
@@ -231,15 +297,12 @@ public class Controller implements Initializable{
             Main.course.chapters.add(newChapter);
             leftMenu.getItems().add(menuButton);
             Main.selectedChapter = Main.course.chapters.size()-1;
+            Main.currentTopic=null;
             menuButton.setText(PopUp.getName(menuButton.getText()));
         }catch (Exception e){
             System.out.println("Exception in addChapter");
             e.printStackTrace();
         }
-    }
-
-    public void showCourseChapters(){
-        System.out.println(Main.course.chapters);
     }
 
     private MenuButton getNewChapterMenuButton(Chapter chapter){
@@ -268,6 +331,7 @@ public class Controller implements Initializable{
             editTopic.setOnAction(ee->{
                 try {
                     newTopic.pages = editPages(newTopic.topicName,newTopic.pages);
+                    System.out.println("this is returned topic"+newTopic.pages);
                 }catch (Exception exception){
                     System.out.println(exception);
                 }
@@ -333,23 +397,28 @@ public class Controller implements Initializable{
 
     private ArrayList<AnchorPane> editPages(String topicName,ArrayList<AnchorPane> pages) throws Exception{
         try {
-            EditPages.pages = pages;
+            EditPages.pages = EditPages.makePagesEditable(pages);
             Parent root = FXMLLoader.load(getClass().getResource("../pageEditing/editPages.fxml"));
             Stage newWindow = new Stage();
             newWindow.initModality(Modality.APPLICATION_MODAL);
             newWindow.setTitle(topicName);
             newWindow.setScene(new Scene(root));
             newWindow.showAndWait();
-            return EditPages.pages;
+            return EditPages.makePagesUneditable(EditPages.pages);
         }catch (Exception e){
             e.printStackTrace();
         }
         return pages;
     }
 
+    public void showCourseChapters(){
+        System.out.println(Main.course.chapters);
+    }
+
     private void display(ArrayList<AnchorPane> pages) {
         try {
-            Main.currentTopicPages = pages;
+            Main.currentTopic.pages= pages;
+            System.out.println(pages);
             totalPages.setText("/" + String.valueOf(pages.size()));
             currentPage.setText("1");
         }catch (Exception e){
@@ -359,7 +428,7 @@ public class Controller implements Initializable{
         }
     }
     private void display(Integer value){
-        playarea.setContent(Main.currentTopicPages.get(value));
+        playarea.setContent(Main.currentTopic.pages.get(value));
     }
 
     public void newCourse(){
@@ -401,72 +470,6 @@ public class Controller implements Initializable{
             oos.writeObject(Main.course);
             oos.close();
         }
-    }
-
-    public void refreshCourse(){
-        leftMenu.getItems().clear();
-        Main.window.setTitle(Main.course.courseName);
-        for(Chapter eachChapter : Main.course.chapters){
-            MenuButton menuButton=getNewChapterMenuButton(eachChapter);
-            menuButton.textProperty().addListener((observable, oldValue, newValue) -> {
-                eachChapter.chapterName=newValue;
-            });
-
-            for(Topic eachTopic : eachChapter.topics){
-                MenuItem menuItem=new MenuItem();
-                Label label=new Label(eachTopic.topicName);
-                label.textProperty().addListener((observable, oldValue, newValue) -> {
-                    eachTopic.topicName=newValue;
-                });
-
-                ContextMenu contextMenu1=new ContextMenu();
-
-                MenuItem editTopic= new MenuItem("editTopic");
-                editTopic.setOnAction(ee->{
-                    try {
-                        eachTopic.pages = editPages(eachTopic.topicName,eachTopic.pages);
-                    }catch (Exception exception){
-                        System.out.println(exception);
-                    }
-                });
-
-                MenuItem deleteTopic= new MenuItem("deleteTopic");
-                deleteTopic.setOnAction(ed->{
-                    if(menuButton.getItems().remove(menuItem));
-                        System.out.println("topic removed from list");
-                    if(eachChapter.topics.remove(eachTopic))
-                        System.out.println("taopic remobed from course");
-                });
-
-                MenuItem renameTopic= new MenuItem("renameTopic");
-                renameTopic.setOnAction(er->{
-                    label.setText(PopUp.getName(label.getText()));
-                });
-
-                contextMenu1.getItems().addAll(editTopic,deleteTopic,renameTopic);
-                label.setContextMenu(contextMenu1);
-
-                label.addEventHandler(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        if(event.getButton()==MouseButton.SECONDARY){
-                            event.consume();
-                        }
-                        else{
-                            display(eachTopic.pages);
-                        }
-                    }
-                });
-                menuItem.setGraphic(label);
-
-                menuButton.getItems().add(menuItem);
-            }
-
-            leftMenu.getItems().add(menuButton);
-        }
-        try{
-            playarea.setContent(Main.course.chapters.get(0).topics.get(0).pages.get(0));
-        }catch (Exception e){}
     }
 
     public void onExit(MouseEvent e) throws IOException{

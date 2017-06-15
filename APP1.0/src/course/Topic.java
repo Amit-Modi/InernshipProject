@@ -11,5 +11,6 @@ import java.util.ArrayList;
  */
 public class Topic implements Serializable {
     public String topicName;
+    public Chapter parent;
     public ArrayList<AnchorPane> pages;
 }
