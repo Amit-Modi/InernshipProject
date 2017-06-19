@@ -20,6 +20,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaView;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -146,14 +147,14 @@ public class EditPages implements Initializable{
         for(Node each : page.getChildren()){
             enableMovable(each);
             Node node= ((StackPane) each).getChildren().get(0);
-            System.out.println(each+" "+node);
+            //System.out.println(each+" "+node);
             if(node.getClass()==TextField.class){
                 node=Element.enableEdit((TextField) node);
             }
             else if(node.getClass()==TextArea.class){
                 node=Element.enableEdit((TextArea) node);
             }
-            System.out.println("enable ended");
+            //System.out.println("enable ended");
         }
         return page;
     }
@@ -164,14 +165,14 @@ public class EditPages implements Initializable{
             each.setStyle("-fx-background-color: transparent;" +
                     "-fx-border-width: 0px");
             Node node= ((StackPane) each).getChildren().get(0);
-            System.out.println(each+" "+node);
+            //System.out.println(each+" "+node);
             if(node.getClass()==TextField.class){
                 node=Element.disableEdit((TextField) node);
             }
             else if(node.getClass()==TextArea.class){
                 node=Element.disableEdit((TextArea) node);
             }
-            System.out.println("disable ended");
+            //System.out.println("disable ended");
         }
         return page;
     }
@@ -219,9 +220,9 @@ public class EditPages implements Initializable{
         selectePaneChanged.addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(oldValue==false && newValue==true){
-                    bindPropertiesToSelectedPane();
+                if(newValue==true){
                     selectePaneChanged.setValue(false);
+                    bindPropertiesToSelectedPane();
                 }
             }
         });
@@ -245,10 +246,10 @@ public class EditPages implements Initializable{
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if(!newValue.matches("[0-9]+(\\.[0-9]+)?")){
                     if (oldValue.matches("[0-9]+(\\.[0-9]+)?")) {
-                        System.out.println(oldValue + " " + newValue);
+                        //System.out.println(oldValue + " " + newValue);
                         leftAnchorBox.setText(oldValue);
                     } else {
-                        System.out.println(oldValue + " " + newValue);
+                        //System.out.println(oldValue + " " + newValue);
                         leftAnchorBox.setText("0");
                     }
                 }
@@ -349,12 +350,10 @@ public class EditPages implements Initializable{
             if(oldValue==false && newValue==true){
                 widthBox.textProperty().addListener(widthListner);
                 heightBox.textProperty().addListener(heightListner);
-                widthBox.onActionProperty().bindBidirectional(heightBox.onActionProperty());
             }
             else if(oldValue==true && newValue==false){
                 widthBox.textProperty().removeListener(widthListner);
                 heightBox.textProperty().removeListener(heightListner);
-                widthBox.onActionProperty().unbindBidirectional(heightBox.onActionProperty());
             }
         });
         //</editor-fold>
@@ -428,6 +427,7 @@ public class EditPages implements Initializable{
         pageList.getItems().removeAll(pageList.getSelectionModel().getSelectedItems());
     }
 
+//<editor-fold desc="Adding Components">
     @FXML public void addTextField(){
         addTextField(new Rectangle(100.0,300.0,412.0,468.0));
     }
@@ -484,11 +484,13 @@ public class EditPages implements Initializable{
         FileChooser chooser = new FileChooser();
         File file = chooser.showOpenDialog(pageWindow.getScene().getWindow());
         if (file != null) {
-            StackPane stackPane = getVideoBox(file);
+            StackPane stackPane = getVideoBox(new Media(file.toURI().toString()));
 
             ((MediaView)stackPane.getChildren().get(0)).setFitHeight(rec.getHeight());
             ((MediaView)stackPane.getChildren().get(0)).setFitWidth(rec.getWidth());
 
+            AnchorPane.setLeftAnchor(stackPane,rec.getX());
+            AnchorPane.setTopAnchor(stackPane,rec.getY());
             ((AnchorPane)pageWindow.getContent()).getChildren().add(stackPane);
             setSelectedPane(stackPane);
         }
@@ -508,14 +510,14 @@ public class EditPages implements Initializable{
         ((ImageView)stackPane.getChildren().get(0)).setFitHeight(rec.getHeight());
         ((ImageView)stackPane.getChildren().get(0)).setFitWidth(rec.getWidth());
 
+        AnchorPane.setLeftAnchor(stackPane,rec.getX());
+        AnchorPane.setTopAnchor(stackPane,rec.getY());
         ((AnchorPane)pageWindow.getContent()).getChildren().add(stackPane);
         setSelectedPane(stackPane);
         addPage();
     }
+//</editor-fold>
 
-    public void tempFunction(){
-        System.out.println(pages);
-    }
 
     public Document getDocument(){
         //playarea.contentProperty().unbind();
@@ -610,19 +612,19 @@ public class EditPages implements Initializable{
     }
 
     private void bindPropertiesToSelectedPane() {
+
 //<editor-fold desc="AnchorProperty">
-//leftAnchorProperty
         leftAnchorBox.setText(String.valueOf(AnchorPane.getLeftAnchor(selectedPane)));
         leftAnchorBox.setOnAction(event -> {
             AnchorPane.setLeftAnchor(selectedPane,Double.parseDouble(leftAnchorBox.getText()));
         });
 
-//topAnchorProperty
         topAnchorBox.setText(String.valueOf(AnchorPane.getTopAnchor(selectedPane)));
         topAnchorBox.setOnAction(event -> {
             AnchorPane.setTopAnchor(selectedPane,Double.parseDouble(topAnchorBox.getText()));
         });
 //</editor-fold >
+
         Node child=selectedPane.getChildren().get(0);
         if(child.getClass()==TextField.class){
             //<editor-fold>
@@ -631,9 +633,13 @@ public class EditPages implements Initializable{
             widthBox.setOnAction(event -> {
                 textField.setMaxWidth(Double.parseDouble(widthBox.getText()));
                 textField.setMinWidth(Double.parseDouble(widthBox.getText()));
+                textField.setMaxHeight(Double.parseDouble(heightBox.getText()));
+                textField.setMinHeight(Double.parseDouble(heightBox.getText()));
             });
             heightBox.setText(String.valueOf(textField.getHeight()));
             heightBox.setOnAction(event -> {
+                textField.setMaxWidth(Double.parseDouble(widthBox.getText()));
+                textField.setMinWidth(Double.parseDouble(widthBox.getText()));
                 textField.setMaxHeight(Double.parseDouble(heightBox.getText()));
                 textField.setMinHeight(Double.parseDouble(heightBox.getText()));
             });
@@ -646,9 +652,13 @@ public class EditPages implements Initializable{
             widthBox.setOnAction(event -> {
                 textArea.setMaxWidth(Double.parseDouble(widthBox.getText()));
                 textArea.setMinWidth(Double.parseDouble(widthBox.getText()));
+                textArea.setMaxHeight(Double.parseDouble(heightBox.getText()));
+                textArea.setMinHeight(Double.parseDouble(heightBox.getText()));
             });
             heightBox.setText(String.valueOf(textArea.getHeight()));
             heightBox.setOnAction(event -> {
+                textArea.setMaxWidth(Double.parseDouble(widthBox.getText()));
+                textArea.setMinWidth(Double.parseDouble(widthBox.getText()));
                 textArea.setMaxHeight(Double.parseDouble(heightBox.getText()));
                 textArea.setMinHeight(Double.parseDouble(heightBox.getText()));
             });
@@ -660,9 +670,11 @@ public class EditPages implements Initializable{
             widthBox.setText(String.valueOf(imageView.getFitWidth()));
             widthBox.setOnAction(event -> {
                 imageView.setFitWidth(Double.parseDouble(widthBox.getText()));
+                imageView.setFitHeight(Double.parseDouble(heightBox.getText()));
             });
             heightBox.setText(String.valueOf(imageView.getFitHeight()));
             heightBox.setOnAction(event -> {
+                imageView.setFitWidth(Double.parseDouble(widthBox.getText()));
                 imageView.setFitHeight(Double.parseDouble(heightBox.getText()));
             });
             //</editor-fold>
@@ -673,13 +685,18 @@ public class EditPages implements Initializable{
             widthBox.setText(String.valueOf(mediaView.getFitWidth()));
             widthBox.setOnAction(event -> {
                 mediaView.setFitWidth(Double.parseDouble(widthBox.getText()));
+                mediaView.setFitHeight(Double.parseDouble(heightBox.getText()));
             });
             heightBox.setText(String.valueOf(mediaView.getFitHeight()));
             heightBox.setOnAction(event -> {
+                mediaView.setFitWidth(Double.parseDouble(widthBox.getText()));
                 mediaView.setFitHeight(Double.parseDouble(heightBox.getText()));
             });
             //</editor-fold>
         }
     }
 
+    public void tempFunction(){
+        System.out.println(pages);
+    }
 }

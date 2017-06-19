@@ -1,6 +1,5 @@
 package savedCourse;
 
-import course.*;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
@@ -9,16 +8,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import pageEditing.Element;
 
 import javax.imageio.ImageIO;
-import javax.print.attribute.standard.Media;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Base64;
 
 /**
  * Created by ghost on 17/6/17.
@@ -110,13 +108,28 @@ public class Converter {
                 System.out.println("Error occurred while reading an image\n"+e);
             }
         }
-        else if(each.getClass()==VideoComponent.class){
-            VideoComponent videoComponent= (VideoComponent) each;
+        else if(each.getClass()== MediaComponent.class){
+            MediaComponent mediaComponent = (MediaComponent) each;
 
-            ByteArrayInputStream s=new ByteArrayInputStream(videoComponent.videoBytes);
+            ByteArrayInputStream s=new ByteArrayInputStream(mediaComponent.videoBytes);
             try {
-                throw new Exception("Function not written");
+                File file=File.createTempFile(mediaComponent.fileName,mediaComponent.fileType);
+                FileOutputStream fos=new FileOutputStream(file);
+                byte[] buf=new byte[1024];
+                int n;
+                while((n=s.read(buf))>0){
+                    fos.write(buf,0,n);
+                }
+                s.close();
+                fos.close();
+                Media media=new Media(file.toURI().toString());
+                StackPane mediaBox=Element.getVideoBox(media);
+                ((MediaView)mediaBox.getChildren().get(0)).setFitWidth(mediaComponent.width);
+                ((MediaView)mediaBox.getChildren().get(0)).setFitHeight(mediaComponent.height);
+                AnchorPane.setLeftAnchor(mediaBox,mediaComponent.x);
+                AnchorPane.setTopAnchor(mediaBox,mediaComponent.y);
 
+                return mediaBox;
             }catch (Exception e){
                 System.out.println("Error occurred while reading an video\n"+e);
             }
@@ -207,14 +220,39 @@ public class Converter {
                 imageComponent.y=AnchorPane.getTopAnchor(each);
                 return imageComponent;
             }catch (Exception e){
-                System.out.println("Error occurred while saving :"+img+"\n"+e);
+                System.out.println("Error occurred while saving :"+img+"\n");
+                e.printStackTrace();
             }
         }
         else if(component.getClass()== MediaView.class){
             try {
-                throw new Exception("Function not written");
+                MediaView mediaView= (MediaView) component;
+                MediaComponent mediaComponent=new MediaComponent();
+                System.out.println("Media Source "+mediaView.getMediaPlayer().getMedia().getSource());
+                String filePath=mediaView.getMediaPlayer().getMedia().getSource();
+
+                File file=new File(filePath.split(":")[1]);
+                String[] strings=(file.getName().split("\\."));
+                mediaComponent.fileName=strings[0];
+                mediaComponent.fileType=strings[1];
+                mediaComponent.videoBytes=new byte[(int)file.length()];
+
+                FileInputStream fis=new FileInputStream(file);
+                ByteArrayOutputStream baos=new ByteArrayOutputStream();
+                byte[]buf = new byte[1024];
+                int n;
+                while(-1!=(n=fis.read(buf)))
+                    baos.write(buf,0,n);
+                mediaComponent.videoBytes=baos.toByteArray();
+
+                mediaComponent.width=((MediaView)component).getFitWidth();
+                mediaComponent.height=((MediaView)component).getFitHeight();
+                mediaComponent.x=AnchorPane.getLeftAnchor(each);
+                mediaComponent.y=AnchorPane.getTopAnchor(each);
+                return mediaComponent;
             }catch (Exception e){
-                System.out.println("Error occurred while saving video:"+"\n"+e);
+                System.out.println("Error occurred while saving video:"+"\n");
+                e.printStackTrace();
             }
         }
         return null;

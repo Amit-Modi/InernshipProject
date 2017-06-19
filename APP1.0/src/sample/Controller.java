@@ -150,7 +150,6 @@ public class Controller implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        refreshCourse();
         try {
             image1 = new Image("file:///home/arnab/Desktop/download.jpg");
             image2 = new Image("file:///home/arnab/IdeaProjects/APP1.0/download%20(1).jpg");
@@ -189,7 +188,7 @@ public class Controller implements Initializable{
             currentPage.textProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                    System.out.println("current page value changed to "+newValue);
+                    //System.out.println("current page value changed to "+newValue);
                     if(!newValue.matches("[0-9]*")) {
                         currentPage.setText(oldValue);
                     }
@@ -197,6 +196,12 @@ public class Controller implements Initializable{
             });
         }catch (Exception e){
             System.out.println("current page property error "+e.toString());
+        }
+        try{
+            refreshCourse();
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
 //        checkChapNo=mapChapter.get(c15_2).getValue().getKey();
     }
@@ -314,7 +319,7 @@ public class Controller implements Initializable{
             try {
                 topic.pages=editPages(topic);
                 display(topic);
-                System.out.println("this is returned topic "+topic.pages);
+                //System.out.println("this is returned topic "+topic.pages);
             }catch (Exception exception){
                 System.out.println(exception);
             }
@@ -338,11 +343,11 @@ public class Controller implements Initializable{
             @Override
             public void handle(MouseEvent event) {
                 if(event.getButton()==MouseButton.SECONDARY){
-                    System.out.println("right mouse presse on "+topic);
+                    //System.out.println("right mouse presse on "+topic);
                     event.consume();
                 }
                 else{
-                    System.out.println("left mouse presse on "+topic);
+                    //System.out.println("left mouse presse on "+topic);
                     display(topic);
                 }
             }
@@ -394,7 +399,8 @@ public class Controller implements Initializable{
     private ArrayList<AnchorPane> editPages(Topic topic) throws Exception{
         try {
             currentPage.setText("0");
-            display(-1);
+            Topic topic1=null;
+            display(topic1);
             //ArrayList<AnchorPane> clonedPages=EditPages.clonePages(topic.pages);
             EditPages.pages = EditPages.makePagesEditable(topic.pages);
             Parent root = FXMLLoader.load(getClass().getResource("../pageEditing/editPages.fxml"));
@@ -419,24 +425,22 @@ public class Controller implements Initializable{
     private void display(Topic topic) {
         try {
             Main.currentTopic=topic;
-            int size=topic.pages.size();
-            totalPages.setText("/" + size);
-            if(size==0){
+            if(topic==null || topic.pages.size()==0){
+                totalPages.setText("/0");
                 currentPage.setText("0");
-                display(-1);
             }
             else {
+                totalPages.setText("/"+topic.pages.size());
                 currentPage.setText("1");
-                display(0);
             }
+            currentPage.fireEvent(new ActionEvent());
         }catch (Exception e){
             e.printStackTrace();
         }
     }
     private void display(Integer value){
         try {
-            System.out.println("display value="+value);
-            if(value==-1){
+            if(value<0 || value>=Main.currentTopic.pages.size()){
                 playarea.setContent(new StackPane(new Text("no page to show")));
             }
             else {
@@ -482,7 +486,7 @@ public class Controller implements Initializable{
         if(Main.courseFileLocation==null){
             saveAs();
         }
-        if(Main.courseFileLocation!=null) {
+        else{
             FileOutputStream fos = new FileOutputStream(Main.courseFileLocation);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(Converter.convertToSavableCourse(Main.course));
@@ -546,42 +550,6 @@ public class Controller implements Initializable{
         }
         totalPages.setText("/"+String.valueOf(document.getNumberOfPages()));
         return document;
-    }
-
-    public void onMenuItemClick(ActionEvent event){
-        checkChapNo.setStyle("-fx-background-color: floralwhite");
-
-        MenuButton chapno=null;
-
-
-        String video=null;
-        int pageno=0;
-        try {
-            topicLabel.setText(((MenuItem)event.getSource()).getText());
-            pageno=mapChapter.get(event.getSource()).getKey();
-            chapno= mapChapter.get(event.getSource()).getValue().getKey();
-            chapno.setStyle("-fx-background-color: rgba(119,255,47,0.42)");
-            video = mapChapter.get(event.getSource()).getValue().getValue();
-            examFilePath="Question.qtn";
-        }
-        catch (Exception e){
-            System.out.println("onMouseclick "+e.toString());
-        }
-
-        String pdf=chapterno.get(chapno).getKey();
-        document=getDocument(pdf);
-        currentPage.setText(String.valueOf(pageno+1));
-        if(chapno==checkChapNo){
-            showpdf(pageno);
-        }else {
-            showpdf(pageno);
-            setVideo(video);
-            checkChapNo=chapno;
-        }
-        temp= (MenuItem)event.getSource();
-
-        getStudentNotes();
-
     }
 
     public void setVideo(String path){
@@ -915,12 +883,12 @@ public class Controller implements Initializable{
     public void previouseButtonAction(){
         Main.currentPage-=1;
         currentPage.setText(String.valueOf(Main.currentPage+1));
-        display(Main.currentPage);
+        currentPage.fireEvent(new ActionEvent());
     }
     public void nextButtonAction(){
         Main.currentPage+=1;
         currentPage.setText(String.valueOf(Main.currentPage+1));
-        display(Main.currentPage);
+        currentPage.fireEvent(new ActionEvent());
     }
 
 

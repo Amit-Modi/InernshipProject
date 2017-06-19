@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import savedCourse.Converter;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -50,7 +51,7 @@ public class StartingStage implements Initializable{
             Main.courseFileLocation=file.getAbsolutePath();
             FileInputStream fis=new FileInputStream(file);
             ObjectInputStream ois=new ObjectInputStream(fis);
-            Main.course=(Course) ois.readObject();
+            Main.course= Converter.convertToCourse((savedCourse.Course) ois.readObject());
             showCourse();
         }
         catch (Exception e){

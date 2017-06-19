@@ -122,9 +122,8 @@ public class Element {
         return container;
     }
 
-    public static StackPane getVideoBox(File videoPath){
+    public static StackPane getVideoBox(Media media){
         StackPane container=getContainer();
-        Media media =new Media(videoPath.toURI().toString());
         MediaPlayer mediaPlayer=new MediaPlayer(media);
         MediaView box = new MediaView(mediaPlayer);
         StackPane.setMargin(box,margin);
