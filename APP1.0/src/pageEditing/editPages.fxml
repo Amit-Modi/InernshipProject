@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
@@ -36,7 +37,7 @@
                                  <content>
                                     <HBox>
                                        <children>
-                                          <Button mnemonicParsing="false" text="Delete Element" />
+                                          <Button mnemonicParsing="false" onAction="#removeSelectedContent" text="Delete Element" />
                                        </children>
                                     </HBox>
                                  </content>
@@ -127,38 +128,166 @@
                </tabs>
             </TabPane>
             <HBox prefHeight="20.0" prefWidth="200.0" />
-            <SplitPane dividerPositions="0.156312625250501, 0.812625250501002" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-               <items>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                     <children>
-                        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <tabs>
-                              <Tab text="Page">
-                                 <content>
-                                    <ListView fx:id="pageList" prefHeight="200.0" prefWidth="200.0">
-                                       <padding>
-                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                       </padding>
-                                    </ListView>
-                                 </content>
-                              </Tab>
-                              <Tab text="Slides">
-                                 <content>
-                                    <ListView fx:id="paneList">
-                                       <padding>
-                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                       </padding>
-                                    </ListView>
-                                 </content>
-                              </Tab>
-                           </tabs>
-                        </TabPane>
-                     </children>
+            <HBox prefHeight="478.0" prefWidth="1000.0">
+               <children>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="478.0" prefWidth="212.0">
+                        <children>
+                           <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <tabs>
+                                 <Tab text="Page">
+                                    <content>
+                                       <ListView fx:id="pageList" prefHeight="445.0" prefWidth="119.0">
+                                          <padding>
+                                             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                          </padding>
+                                       </ListView>
+                                    </content>
+                                 </Tab>
+                                 <Tab text="Slides">
+                                    <content>
+                                       <ListView fx:id="paneList">
+                                          <padding>
+                                             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                          </padding>
+                                       </ListView>
+                                    </content>
+                                 </Tab>
+                              </tabs>
+                           </TabPane>
+                        </children>
+                     </AnchorPane>
+                  <ScrollPane fx:id="pageWindow" prefHeight="478.0" prefViewportHeight="50.0" prefWidth="618.0" HBox.hgrow="ALWAYS" />
+                  <AnchorPane fx:id="propertyPane" prefHeight="327.0" prefWidth="183.0">
+                        <children>
+                           <VBox prefHeight="477.0" prefWidth="214.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <children>
+                              <StackPane>
+                                 <children>
+                                       <TitledPane animated="false" prefHeight="304.0" prefWidth="223.0" text="Properties: TextProperty">
+                                          <content>
+                                             <VBox prefHeight="205.0" prefWidth="221.0">
+                                                <children>
+                                                   <VBox>
+                                                      <children>
+                                                         <Line endX="100.0" startX="-100.0" stroke="#0000004e" />
+                                                         <HBox>
+                                                            <children>
+                                                               <Region HBox.hgrow="ALWAYS" />
+                                                               <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Font" HBox.hgrow="ALWAYS" />
+                                                            </children>
+                                                         </HBox>
+                                                         <Line endX="100.0" startX="-100.0" stroke="#0000004f" />
+                                                         <HBox prefHeight="100.0" prefWidth="200.0">
+                                                            <children>
+                                                               <GridPane>
+                                                                 <columnConstraints>
+                                                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                 </columnConstraints>
+                                                                 <rowConstraints>
+                                                                   <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                   <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                 </rowConstraints>
+                                                                  <children>
+                                                                     <Label text="Font" />
+                                                                     <Label text="Size" GridPane.rowIndex="1" />
+                                                                     <TextField text="0" GridPane.columnIndex="1" />
+                                                                     <TextField text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                                  <Label layoutX="10.0" layoutY="48.0" text="Color" GridPane.rowIndex="2" />
+                                                                  <ColorPicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                                  </children>
+                                                               </GridPane>
+                                                            </children>
+                                                         </HBox>
+                                                      </children>
+                                                   </VBox>
+                                                </children>
+                                             </VBox>
+                                          </content>
+                                       </TitledPane>
+                                 </children>
+                              </StackPane>
+                                 <TitledPane animated="false" layoutX="10.0" layoutY="10.0" prefHeight="474.0" prefWidth="223.0" text="Layout:">
+                                    <content>
+                                       <VBox>
+                                          <children>
+                                             <VBox>
+                                                <children>
+                                                   <Line endX="100.0" startX="-100.0" stroke="#0000004e" />
+                                                   <HBox>
+                                                      <children>
+                                                         <Region HBox.hgrow="ALWAYS" />
+                                                         <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Position" HBox.hgrow="ALWAYS" />
+                                                      </children>
+                                                   </HBox>
+                                                   <Line endX="100.0" startX="-100.0" stroke="#0000004f" />
+                                                   <HBox prefHeight="100.0" prefWidth="200.0">
+                                                      <children>
+                                                         <GridPane>
+                                                            <children>
+                                                               <Label text="Layout X" />
+                                                               <Label text="Layout Y" GridPane.rowIndex="1" />
+                                                               <TextField fx:id="leftAnchorBox" text="0" GridPane.columnIndex="1" />
+                                                               <TextField fx:id="topAnchorBox" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                            </children>
+                                                            <columnConstraints>
+                                                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            </columnConstraints>
+                                                            <rowConstraints>
+                                                               <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                               <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            </rowConstraints>
+                                                         </GridPane>
+                                                      </children>
+                                                   </HBox>
+                                                </children>
+                                             </VBox>
+                                             <VBox layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="100.0">
+                                                <children>
+                                                   <Line endX="100.0" startX="-100.0" stroke="#0000004e" />
+                                                   <HBox>
+                                                      <children>
+                                                         <Region HBox.hgrow="ALWAYS" />
+                                                         <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Size" HBox.hgrow="ALWAYS" />
+                                                      </children>
+                                                   </HBox>
+                                                   <Line endX="100.0" startX="-100.0" stroke="#0000004f" />
+                                                   <HBox prefHeight="100.0" prefWidth="200.0">
+                                                      <children>
+                                                         <GridPane>
+                                                            <children>
+                                                               <Label text="Width" />
+                                                               <Label text="Height" GridPane.rowIndex="1" />
+                                                               <TextField fx:id="widthBox" text="0" GridPane.columnIndex="1" />
+                                                               <TextField fx:id="heightBox" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                            <CheckBox fx:id="aspectRatio" mnemonicParsing="false" prefHeight="18.0" prefWidth="203.0" text="Mantain aspect ratio" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                                                            </children>
+                                                            <columnConstraints>
+                                                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            </columnConstraints>
+                                                            <rowConstraints>
+                                                               <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                               <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            </rowConstraints>
+                                                         </GridPane>
+                                                      </children>
+                                                   </HBox>
+                                                </children>
+                                             </VBox>
+                                          </children>
+                                       </VBox>
+                                    </content>
+                                 </TitledPane>
+                              </children>
+                           </VBox>
+                        </children>
                   </AnchorPane>
-                  <ScrollPane fx:id="pageWindow" prefHeight="207.0" prefViewportHeight="50.0" prefWidth="318.0" />
-                  <AnchorPane fx:id="propertyPane" prefHeight="283.0" prefWidth="187.0" />
-               </items>
-            </SplitPane>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </children>

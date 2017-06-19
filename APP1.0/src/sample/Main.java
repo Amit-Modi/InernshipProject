@@ -20,13 +20,9 @@ public class Main extends Application {
     public static Course course;
     public static Integer selectedChapter;
     public static Topic currentTopic;
+    public static Integer currentPage;
     public static String courseFileLocation;
     public static Boolean changesMade;
-    public static double orgSceneX;
-    public static double orgSceneY;
-    public static double orgTranslateX;
-    public static double orgTranslateY;
-    public static Pane selectedPane;
 
     @Override
     public void start(Stage primaryStage) throws Exception{

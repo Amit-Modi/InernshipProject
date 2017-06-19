@@ -1,8 +1,12 @@
 package pageEditing;
 
+import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -14,88 +18,25 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import sample.Main;
+import javafx.util.Duration;
+import pageEditing.EditPages;
 import sample.PopUp;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+import static pageEditing.EditPages.enableMovable;
+import static pageEditing.EditPages.setToFront;
 
 public class Element {
 
+    private static ScheduledThreadPoolExecutor executor;
+    private static ScheduledFuture<?> scheduledFuture;
+
     private static Insets margin=new Insets(5);
-
-    private static void setToFront(Node n){
-        try {
-            n.toFront();
-            if (n.getClass() == TextField.class)
-                n.getParent().toFront();
-            while (n.getParent().getClass() != AnchorPane.class) {
-                n.toFront();
-                n = n.getParent();
-            }
-            n.toFront();
-            setSelectedPane((Pane) n);
-        }
-        catch (Exception e){
-            PopUp.display("Error!",e.toString());
-        }
-    }
-
-    public static void enableMovable(Node n){
-        n.setOnMousePressed(e->{
-            Main.orgSceneX=e.getSceneX();
-            Main.orgSceneY=e.getSceneY();
-            Main.orgTranslateX=((Node) e.getSource()).getTranslateX();
-            Main.orgTranslateY=((Node) e.getSource()).getTranslateY();
-            ((Node)e.getSource()).setCursor(Cursor.MOVE);
-            setToFront(n);
-
-        });
-        n.setOnMouseDragged(e->{
-            double offsetX=e.getSceneX()- Main.orgSceneX;
-            double offsetY=e.getSceneY()- Main.orgSceneY;
-            double newTranslateX= Main.orgTranslateX+offsetX;
-            double newTranslateY= Main.orgTranslateY+offsetY;
-            ((Node) e.getSource()).setTranslateX(newTranslateX);
-            ((Node) e.getSource()).setTranslateY(newTranslateY);
-            ((Node) e.getSource()).setCursor(Cursor.MOVE);
-        });
-        n.setOnMouseEntered(e->{
-            ((Node)e.getSource()).setCursor(Cursor.OPEN_HAND);
-        });
-        n.setOnMouseReleased(e->{
-            ((Node)e.getSource()).setCursor(Cursor.OPEN_HAND);
-        });
-    }
-
-    public static void disableMovable(Node n){
-        n.setOnMousePressed(anyEvent->{        });
-        n.setOnMouseDragged(anyEvent->{        });
-        n.setOnMouseClicked(anyEvent->{        });
-        n.setOnMouseReleased(anyEvent->{        });
-        n.setOnMouseEntered(anyEvent->{        });
-        n.setOnMouseExited(anyEven->{        });
-    }
-
-    private static void startVideo(MediaView m){
-        m.getMediaPlayer().play();
-        m.setOnMouseClicked(e->{
-            stopVideo((MediaView) e.getSource());
-        });
-    }
-
-    private static void stopVideo(MediaView m){
-        m.getMediaPlayer().pause();
-        m.setOnMouseClicked(e->{
-            startVideo((MediaView)e.getSource());
-        });
-    }
-
-    private static void addVideoControl(MediaView m){
-        m.setOnMouseClicked(e->{
-            startVideo((MediaView)e.getSource());
-        });
-    }
 
     private static StackPane getContainer(){
         StackPane stackPane=new StackPane();
@@ -170,9 +111,9 @@ public class Element {
     }
 
 
-    public static StackPane getImageBox(File imagePath){
+    public static StackPane getImageBox(Image image){
 
-        ImageView box = new ImageView(new Image(imagePath.toURI().toString()));
+        ImageView box = new ImageView(image);
         StackPane.setMargin(box,margin);
         box.setStyle("-fx-background-color: transparent");
 
@@ -182,21 +123,226 @@ public class Element {
     }
 
     public static StackPane getVideoBox(File videoPath){
-        MediaPlayer mediaPlayer=new MediaPlayer(new Media(videoPath.toURI().toString()));
+        StackPane container=getContainer();
+        Media media =new Media(videoPath.toURI().toString());
+        MediaPlayer mediaPlayer=new MediaPlayer(media);
         MediaView box = new MediaView(mediaPlayer);
         StackPane.setMargin(box,margin);
         box.setStyle("-fx-background-color: transparent");
-        mediaPlayer.setOnEndOfMedia(new Runnable() {
+
+        VBox vBox=new VBox();
+        vBox.setMinHeight(40);
+        vBox.setMaxHeight(40);
+        vBox.setPadding(new Insets(0,5,5,5));
+        vBox.prefWidthProperty().bind(box.fitWidthProperty());
+        vBox.minWidthProperty().bind(box.fitWidthProperty());
+        vBox.maxWidthProperty().bind(box.fitWidthProperty());
+        vBox.setOnMouseClicked(e->{e.consume();});
+        vBox.setOnMouseDragged(e->{e.consume();});
+        vBox.setOnMousePressed(e->{e.consume();});
+        vBox.setOnMouseReleased(e->{e.consume();});
+        StackPane.setAlignment(vBox, Pos.BOTTOM_CENTER);
+        box.setOnMouseMoved(action->{
+            if(scheduledFuture!=null && !scheduledFuture.isCancelled() && !scheduledFuture.isDone()){
+                scheduledFuture.cancel(false);
+            }
+            vBox.setVisible(true);
+            executor = new ScheduledThreadPoolExecutor(1);
+            executor.setRemoveOnCancelPolicy(true);
+            scheduledFuture=executor.schedule(()->vBox.setVisible(false),3, TimeUnit.SECONDS);
+        });
+
+        Slider progressBar=new Slider();
+        progressBar.setMinHeight(10);
+        progressBar.setMaxHeight(10);
+        progressBar.prefWidthProperty().bind(vBox.widthProperty());
+        progressBar.minWidthProperty().bind(vBox.widthProperty());
+        progressBar.maxWidthProperty().bind(vBox.widthProperty());
+        progressBar.valueProperty().addListener(new InvalidationListener() {
             @Override
-            public void run() {
-                mediaPlayer.dispose();
+            public void invalidated(Observable observable) {
+                if(progressBar.isValueChanging()) {
+                    try {
+                        //System.out.println("progressBar change observed. progressing to "+box.getMediaPlayer().getMedia().getDuration().multiply(progressBar.getValue()/100.0));
+                        box.getMediaPlayer().seek(box.getMediaPlayer().getMedia().getDuration().multiply(progressBar.getValue() / 100.0));
+                    }catch (Exception e){
+                        System.out.println(e);
+                    }
+                }
             }
         });
-        addVideoControl(box);
 
+        HBox controls=new HBox();
+        controls.setMinHeight(30);
+        controls.setMaxHeight(30);
+        controls.prefWidthProperty().bind(vBox.widthProperty());
+        controls.minWidthProperty().bind(vBox.widthProperty());
+        controls.maxWidthProperty().bind(vBox.widthProperty());
 
+        Button playpause =getMediaButton();
+        playpause.setText(">/||");
+/*        playpause.setOnAction(action->{
+            playMedia(box,progressBar,controls);
+        });
+        box.setOnMouseClicked(action->{
+            playMedia(box,progressBar,controls);
+        });*/
+
+        Button stop =getMediaButton();
+        stop.setText("STOP");
+        stop.setOnAction(action->{
+            stopMedia(box,progressBar,controls);
+        });
+        box.getMediaPlayer().setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                stopMedia(box,progressBar,controls);
+            }
+        });
+
+        Button mute =getMediaButton();
+        mute.setText("MUTE");
+        mute.setOnAction(action->{
+            muteMedia(box,progressBar,controls);
+        });
+
+        Slider volumeSlider=new Slider();
+        volumeSlider.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                box.getMediaPlayer().setVolume(volumeSlider.getValue()/100);
+            }
+        });
+        volumeSlider.setValue(80);
+
+        Label playtime=new Label();
+        playtime.setStyle("-fx-text-fill: white;-fx-font-family: sans-serif");
+        box.getMediaPlayer().setOnReady(new Runnable() {
+            @Override
+            public void run() {
+                playtime.setText(formatTime(new Duration(0),box.getMediaPlayer().getMedia().getDuration()));
+                stopMedia(box,progressBar,controls);
+                box.getMediaPlayer().currentTimeProperty().addListener(new InvalidationListener() {
+                    @Override
+                    public void invalidated(Observable observable) {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                Duration currentTime=box.getMediaPlayer().getCurrentTime();
+                                Duration duration=box.getMediaPlayer().getMedia().getDuration();
+                                //System.out.println("curret time duration "+currentTime);
+                                //System.out.println("total time duration "+box.getMediaPlayer().getMedia().getDuration());
+                                if(!progressBar.isValueChanging()){
+                                    //System.out.println("progressBar value updating to "+(currentTime.toMillis()/box.getMediaPlayer().getMedia().getDuration().toMillis())*100);
+                                    progressBar.setValue((currentTime.toMillis()/duration.toMillis())*100);
+                                }
+                                playtime.setText(formatTime(currentTime,duration));
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        Region region =new Region();
+        HBox.setHgrow(region,Priority.ALWAYS);
+
+        Button fullScreen = getMediaButton();
+
+        controls.getChildren().addAll(playpause,stop,mute,volumeSlider,playtime,region,fullScreen);
+
+        vBox.getChildren().addAll(progressBar,controls);
+
+        container.getChildren().addAll(box,vBox);
+        vBox.setVisible(false);
+        return container;
+    }
+
+    private static Button getMediaButton() {
+        Button button=new Button();
+        button.setMaxHeight(30);
+        button.setMinHeight(30);
+        button.setMaxWidth(30);
+        button.setMinWidth(30);
+        button.setStyle("-fx-text-fill: white;-fx-background-color: transparent;-fx-border-color: transparent;");
+        return button;
+    }
+    private static void playMedia(MediaView mediaView,Slider progressBar,HBox controls){
+        mediaView.getMediaPlayer().play();
+        Button playpause=(Button) controls.getChildren().get(0);
+//        playpause.setText("||");
+        playpause.setOnAction(action->{
+            pauseMedia(mediaView,progressBar,controls);
+        });
+        mediaView.setOnMouseClicked(action->{
+            pauseMedia(mediaView, progressBar, controls);
+        });
+    }
+    private static void pauseMedia(MediaView mediaView,Slider progressBar,HBox controls){
+        mediaView.getMediaPlayer().pause();
+        Button playpause=(Button) controls.getChildren().get(0);
+//        playpause.setText("play");
+        playpause.setOnAction(action->{
+            playMedia(mediaView,progressBar,controls);
+        });
+        mediaView.setOnMouseClicked(action->{
+            playMedia(mediaView,progressBar,controls);
+        });
+    }
+    private static void stopMedia(MediaView mediaView,Slider progressBar,HBox controls){
+        mediaView.getMediaPlayer().seek(new Duration(0));
+        pauseMedia(mediaView, progressBar, controls);
+        //mediaView.getMediaPlayer().stop();
+    }
+    private static void muteMedia(MediaView mediaView,Slider progressBar,HBox controls){
+        if(mediaView.getMediaPlayer().isMute()){
+            mediaView.getMediaPlayer().setMute(false);
+        }
+        else{
+            mediaView.getMediaPlayer().setMute(true);
+        }
+    }
+    private static String formatTime(Duration elapsed, Duration duration) {
+        int intElapsed = (int)Math.floor(elapsed.toSeconds());
+        int elapsedHours = intElapsed / (60 * 60);
+        if (elapsedHours > 0) {
+            intElapsed -= elapsedHours * 60 * 60;
+        }
+        int elapsedMinutes = intElapsed / 60;
+        int elapsedSeconds = intElapsed - elapsedHours * 60 * 60
+                - elapsedMinutes * 60;
+
+        if (duration.greaterThan(Duration.ZERO)) {
+            int intDuration = (int)Math.floor(duration.toSeconds());
+            int durationHours = intDuration / (60 * 60);
+            if (durationHours > 0) {
+                intDuration -= durationHours * 60 * 60;
+            }
+            int durationMinutes = intDuration / 60;
+            int durationSeconds = intDuration - durationHours * 60 * 60 -
+                    durationMinutes * 60;
+            if (durationHours > 0) {
+                return String.format("%d:%02d:%02d/%d:%02d:%02d",
+                        elapsedHours, elapsedMinutes, elapsedSeconds,
+                        durationHours, durationMinutes, durationSeconds);
+            } else {
+                return String.format("%02d:%02d/%02d:%02d",
+                        elapsedMinutes, elapsedSeconds,durationMinutes,
+                        durationSeconds);
+            }
+        } else {
+            if (elapsedHours > 0) {
+                return String.format("%d:%02d:%02d", elapsedHours,
+                        elapsedMinutes, elapsedSeconds);
+            } else {
+                return String.format("%02d:%02d",elapsedMinutes,
+                        elapsedSeconds);
+            }
+        }
+    }
+
+    public static StackPane getPdfBox(){
         StackPane container=getContainer();
-        container.getChildren().add(box);
+
         return container;
     }
 
@@ -253,11 +399,4 @@ public class Element {
         return container;
     }
 
-    public static void setSelectedPane(Pane pane){
-//        System.out.println("Selecting "+pane.toString());
-        if( Main.selectedPane!=null)
-            Main.selectedPane.setStyle("-fx-border-style: dashed");
-        Main.selectedPane=pane;
-        Main.selectedPane.setStyle("-fx-border-color: black");
-    }
 }
