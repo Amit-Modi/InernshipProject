@@ -1,8 +1,11 @@
 package pageEditing;
 
 import course.Topic;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -19,12 +22,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaView;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.util.StringConverter;
+import javafx.util.converter.NumberStringConverter;
 import org.icepdf.core.exceptions.PDFException;
 import org.icepdf.core.exceptions.PDFSecurityException;
 import org.icepdf.core.pobjects.Document;
@@ -74,6 +80,20 @@ public class EditPages implements Initializable{
     TextField heightBox;
     @FXML
     CheckBox aspectRatio;
+    @FXML
+    TitledPane textProperty;
+
+    static Region topleft;
+    static Region topcenter;
+    static Region topright;
+    static Region left;
+    static Region right;
+    static Region bottomleft;
+    static Region bottomcenter;
+    static Region bottomright;
+    static Region rotation;
+
+
     private ChangeListener<String> widthListner;
     private ChangeListener<String> heightListner;
 
@@ -164,15 +184,16 @@ public class EditPages implements Initializable{
             disableMovable(each);
             each.setStyle("-fx-background-color: transparent;" +
                     "-fx-border-width: 0px");
-            Node node= ((StackPane) each).getChildren().get(0);
-            //System.out.println(each+" "+node);
-            if(node.getClass()==TextField.class){
-                node=Element.disableEdit((TextField) node);
+            if(each.getClass()==StackPane.class) {
+                Node node = ((StackPane) each).getChildren().get(0);
+                //System.out.println(each+" "+node);
+                if (node.getClass() == TextField.class) {
+                    node = Element.disableEdit((TextField) node);
+                } else if (node.getClass() == TextArea.class) {
+                    node = Element.disableEdit((TextArea) node);
+                }
+                //System.out.println("disable ended");
             }
-            else if(node.getClass()==TextArea.class){
-                node=Element.disableEdit((TextArea) node);
-            }
-            //System.out.println("disable ended");
         }
         return page;
     }
@@ -213,6 +234,29 @@ public class EditPages implements Initializable{
         }
     }
 
+    public Region getNewRegion(){
+        Region region=new Region();
+        region.setStyle("-fx-background-color: blue");
+        region.setMinSize(10,10);
+        region.setMaxSize(10,10);
+        region.setOnMousePressed(event -> {
+            event.consume();
+            EditPages.orgSceneX=event.getSceneX();
+            EditPages.orgSceneY=event.getSceneY();
+            EditPages.orgLeftAnchor=region.getTranslateX();
+            EditPages.orgTopAnchor=region.getTranslateY();
+        });
+        region.setOnMouseDragged(event -> {
+            double offsetX=event.getSceneX()-orgSceneX;
+            double offsetY=event.getSceneY()-orgSceneY;
+            double newTranslateX= orgLeftAnchor+offsetX;
+            double newTranslateY= orgTopAnchor+offsetY;
+            region.setTranslateX(newTranslateX);
+            region.setTranslateY(newTranslateY);
+            widthBox.fireEvent(new ActionEvent());
+        });
+        return region;
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //<editor-fold desc="selectedPane Changed Listner">
@@ -223,6 +267,7 @@ public class EditPages implements Initializable{
                 if(newValue==true){
                     selectePaneChanged.setValue(false);
                     bindPropertiesToSelectedPane();
+                    regionstoSelectedPane();
                 }
             }
         });
@@ -357,6 +402,21 @@ public class EditPages implements Initializable{
             }
         });
         //</editor-fold>
+        topleft=getNewRegion();
+        bottomright=getNewRegion();
+        /*try{
+            enableMovable(topleft);
+            enableMovable(topcenter);
+            enableMovable(topright);
+            enableMovable(left);
+            enableMovable(right);
+            enableMovable(bottomleft);
+            enableMovable(bottomcenter);
+            enableMovable(bottomright);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }*/
     }
 
     public void addPage() {
@@ -603,12 +663,63 @@ public class EditPages implements Initializable{
 
     public static void setSelectedPane(Pane pane){
 //        System.out.println("Selecting "+pane.toString());
-        if( selectedPane!=null)
+        if( selectedPane!=null) {
             selectedPane.setStyle("-fx-border-style: dashed");
+        }
         selectedPane=pane;
         selectedPane.setStyle("-fx-border-color: black");
         selectePaneChanged.setValue(true);
         //setting properties;
+    }
+
+    private void regionstoSelectedPane(){
+        try {
+            ((AnchorPane) topleft.getParent()).getChildren().removeAll(topleft, topcenter, topright, left, right, bottomleft, bottomcenter, bottomright);
+        }catch (Exception e) {
+            //e.printStackTrace();
+        }
+        try{
+            //AnchorPane.setTopAnchor(topleft,AnchorPane.getTopAnchor(selectedPane));
+            //AnchorPane.setLeftAnchor(topleft,AnchorPane.getLeftAnchor(selectedPane));
+            //<editor-fold desc="repeat for all regions">
+            /*AnchorPane.setTopAnchor(topcenter,AnchorPane.getTopAnchor(selectedPane)+1);
+            AnchorPane.setLeftAnchor(topcenter,AnchorPane.getLeftAnchor(selectedPane)+1);
+            AnchorPane.setTopAnchor(topright,AnchorPane.getTopAnchor(selectedPane)+1);
+            AnchorPane.setLeftAnchor(topright,AnchorPane.getLeftAnchor(selectedPane)+1);
+            AnchorPane.setTopAnchor(left,AnchorPane.getTopAnchor(selectedPane)+1);
+            AnchorPane.setLeftAnchor(left,AnchorPane.getLeftAnchor(selectedPane)+1);
+            AnchorPane.setTopAnchor(right,AnchorPane.getTopAnchor(selectedPane)+1);
+            AnchorPane.setLeftAnchor(right,AnchorPane.getLeftAnchor(selectedPane)+1);
+            AnchorPane.setTopAnchor(bottomleft,AnchorPane.getTopAnchor(selectedPane)+1);
+            AnchorPane.setLeftAnchor(bottomleft,AnchorPane.getLeftAnchor(selectedPane)+1);
+            AnchorPane.setTopAnchor(bottomcenter,AnchorPane.getTopAnchor(selectedPane)+1);
+            AnchorPane.setLeftAnchor(bottomcenter,AnchorPane.getLeftAnchor(selectedPane)+1);
+            */AnchorPane.setTopAnchor(bottomright,AnchorPane.getTopAnchor(selectedPane));
+            AnchorPane.setLeftAnchor(bottomright,AnchorPane.getLeftAnchor(selectedPane));
+            //</editor-fold>
+
+            //<editor-fold desc="binding bottomright region">
+            bottomright.setTranslateX(Double.parseDouble(widthBox.getText()));
+            bottomright.setTranslateY(Double.parseDouble(heightBox.getText()));
+            StringProperty sp=widthBox.textProperty();
+            DoubleProperty dp=bottomright.translateXProperty();
+            StringConverter<Number> converter=new NumberStringConverter();
+            Bindings.bindBidirectional(sp,dp,converter);
+            sp=heightBox.textProperty();
+            dp=bottomright.translateYProperty();
+            Bindings.bindBidirectional(sp,dp,converter);
+            //</editor-fold>
+
+            //<editor-fold desc="binding rest regions">
+
+            //</editor-fold>
+
+            ((AnchorPane)selectedPane.getParent()).getChildren().addAll(bottomright);
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void bindPropertiesToSelectedPane() {
