@@ -118,6 +118,18 @@
                                     <Insets bottom="5.0" left="5.0" right="6.0" top="5.0" />
                                  </opaqueInsets>
                               </TitledPane>
+                              <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" layoutX="396.0" layoutY="10.0" text="Pdf">
+                                 <content>
+                                    <HBox>
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#addPdfViewer" text="PDF" />
+                                       </children>
+                                    </HBox>
+                                 </content>
+                                 <opaqueInsets>
+                                    <Insets bottom="5.0" left="5.0" right="6.0" top="5.0" />
+                                 </opaqueInsets>
+                              </TitledPane>
                            </children>
                            <opaqueInsets>
                               <Insets />
