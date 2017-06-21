@@ -1,6 +1,7 @@
 package course;
 
 import javafx.beans.property.StringProperty;
+import javafx.scene.media.Media;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,4 +12,5 @@ import java.util.ArrayList;
 public class Chapter implements Serializable{
     public String chapterName;
     public ArrayList<Topic> topics;
+    public Media media;
 }

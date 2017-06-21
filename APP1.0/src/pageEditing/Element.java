@@ -60,6 +60,7 @@ public class Element {
     }
     public static TextArea enableEdit(TextArea textArea){
         textArea.setEditable(true);
+        //System.out.println("textArea editing enabled");
         textArea.setPromptText("Click to edit");
         textArea.setOnMouseClicked(em->{
             setToFront((Node)em.getSource());
@@ -71,6 +72,7 @@ public class Element {
     }
     public static TextArea disableEdit(TextArea textArea){
         textArea.setEditable(false);
+        //System.out.println("textArea editing disabled");
         textArea.setPromptText("");
         textArea.setOnMouseClicked(em->{
         });
@@ -91,6 +93,7 @@ public class Element {
     }
     public static TextField enableEdit(TextField textField){
         textField.setEditable(true);
+        //System.out.println("textfield editing enabled");
         textField.setPromptText("Click to enter title");
         textField.setOnMouseClicked(em->{
             setToFront((Node)em.getSource());
@@ -102,6 +105,7 @@ public class Element {
     }
     public static TextField disableEdit(TextField textField){
         textField.setEditable(false);
+        //System.out.println("textfield editing disabled");
         textField.setPromptText("");
         textField.setOnMouseClicked(em->{
         });

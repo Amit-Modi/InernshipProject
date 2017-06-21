@@ -51,11 +51,12 @@ public class StartingStage implements Initializable{
             Main.courseFileLocation=file.getAbsolutePath();
             FileInputStream fis=new FileInputStream(file);
             ObjectInputStream ois=new ObjectInputStream(fis);
-            Main.course= Converter.convertToCourse((savedCourse.Course) ois.readObject());
+            Main.course=Converter.convertToCourse((savedCourse.Course) ois.readObject());
             showCourse();
         }
         catch (Exception e){
-            System.out.println("following error occured while opening "+file+"\n"+e);
+            System.out.println("following error occured while opening "+file+"\n");
+            e.printStackTrace();
         }
     }
 

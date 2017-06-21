@@ -37,7 +37,7 @@
                                  <content>
                                     <HBox>
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#removeSelectedContent" text="Delete Element" />
+                                          <Button fx:id="deleteElementBox" mnemonicParsing="false" onAction="#removeSelectedContent" text="Delete Element" />
                                        </children>
                                     </HBox>
                                  </content>
@@ -73,7 +73,7 @@
                                     <HBox>
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#addTitleField" text="Title Box" />
-                                          <Button mnemonicParsing="false" onAction="#addTextField" text="Text Box" />
+                                          <Button fx:id="addTextAreaButton" mnemonicParsing="false" onAction="#addTextField" text="Text Box" />
                                        </children>
                                     </HBox>
                                  </content>
@@ -111,6 +111,18 @@
                                     <HBox>
                                        <children>
                                           <Button mnemonicParsing="false" text="MCQ" />
+                                       </children>
+                                    </HBox>
+                                 </content>
+                                 <opaqueInsets>
+                                    <Insets bottom="5.0" left="5.0" right="6.0" top="5.0" />
+                                 </opaqueInsets>
+                              </TitledPane>
+                              <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" layoutX="396.0" layoutY="10.0" text="Pdf">
+                                 <content>
+                                    <HBox>
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#addPdfViewer" text="PDF" />
                                        </children>
                                     </HBox>
                                  </content>

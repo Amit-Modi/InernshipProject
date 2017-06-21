@@ -9,4 +9,7 @@ import java.util.ArrayList;
 public class Chapter implements Serializable{
     public String chapterName;
     public ArrayList<Topic> topics;
+    public byte[] chapterVideo;
+    String fileName;
+    String fileType;
 }

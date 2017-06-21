@@ -16,6 +16,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -78,6 +80,7 @@ public class Controller implements Initializable{
     private EventHandler<?> exitFullScreenHandler;
     private String examFilePath;
     private static MenuButton checkChapNo;
+    private MenuButton selectedMenuButton;
 
     public ImageView buttonImage1,buttonImage2;
     public Image image1,image2;
@@ -104,6 +107,8 @@ public class Controller implements Initializable{
     Pane scene;
     @FXML
     ScrollPane scrollLeftMenu;
+    @FXML
+    Group zoomGroup;
     @FXML
     ListView<MenuButton> leftMenu;
     @FXML
@@ -147,9 +152,12 @@ public class Controller implements Initializable{
 
     @FXML
     Button nextButton;
+    @FXML
+    TextField scaleBox;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        refreshCourse();
         try {
             image1 = new Image("file:///home/arnab/Desktop/download.jpg");
             image2 = new Image("file:///home/arnab/IdeaProjects/APP1.0/download%20(1).jpg");
@@ -208,6 +216,7 @@ public class Controller implements Initializable{
 
     public void refreshCourse(){
         leftMenu.getItems().clear();
+        playarea.setContent(null);
         Main.window.setTitle(Main.course.courseName);
         for(Chapter eachChapter : Main.course.chapters){
             MenuButton menuButton=getNewChapterMenuButton(eachChapter);
@@ -217,7 +226,7 @@ public class Controller implements Initializable{
             Integer idx=leftMenu.getItems().size();
             leftMenu.getItems().add(menuButton);
             for(Topic eachTopic : eachChapter.topics){
-                EditPages.makePagesUneditable(eachTopic.pages);
+                eachTopic.pages=EditPages.makePagesUneditable(eachTopic.pages);
                 addTopicMenuItem(idx,eachTopic);
             }
         }
@@ -280,8 +289,54 @@ public class Controller implements Initializable{
             menuButton.setText(PopUp.getName(menuButton.getText()));
         });
 
-        contextMenu.getItems().addAll(addTopic,deleteChapter,renameChapter);
+        MenuItem addVideo= new MenuItem("Add Video");
+        addVideo.setOnAction(e->{
+            FileChooser fileChooser= new FileChooser();
+            File file= fileChooser.showOpenDialog(Main.window.getScene().getWindow());
+            chapter.media=new Media(file.toURI().toString());
+            if(chapter.media!=null) {
+                setVideo(chapter.media);
+            }
+            playarea.setContent(null);
+            if(menuButton.getItems().isEmpty()){
+                Main.currentTopic=null;
+            }
+            else {
+                ((MenuItem) menuButton.getItems().get(0)).fire();
+            }
+        });
+
+        menuButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                if(event.getButton()== MouseButton.PRIMARY){
+                    //System.out.println((event.getSceneX()-leftMenu.getWidth()-playarea.getWidth())/mediaProgressBar.getWidth());
+                    if(chapter.media!=null) {
+                        setVideo(chapter.media);
+                    }
+                    playarea.setContent(null);
+                    if(menuButton.getItems().isEmpty()){
+                        Main.currentTopic=null;
+                    }
+                    else {
+                        ((MenuItem) menuButton.getItems().get(0)).fire();
+                    }
+
+                }
+            }
+
+        });
+        menuButton.setOnMouseEntered(event -> {
+            if(selectedMenuButton!=null){
+                selectedMenuButton.hide();
+            }
+            menuButton.show();
+            selectedMenuButton=menuButton;
+        });
+
+        contextMenu.getItems().addAll(addTopic,deleteChapter,renameChapter,addVideo);
         menuButton.setContextMenu(contextMenu);
+        menuButton.setPopupSide(Side.RIGHT);
         menuButton.setOnContextMenuRequested(e->{
             menuButton.getContextMenu().show(Main.window);
         });
@@ -329,6 +384,7 @@ public class Controller implements Initializable{
         deleteTopic.setOnAction(ed->{
             removeTopic(topic);
             topic.parent.topics.remove(topic);
+            ((MenuButton) leftMenu.getItems().get(idx)).getItems().remove(menuItem);
         });
 
         MenuItem renameTopic= new MenuItem("renameTopic");
@@ -359,6 +415,7 @@ public class Controller implements Initializable{
     }
 
     private Topic removeTopic(Topic topic){
+        playarea.setContent(null);
         Chapter chapter=topic.parent;
         int idx=chapter.topics.indexOf(topic);
         EditPages.removeAllPages(topic);
@@ -376,6 +433,10 @@ public class Controller implements Initializable{
     }
 
     private Chapter removeChapter(Chapter chapter){
+        playarea.setContent(null);
+        chapter.media=null;
+        if(mediaView.getMediaPlayer()!=null)
+            mediaView.getMediaPlayer().dispose();
         for(Topic each : chapter.topics){
             removeTopic(each);
             chapter.topics.remove(each);
@@ -399,8 +460,7 @@ public class Controller implements Initializable{
     private ArrayList<AnchorPane> editPages(Topic topic) throws Exception{
         try {
             currentPage.setText("0");
-            Topic topic1=null;
-            display(topic1);
+            currentPage.fireEvent(new ActionEvent());
             //ArrayList<AnchorPane> clonedPages=EditPages.clonePages(topic.pages);
             EditPages.pages = EditPages.makePagesEditable(topic.pages);
             Parent root = FXMLLoader.load(getClass().getResource("../pageEditing/editPages.fxml"));
@@ -408,6 +468,9 @@ public class Controller implements Initializable{
             newWindow.initModality(Modality.APPLICATION_MODAL);
             newWindow.setTitle(topic.topicName);
             newWindow.setScene(new Scene(root));
+            newWindow.setOnCloseRequest(e->{
+                EditPages.setSelectedPane(null);
+            });
             newWindow.showAndWait();
             topic.pages=EditPages.makePagesUneditable(EditPages.pages);
             EditPages.pages=null;
@@ -418,30 +481,24 @@ public class Controller implements Initializable{
         return topic.pages;
     }
 
-    public void showCourseChapters(){
-        System.out.println(Main.course.chapters);
-    }
-
     private void display(Topic topic) {
-        try {
-            Main.currentTopic=topic;
-            if(topic==null || topic.pages.size()==0){
-                totalPages.setText("/0");
-                currentPage.setText("0");
-            }
-            else {
-                totalPages.setText("/"+topic.pages.size());
-                currentPage.setText("1");
-            }
-            currentPage.fireEvent(new ActionEvent());
-        }catch (Exception e){
-            e.printStackTrace();
+        Main.currentTopic=topic;
+        if(topic==null || topic.pages.size()==0){
+            totalPages.setText("/0");
+            currentPage.setText("0");
         }
+        else {
+            totalPages.setText("/"+topic.pages.size());
+            currentPage.setText("1");
+        }
+        currentPage.fireEvent(new ActionEvent());
     }
     private void display(Integer value){
         try {
             if(value<0 || value>=Main.currentTopic.pages.size()){
-                playarea.setContent(new StackPane(new Text("no page to show")));
+                StackPane stackPane=new StackPane(new Text("No pages to display"));
+                stackPane.setPrefSize(1024,768);
+                playarea.setContent(stackPane);
             }
             else {
                 playarea.setContent(Main.currentTopic.pages.get(value));
@@ -552,13 +609,10 @@ public class Controller implements Initializable{
         return document;
     }
 
-    public void setVideo(String path){
-        try{
+    public void setVideo(Media media){
+        if(mediaView.getMediaPlayer()!=null)
             mediaView.getMediaPlayer().dispose();
-        }catch (Exception e){    }
-        File file=new File(path);
-        if(file!=null) {
-            Media media = new Media(file.toURI().toString());
+        if(media!=null) {
             duration=media.getDuration();
             MediaPlayer mediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(mediaPlayer);
@@ -592,6 +646,7 @@ public class Controller implements Initializable{
             });
             mediaView.getMediaPlayer().volumeProperty().bindBidirectional(volumeSlider.valueProperty());
             stopMedia();
+            updateMediaValue();
         }
     }
 
@@ -842,6 +897,7 @@ public class Controller implements Initializable{
 
         document=getDocument(pdf);
         currentPage.setText(String.valueOf(pageno +1));
+        currentPage.fireEvent(new ActionEvent());
         showpdf(pageno);
         //setVideo(video);
 
@@ -874,6 +930,7 @@ public class Controller implements Initializable{
 
         document=getDocument(pdf);
         currentPage.setText(String.valueOf(pageno +1));
+        currentPage.fireEvent(new ActionEvent());
         showpdf(pageno);
         //setVideo(video);
 

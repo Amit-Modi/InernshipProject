@@ -37,7 +37,7 @@
                                  <content>
                                     <HBox>
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#removeSelectedContent" text="Delete Element" />
+                                          <Button fx:id="deleteElementBox" mnemonicParsing="false" onAction="#removeSelectedContent" text="Delete Element" />
                                        </children>
                                     </HBox>
                                  </content>
@@ -45,7 +45,19 @@
                                     <Insets bottom="5.0" left="5.0" right="6.0" top="5.0" />
                                  </opaqueInsets>
                               </TitledPane>
-                              <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" text="Temp">
+                              <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" text="Scale page">
+                                 <content>
+                                    <HBox>
+                                       <children>
+                                          <TextField fx:id="scaleBox" />
+                                       </children>
+                                    </HBox>
+                                 </content>
+                                 <opaqueInsets>
+                                    <Insets bottom="5.0" left="5.0" right="6.0" top="5.0" />
+                                 </opaqueInsets>
+                              </TitledPane>
+                              <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" layoutX="394.0" layoutY="10.0" text="Temp">
                                  <content>
                                     <HBox>
                                        <children>
@@ -73,7 +85,7 @@
                                     <HBox>
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#addTitleField" text="Title Box" />
-                                          <Button mnemonicParsing="false" onAction="#addTextField" text="Text Box" />
+                                          <Button fx:id="addTextAreaButton" mnemonicParsing="false" onAction="#addTextField" text="Text Box" />
                                        </children>
                                     </HBox>
                                  </content>
@@ -168,7 +180,14 @@
                            </TabPane>
                         </children>
                      </AnchorPane>
-                  <ScrollPane fx:id="pageWindow" prefHeight="478.0" prefViewportHeight="50.0" prefWidth="618.0" HBox.hgrow="ALWAYS" />
+                  <ScrollPane fx:id="pageWindow" prefHeight="478.0" prefViewportHeight="50.0" prefWidth="618.0" HBox.hgrow="ALWAYS">
+                     <content>
+                        <Group>
+                           <children>
+                              <Group fx:id="zoomGroup" />
+                           </children>
+                        </Group>
+                     </content></ScrollPane>
                   <AnchorPane fx:id="propertyPane" prefHeight="327.0" prefWidth="183.0">
                         <children>
                            <VBox prefHeight="477.0" prefWidth="214.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

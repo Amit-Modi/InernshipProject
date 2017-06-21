@@ -12,6 +12,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import pageEditing.Element;
+import sample.PopUp;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -41,10 +42,28 @@ public class Converter {
             topic.parent=chapter;
             chapter.topics.add(topic);
         }
+
+        ByteArrayInputStream s=new ByteArrayInputStream(savedChapter.chapterVideo);
+        try {
+            File file = File.createTempFile(savedChapter.fileName, savedChapter.fileType);
+            FileOutputStream fos = new FileOutputStream(file);
+            byte[] buf = new byte[1024];
+            int n;
+            while ((n = s.read(buf)) > 0) {
+                fos.write(buf, 0, n);
+            }
+            s.close();
+            fos.close();
+            chapter.media = new javafx.scene.media.Media(file.toURI().toString());
+            file.deleteOnExit();
+        }catch(IOException e){
+            e.printStackTrace();
+            PopUp.display("Error!",e.toString());
+        }
         return chapter;
     }
 
-    private static course.Topic convertToTopic(Topic savedTopic) {
+    public static course.Topic convertToTopic(Topic savedTopic) {
         course.Topic topic=new course.Topic();
         topic.topicName=savedTopic.topicName;
         topic.pages=new ArrayList<>();
@@ -154,10 +173,30 @@ public class Converter {
         for(course.Topic each : chapter.topics){
             savableChapter.topics.add(convertToSavableTopic(each));
         }
+
+        String filePath=chapter.media.getSource();
+
+        File file=new File(filePath.split(":")[1]);
+        String[] strings=(file.getName().split("\\."));
+        savableChapter.fileName=strings[0];
+        savableChapter.fileType=strings[1];
+        savableChapter.chapterVideo=new byte[(int)file.length()];
+        try{
+            FileInputStream fis=new FileInputStream(file);
+            ByteArrayOutputStream baos=new ByteArrayOutputStream();
+            byte[]buf = new byte[1024];
+            int n;
+            while(-1!=(n=fis.read(buf)))
+                baos.write(buf,0,n);
+            savableChapter.chapterVideo=baos.toByteArray();
+
+        }catch(IOException e) {
+            System.out.println(e.toString());
+        }
         return savableChapter;
     }
 
-    private static Topic convertToSavableTopic(course.Topic topic) {
+    public static Topic convertToSavableTopic(course.Topic topic) {
         Topic savableTopic=new Topic();
         savableTopic.topicName=topic.topicName;
         savableTopic.pages=new ArrayList<>();
