@@ -15,9 +15,11 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -31,8 +33,11 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
+import javafx.scene.text.*;
+import javafx.scene.text.Font;
+import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
@@ -45,15 +50,15 @@ import sample.Controller;
 import sample.PopUp;
 import savedCourse.MediaComponent;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static pageEditing.Element.*;
 
@@ -80,7 +85,15 @@ public class EditPages implements Initializable{
     @FXML
     ListView paneList;
     @FXML
+    TextField scaleBox;
+    @FXML
     ScrollPane pageWindow;
+    @FXML
+    TextField fontSizeBox;
+    @FXML
+    ComboBox fontFamilyBox;
+    @FXML
+    ColorPicker fontColorBox;
     @FXML
     TextField leftAnchorBox;
     @FXML
@@ -97,6 +110,8 @@ public class EditPages implements Initializable{
     Button deleteElementBox;
     @FXML
     Button addTextAreaButton;
+    @FXML
+    MenuButton addPageButton;
 
     static Region topleft;
     static Region topcenter;
@@ -111,13 +126,15 @@ public class EditPages implements Initializable{
 
     private ChangeListener<String> widthListner;
     private ChangeListener<String> heightListner;
+    private AnchorPane currentAnchorPane;
+    private Rectangle pdfrec;
 
     public static void setToFront(Node n){
         try {
             n.toFront();
             if (n.getClass() == TextField.class)
                 n.getParent().toFront();
-            while (n.getParent().getClass() != AnchorPane.class) {
+            while (n.getParent().getClass() != Layout.class) {
                 n.toFront();
                 n = n.getParent();
             }
@@ -140,8 +157,8 @@ public class EditPages implements Initializable{
 
         });
         n.setOnMouseDragged(e->{
-            double offsetX=e.getSceneX()- EditPages.orgSceneX;
-            double offsetY=e.getSceneY()- EditPages.orgSceneY;
+            double offsetX=(e.getSceneX()- EditPages.orgSceneX);
+            double offsetY=(e.getSceneY()- EditPages.orgSceneY);
             AnchorPane.setLeftAnchor((Node) e.getSource(),EditPages.orgLeftAnchor+offsetX);
             AnchorPane.setTopAnchor((Node) e.getSource(),EditPages.orgTopAnchor+offsetY);
             selectePaneChanged.setValue(true);
@@ -277,7 +294,6 @@ public class EditPages implements Initializable{
         });
         return region;
     }
-    public Rectangle rec= new Rectangle(0,0,100,200);
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //<editor-fold desc="selectedPane Changed Listner">
@@ -305,8 +321,24 @@ public class EditPages implements Initializable{
         try {
             display(0);
         }catch (Exception e){
-            pageWindow.setContent(new Text("no page to display"));
+            display(-1);
         }
+        //<editor-fold desc="adding layouts">
+        Field[] fields=Layout.class.getDeclaredFields();
+        for(Field f : fields){
+            if(Modifier.isStatic(f.getModifiers()) && f.getName().matches("[A-Z_]*")){
+                MenuItem menuItem = new MenuItem(f.getName());
+                menuItem.setOnAction(event -> {
+                    try {
+                        addPage(f.getInt(new Layout()));
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                });
+                addPageButton.getItems().add(menuItem);
+            }
+        }
+        //</editor-fold>
 
         //<editor-fold desc="left property listeners (only read double of integer numbers)">
         //property box can only take numeric input
@@ -372,6 +404,18 @@ public class EditPages implements Initializable{
                 }
             }
         });
+        fontSizeBox.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.matches("[0-9]+(\\.[0-9]+)?")){
+                if (oldValue.matches("[0-9]+(\\.[0-9]+)?")) {
+                    topAnchorBox.setText(oldValue);
+                } else {
+                    topAnchorBox.setText("0");
+                }
+            }
+            else {
+                topAnchorBox.setText(newValue);
+            }
+        });
 
         //set Action on loose focus
         final ActionEvent actionEvent=new ActionEvent();
@@ -393,6 +437,11 @@ public class EditPages implements Initializable{
         heightBox.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if(oldValue==true && newValue==false){
                 heightBox.fireEvent(actionEvent);
+            }
+        });
+        fontSizeBox.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if(oldValue==true && newValue==false){
+                fontSizeBox.fireEvent(actionEvent);
             }
         });
         //</editor-fold>
@@ -426,30 +475,18 @@ public class EditPages implements Initializable{
             }
         });
         //</editor-fold>
-        topleft=getNewRegion();
         bottomright=getNewRegion();
-        /*try{
-            enableMovable(topleft);
-            enableMovable(topcenter);
-            enableMovable(topright);
-            enableMovable(left);
-            enableMovable(right);
-            enableMovable(bottomleft);
-            enableMovable(bottomcenter);
-            enableMovable(bottomright);
 
-        }catch (Exception e){
-            e.printStackTrace();
-        }*/
+        //<editor-fold desc="adding font-families">
+        java.util.List<String> fontFamilies=Font.getFamilies();
+        fontFamilyBox.getItems().addAll(fontFamilies);
+        //</editor-fold>
     }
 
     public void addPage() {
         if (checkifpdf == 1) {
             for (int i = 1; i < (document.getNumberOfPages()); i++) {
-                AnchorPane anchorPane = new AnchorPane();
-                anchorPane.setPrefWidth(1024);
-                anchorPane.setPrefHeight(768);
-                anchorPane.setStyle("-fx-background-color: green");
+                AnchorPane anchorPane = new Layout();
                 pages.add(anchorPane);
                 Button button = getIndexButton(pages.size() - 1);
                 pageList.getItems().add(button);
@@ -458,16 +495,10 @@ public class EditPages implements Initializable{
 
 
                 //ImageView image=showpdf1(i);
-                StackPane stackPane= getImageBox(showpdf1(i));
-                //ImageView imageView=(ImageView) image;
-               // stackPane.getChildren().add(image);
+                StackPane stackPane= getImageBox(showpdf1(i),pdfrec);
 
-               // ((ImageView)stackPane.getChildren().get(0)).setFitHeight(rec.getHeight());
-                //((ImageView)stackPane.getChildren().get(0)).setFitWidth(rec.getWidth());
-                AnchorPane.setLeftAnchor(stackPane,rec.getX());
-                AnchorPane.setTopAnchor(stackPane,rec.getY());
 
-                ((AnchorPane)pageWindow.getContent()).getChildren().add(stackPane);
+                currentAnchorPane.getChildren().add(stackPane);
                 setSelectedPane(stackPane);
 
 
@@ -475,18 +506,19 @@ public class EditPages implements Initializable{
             checkifpdf=0;
         }
         else {
-            AnchorPane anchorPane = new AnchorPane();
-            anchorPane.setPrefWidth(1024);
-            anchorPane.setPrefHeight(768);
-            anchorPane.setStyle("-fx-background-color: green");
-            pages.add(anchorPane);
-
-            Button button = getIndexButton(pages.size() - 1);
-            pageList.getItems().add(button);
-            pageList.getSelectionModel().clearSelection();
-            pageList.getSelectionModel().select(button);
-            display(pages.size() - 1);
+            addPage(Layout.BASIC);
         }
+    }
+
+    public void addPage(int idx){
+        AnchorPane anchorPane = new Layout(idx);
+        pages.add(anchorPane);
+
+        Button button = getIndexButton(pages.size() - 1);
+        pageList.getItems().add(button);
+        pageList.getSelectionModel().clearSelection();
+        pageList.getSelectionModel().select(button);
+        display(pages.size() - 1);
     }
 
     private Button getIndexButton(Integer idx){
@@ -507,9 +539,30 @@ public class EditPages implements Initializable{
         }
         if(idx==-1){
             pageWindow.setContent(null);
+            currentAnchorPane=null;
         }
         else {
-            pageWindow.setContent(pages.get(idx));
+            System.out.println("display "+idx);
+            Group zoomGroup=new Group(pages.get(idx));
+            scaleBox.setOnAction(event -> {
+                System.out.println("scaleBoxAction"+ scaleBox.getText());
+                if(scaleBox.getText().equals("")){
+                    System.out.print("empty"+scaleBox.getText());
+                    scaleBox.setText("100");
+                    scaleBox.fireEvent(new ActionEvent());
+                }
+                else{
+                    Scale scale=new Scale();
+                    scale.setPivotX(0);
+                    scale.setPivotY(0);
+                    scale.setX(Double.parseDouble(scaleBox.getText())/100.0);
+                    scale.setY(Double.parseDouble(scaleBox.getText())/100.0);
+                    zoomGroup.getTransforms().clear();
+                    zoomGroup.getTransforms().add(scale);
+                }
+            });
+            Group contentGroup=new Group(zoomGroup);
+            pageWindow.setContent(contentGroup);
         }
     }
 
@@ -528,13 +581,9 @@ public class EditPages implements Initializable{
     }
     @FXML public void addTextField(Rectangle rec){
 
-        StackPane box=getTextBox();
-        ((TextArea)box.getChildren().get(0)).setPrefWidth(rec.getWidth());
-        ((TextArea)box.getChildren().get(0)).setPrefHeight(rec.getHeight());
-        AnchorPane.setLeftAnchor(box,rec.getX());
-        AnchorPane.setTopAnchor(box,rec.getY());
+        StackPane box=getTextBox(rec);
 
-        ((AnchorPane)pageWindow.getContent()).getChildren().add(box);
+        currentAnchorPane.getChildren().add(box);
         setSelectedPane(box);
     }
 
@@ -543,13 +592,9 @@ public class EditPages implements Initializable{
     }
     @FXML public void addTitleField(Rectangle rec){
 
-        StackPane box=getTitleBox();
-        ((TextField)box.getChildren().get(0)).setPrefWidth(rec.getWidth());
-        ((TextField)box.getChildren().get(0)).setPrefHeight(rec.getHeight());
-        AnchorPane.setLeftAnchor(box,rec.getX());
-        AnchorPane.setTopAnchor(box,rec.getY());
+        StackPane box=getTitleBox(rec);
 
-        ((AnchorPane)pageWindow.getContent()).getChildren().add(box);
+        currentAnchorPane.getChildren().add(box);
         setSelectedPane(box);
     }
 
@@ -561,13 +606,9 @@ public class EditPages implements Initializable{
         chooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("Image","png","jpg","ico"));
         File file = chooser.showOpenDialog(pageWindow.getScene().getWindow());
         if(file!=null) {
-            StackPane stackPane = getImageBox(new Image(file.toURI().toString()));
-            ((ImageView)stackPane.getChildren().get(0)).setFitHeight(rec.getWidth());
-            ((ImageView)stackPane.getChildren().get(0)).setFitHeight(rec.getHeight());
+            StackPane stackPane = getImageBox(new Image(file.toURI().toString()),rec);
 
-            AnchorPane.setLeftAnchor(stackPane,rec.getX());
-            AnchorPane.setTopAnchor(stackPane,rec.getY());
-            ((AnchorPane)pageWindow.getContent()).getChildren().add(stackPane);
+            currentAnchorPane.getChildren().add(stackPane);
             setSelectedPane(stackPane);
         }
     }
@@ -579,41 +620,32 @@ public class EditPages implements Initializable{
         FileChooser chooser = new FileChooser();
         File file = chooser.showOpenDialog(pageWindow.getScene().getWindow());
         if (file != null) {
-            StackPane stackPane = getVideoBox(new Media(file.toURI().toString()));
+            StackPane stackPane = getVideoBox(new Media(file.toURI().toString()),rec);
 
-            ((MediaView)stackPane.getChildren().get(0)).setFitHeight(rec.getHeight());
-            ((MediaView)stackPane.getChildren().get(0)).setFitWidth(rec.getWidth());
-
-            AnchorPane.setLeftAnchor(stackPane,rec.getX());
-            AnchorPane.setTopAnchor(stackPane,rec.getY());
-            ((AnchorPane)pageWindow.getContent()).getChildren().add(stackPane);
+            currentAnchorPane.getChildren().add(stackPane);
             setSelectedPane(stackPane);
         }
     }
 
     @FXML public void addPdfViewer(){
-        addPdfViewer(new Rectangle(0.0,0.0,100.0,200.0));
+        addPdfViewer(new Rectangle(0.0,0.0,0.0,0.0));
     }
     @FXML public void addPdfViewer(Rectangle rec) {
         checkifpdf=1;
-//        ImageView image=showpdf(0);
-//        System.out.println(image);
-
-        StackPane stackPane= getImageBox(showpdf(0));
-        //ImageView imageView=(ImageView) image;
-//        stackPane.getChildren().add(image);
-
+        Image pdf=showpdf(0);
+        if(rec.getWidth()==0.0){
+            rec.setWidth(pdf.getWidth());
+            rec.setHeight(pdf.getHeight());
+        }
+        StackPane stackPane= getImageBox(pdf,rec);
         //((ImageView)stackPane.getChildren().get(0)).setFitHeight(rec.getHeight());
         //((ImageView)stackPane.getChildren().get(0)).setFitWidth(rec.getWidth());
 
-        AnchorPane.setLeftAnchor(stackPane,rec.getX());
-        AnchorPane.setTopAnchor(stackPane,rec.getY());
-        ((AnchorPane)pageWindow.getContent()).getChildren().add(stackPane);
+        currentAnchorPane.getChildren().add(stackPane);
         setSelectedPane(stackPane);
         addPage();
     }
 //</editor-fold>
-
 
     public Document getDocument(){
         //playarea.contentProperty().unbind();
@@ -645,7 +677,7 @@ public class EditPages implements Initializable{
             }
             else{
                 bufferedImage=new BufferedImage(image1.getWidth(null),image1.getHeight(null),BufferedImage.TYPE_INT_ARGB);
-                Graphics2D bGr=bufferedImage.createGraphics();
+                java.awt.Graphics2D bGr=bufferedImage.createGraphics();
                 bGr.drawImage(bufferedImage,0,0,null);
                 bGr.dispose();
             }
@@ -660,7 +692,6 @@ public class EditPages implements Initializable{
 
 
     }
-
     public  Image showpdf1(Integer page) {
         try {
 
@@ -677,7 +708,7 @@ public class EditPages implements Initializable{
             }
             else{
                 bufferedImage=new BufferedImage(image1.getWidth(null),image1.getHeight(null),BufferedImage.TYPE_INT_ARGB);
-                Graphics2D bGr=bufferedImage.createGraphics();
+                java.awt.Graphics2D bGr=bufferedImage.createGraphics();
                 bGr.drawImage(bufferedImage,0,0,null);
                 bGr.dispose();
             }
@@ -704,7 +735,6 @@ public class EditPages implements Initializable{
         }
         selectePaneChanged.setValue(true);
     }
-
     private void regionstoSelectedPane(){
         if(bottomright.getParent()!=null) {
             ((AnchorPane) bottomright.getParent()).getChildren().removeAll(bottomright);
@@ -748,7 +778,6 @@ public class EditPages implements Initializable{
             ((AnchorPane)selectedPane.getParent()).getChildren().addAll(bottomright);
         }
     }
-
     private void bindPropertiesToSelectedPane() throws InterruptedException {
 
         if(selectedPane==null){
@@ -803,6 +832,32 @@ public class EditPages implements Initializable{
                 textField.setMaxHeight(Double.parseDouble(heightBox.getText()));
                 textField.setMinHeight(Double.parseDouble(heightBox.getText()));
             });
+
+            fontSizeBox.setText(String.valueOf(textField.getFont().getSize()));
+            fontSizeBox.setOnAction(event -> {
+                if(fontSizeBox.getText().equals("")){
+                    fontSizeBox.setText(String.valueOf(textField.getFont().getSize()));
+                }
+                else {
+                    textField.setFont(javafx.scene.text.Font.font(
+                            textField.getFont().getFamily(),
+                            Double.parseDouble(fontSizeBox.getText())
+                    ));
+                }
+            });
+
+            if(fontFamilyBox.getItems().contains(textField.getFont().getFamily())) {
+                fontFamilyBox.getSelectionModel().select(textField.getFont().getFamily());
+            }
+            else{
+                fontFamilyBox.getSelectionModel().clearSelection();
+            }
+            fontFamilyBox.setOnAction(event -> {
+                textField.setFont(javafx.scene.text.Font.font(
+                        (String) fontFamilyBox.getSelectionModel().getSelectedItem(),
+                        textField.getFont().getSize()
+                ));
+            });
             //</editor-fold>
         }
         else if(child.getClass()==TextArea.class){
@@ -821,6 +876,30 @@ public class EditPages implements Initializable{
                 textArea.setMinWidth(Double.parseDouble(widthBox.getText()));
                 textArea.setMaxHeight(Double.parseDouble(heightBox.getText()));
                 textArea.setMinHeight(Double.parseDouble(heightBox.getText()));
+            });
+            fontSizeBox.setText(String.valueOf(textArea.getFont().getSize()));
+            fontSizeBox.setOnAction(event -> {
+                if(fontSizeBox.getText().equals("")){
+                    fontSizeBox.setText(String.valueOf(textArea.getFont().getSize()));
+                }
+                else {
+                    textArea.setFont(javafx.scene.text.Font.font(
+                            textArea.getFont().getFamily(),
+                            Double.parseDouble(fontSizeBox.getText())
+                    ));
+                }
+            });
+            if(fontFamilyBox.getItems().contains(textArea.getFont().getFamily())) {
+                fontFamilyBox.getSelectionModel().select(textArea.getFont().getFamily());
+            }
+            else{
+                fontFamilyBox.getSelectionModel().clearSelection();
+            }
+            fontFamilyBox.setOnAction(event -> {
+                textArea.setFont(javafx.scene.text.Font.font(
+                        (String) fontFamilyBox.getSelectionModel().getSelectedItem(),
+                        textArea.getFont().getSize()
+                ));
             });
             //</editor-fold>
         }
@@ -857,6 +936,9 @@ public class EditPages implements Initializable{
     }
 
     public void tempFunction(){
+        fontColorBox.setOnAction(event -> {
+            System.out.println(fontColorBox.getValue());
+        });
         System.out.println(pages);
     }
 }

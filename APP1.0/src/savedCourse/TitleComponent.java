@@ -1,5 +1,7 @@
 package savedCourse;
 
+import javafx.scene.paint.Color;
+
 import java.io.Serializable;
 
 /**
@@ -8,5 +10,10 @@ import java.io.Serializable;
 public class TitleComponent extends PageComponent implements Serializable {
 
     public String text;
-    public String style;
+    public String family;
+    public double size;
+    public int red;
+    public int green;
+    public int blue;
+    public int opacity;
 }

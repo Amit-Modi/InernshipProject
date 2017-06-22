@@ -24,7 +24,7 @@
                                  <content>
                                     <HBox>
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#addPage" text="Add New Page" />
+                                          <SplitMenuButton fx:id="addPageButton" mnemonicParsing="false" onAction="#addPage" text="Add New Page" />
                                           <Button mnemonicParsing="false" onAction="#deletePage" text="Remove Page" />
                                        </children>
                                     </HBox>
@@ -45,7 +45,19 @@
                                     <Insets bottom="5.0" left="5.0" right="6.0" top="5.0" />
                                  </opaqueInsets>
                               </TitledPane>
-                              <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" text="Temp">
+                              <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" text="Scale page">
+                                 <content>
+                                    <HBox>
+                                       <children>
+                                          <TextField fx:id="scaleBox" />
+                                       </children>
+                                    </HBox>
+                                 </content>
+                                 <opaqueInsets>
+                                    <Insets bottom="5.0" left="5.0" right="6.0" top="5.0" />
+                                 </opaqueInsets>
+                              </TitledPane>
+                              <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" layoutX="394.0" layoutY="10.0" text="Temp">
                                  <content>
                                     <HBox>
                                        <children>
@@ -290,10 +302,10 @@
                                                                   <children>
                                                                      <Label text="Font" />
                                                                      <Label text="Size" GridPane.rowIndex="1" />
-                                                                     <TextField text="0" GridPane.columnIndex="1" />
-                                                                     <TextField text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                                     <ComboBox fx:id="fontFamilyBox"  GridPane.columnIndex="1" />
+                                                                     <TextField fx:id="fontSizeBox" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                                   <Label layoutX="10.0" layoutY="48.0" text="Color" GridPane.rowIndex="2" />
-                                                                  <ColorPicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                                  <ColorPicker fx:id="fontColorBox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                                   </children>
                                                                </GridPane>
                                                             </children>

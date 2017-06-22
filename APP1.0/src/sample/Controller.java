@@ -108,8 +108,6 @@ public class Controller implements Initializable{
     @FXML
     ScrollPane scrollLeftMenu;
     @FXML
-    Group zoomGroup;
-    @FXML
     ListView<MenuButton> leftMenu;
     @FXML
     BorderPane totalContainer;
@@ -231,7 +229,11 @@ public class Controller implements Initializable{
             }
         }
         try{
-            playarea.setContent(Main.course.chapters.get(0).topics.get(0).pages.get(0));
+            Group zoomGroup=new Group();
+            zoomGroup.getChildren().add(Main.course.chapters.get(0).topics.get(0).pages.get(0));
+            Group contentGroup=new Group();
+            contentGroup.getChildren().add(zoomGroup);
+            playarea.setContent(contentGroup);
         }catch (Exception e){}
     }
 
@@ -498,10 +500,18 @@ public class Controller implements Initializable{
             if(value<0 || value>=Main.currentTopic.pages.size()){
                 StackPane stackPane=new StackPane(new Text("No pages to display"));
                 stackPane.setPrefSize(1024,768);
-                playarea.setContent(stackPane);
+                Group zoomGroup=new Group();
+                zoomGroup.getChildren().add(stackPane);
+                Group contentGroup=new Group();
+                contentGroup.getChildren().add(zoomGroup);
+                playarea.setContent(contentGroup);
             }
             else {
-                playarea.setContent(Main.currentTopic.pages.get(value));
+                Group zoomGroup=new Group();
+                zoomGroup.getChildren().add(Main.currentTopic.pages.get(value));
+                Group contentGroup=new Group();
+                contentGroup.getChildren().add(zoomGroup);
+                playarea.setContent(contentGroup);
             }
             Main.currentPage=value;
         }catch (Exception e){
@@ -596,8 +606,8 @@ public class Controller implements Initializable{
     }
 
     private Document getDocument(String string){
-        playarea.contentProperty().unbind();
-        playarea.contentProperty().bind(image);
+        //playarea.contentProperty().unbind();
+        //playarea.contentProperty().bind(image);
         org.icepdf.core.pobjects.Document document = new Document();
         try {
             File file = new File(string);

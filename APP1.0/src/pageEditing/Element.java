@@ -16,6 +16,7 @@ import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.util.Duration;
@@ -48,14 +49,19 @@ public class Element {
         return stackPane;
     }
 
-    public static StackPane getTextBox(){
+    public static StackPane getTextBox(Rectangle rec){
         TextArea textArea = new TextArea();
-        textArea.setStyle("-fx-background-color: transparent");
+        textArea.setStyle("-fx-background-color: transparent; ");
         StackPane.setMargin(textArea,margin);
         textArea=enableEdit(textArea);
 
         StackPane container=getContainer();
         container.getChildren().add(textArea);
+
+        textArea.setPrefWidth(rec.getWidth());
+        textArea.setPrefHeight(rec.getHeight());
+        AnchorPane.setLeftAnchor(container,rec.getX());
+        AnchorPane.setTopAnchor(container,rec.getY());
         return container;
     }
     public static TextArea enableEdit(TextArea textArea){
@@ -81,7 +87,7 @@ public class Element {
         return textArea;
     }
 
-    public static StackPane getTitleBox(){
+    public static StackPane getTitleBox(Rectangle rec){
         TextField box = new TextField();
         StackPane.setMargin(box,margin);
         box.setStyle("-fx-background-color: transparent");
@@ -89,6 +95,11 @@ public class Element {
 
         StackPane container=getContainer();
         container.getChildren().add(box);
+
+        box.setPrefWidth(rec.getWidth());
+        box.setPrefHeight(rec.getHeight());
+        AnchorPane.setLeftAnchor(container,rec.getX());
+        AnchorPane.setTopAnchor(container,rec.getY());
         return container;
     }
     public static TextField enableEdit(TextField textField){
@@ -115,7 +126,7 @@ public class Element {
     }
 
 
-    public static StackPane getImageBox(Image image){
+    public static StackPane getImageBox(Image image,Rectangle rec){
 
         ImageView box = new ImageView(image);
         StackPane.setMargin(box,margin);
@@ -123,10 +134,16 @@ public class Element {
 
         StackPane container=getContainer();
         container.getChildren().add(box);
+
+        box.setFitHeight(rec.getWidth());
+        box.setFitHeight(rec.getHeight());
+
+        AnchorPane.setLeftAnchor(container,rec.getX());
+        AnchorPane.setTopAnchor(container,rec.getY());
         return container;
     }
 
-    public static StackPane getVideoBox(Media media){
+    public static StackPane getVideoBox(Media media,Rectangle rec){
         StackPane container=getContainer();
         MediaPlayer mediaPlayer=new MediaPlayer(media);
         MediaView box = new MediaView(mediaPlayer);
@@ -257,6 +274,12 @@ public class Element {
 
         container.getChildren().addAll(box,vBox);
         vBox.setVisible(false);
+
+        box.setFitHeight(rec.getWidth());
+        box.setFitHeight(rec.getHeight());
+
+        AnchorPane.setLeftAnchor(container,rec.getX());
+        AnchorPane.setTopAnchor(container,rec.getY());
         return container;
     }
 
@@ -341,12 +364,6 @@ public class Element {
                         elapsedSeconds);
             }
         }
-    }
-
-    public static StackPane getPdfBox(){
-        StackPane container=getContainer();
-
-        return container;
     }
 
     public static StackPane getBrowser(File filePath){

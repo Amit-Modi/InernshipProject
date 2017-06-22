@@ -11,6 +11,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import pageEditing.Element;
 import sample.PopUp;
 
@@ -89,24 +92,29 @@ public class Converter {
     private static Node convertToNode(PageComponent each) {
         if(each.getClass()==TextComponent.class){
             TextComponent textComponent=(TextComponent) each;
-            StackPane textBox= Element.getTextBox();
+            Rectangle rec=new Rectangle();
+            rec.setX(textComponent.x);
+            rec.setY(textComponent.y);
+            rec.setWidth(textComponent.width);
+            rec.setHeight(textComponent.height);
+            StackPane textBox= Element.getTextBox(rec);
             ((TextArea)textBox.getChildren().get(0)).setText(textComponent.text);
-            ((TextArea)textBox.getChildren().get(0)).setStyle(textComponent.style);
-            ((TextArea)textBox.getChildren().get(0)).setMaxSize(textComponent.width,textComponent.height);
-            ((TextArea)textBox.getChildren().get(0)).setMinSize(textComponent.width,textComponent.height);
-            AnchorPane.setLeftAnchor(textBox,textComponent.x);
-            AnchorPane.setTopAnchor(textBox,textComponent.y);
+            Font font=Font.font(textComponent.family,textComponent.size);
+            ((TextArea)textBox.getChildren().get(0)).setFont(font);
+
             return textBox;
         }
         else if(each.getClass()== TitleComponent.class){
             TitleComponent titleComponent=(TitleComponent)each;
-            StackPane titleBox= Element.getTitleBox();
+            Rectangle rec=new Rectangle();
+            rec.setX(titleComponent.x);
+            rec.setY(titleComponent.y);
+            rec.setWidth(titleComponent.width);
+            rec.setHeight(titleComponent.height);
+            StackPane titleBox= Element.getTitleBox(rec);
             ((TextField)titleBox.getChildren().get(0)).setText(titleComponent.text);
-            ((TextField)titleBox.getChildren().get(0)).setStyle(titleComponent.style);
-            ((TextField)titleBox.getChildren().get(0)).setMaxSize(titleComponent.width,titleComponent.height);
-            ((TextField)titleBox.getChildren().get(0)).setMinSize(titleComponent.width,titleComponent.height);
-            AnchorPane.setLeftAnchor(titleBox,titleComponent.x);
-            AnchorPane.setTopAnchor(titleBox,titleComponent.y);
+            Font font=Font.font(titleComponent.family,titleComponent.size);
+            ((TextField)titleBox.getChildren().get(0)).setFont(font);
             return titleBox;
         }
         else if(each.getClass()==ImageComponent.class){
@@ -116,11 +124,12 @@ public class Converter {
             try {
                 BufferedImage bufferedImage = ImageIO.read(s);
                 Image image=SwingFXUtils.toFXImage(bufferedImage,null);
-                StackPane imageBox= Element.getImageBox(image);
-                ((ImageView)imageBox.getChildren().get(0)).setFitWidth(imageComponent.width);
-                ((ImageView)imageBox.getChildren().get(0)).setFitHeight(imageComponent.height);
-                AnchorPane.setLeftAnchor(imageBox,imageComponent.x);
-                AnchorPane.setTopAnchor(imageBox,imageComponent.y);
+                Rectangle rec=new Rectangle();
+                rec.setX(imageComponent.x);
+                rec.setY(imageComponent.y);
+                rec.setWidth(imageComponent.width);
+                rec.setHeight(imageComponent.height);
+                StackPane imageBox= Element.getImageBox(image,rec);
                 return imageBox;
 
             }catch (Exception e){
@@ -142,12 +151,12 @@ public class Converter {
                 s.close();
                 fos.close();
                 Media media=new Media(file.toURI().toString());
-                StackPane mediaBox=Element.getVideoBox(media);
-                ((MediaView)mediaBox.getChildren().get(0)).setFitWidth(mediaComponent.width);
-                ((MediaView)mediaBox.getChildren().get(0)).setFitHeight(mediaComponent.height);
-                AnchorPane.setLeftAnchor(mediaBox,mediaComponent.x);
-                AnchorPane.setTopAnchor(mediaBox,mediaComponent.y);
-
+                Rectangle rec=new Rectangle();
+                rec.setX(mediaComponent.x);
+                rec.setY(mediaComponent.y);
+                rec.setWidth(mediaComponent.width);
+                rec.setHeight(mediaComponent.height);
+                StackPane mediaBox=Element.getVideoBox(media,rec);
                 return mediaBox;
             }catch (Exception e){
                 System.out.println("Error occurred while reading an video\n"+e);
@@ -225,7 +234,8 @@ public class Converter {
         if(component.getClass()==TextArea.class){
             TextArea textArea= (TextArea) component;
             TextComponent textComponent=new TextComponent();
-            textComponent.style=textArea.getStyle();
+            textComponent.family=textArea.getFont().getFamily();
+            textComponent.size=textArea.getFont().getSize();
             textComponent.text=textArea.getText();
             textComponent.width=textArea.getWidth();
             textComponent.height=textArea.getHeight();
@@ -236,7 +246,8 @@ public class Converter {
         else if(component.getClass()==TextField.class){
             TextField textField= (TextField) component;
             TitleComponent titleComponent=new TitleComponent();
-            titleComponent.style=textField.getStyle();
+            titleComponent.family=textField.getFont().getFamily();
+            titleComponent.size=textField.getFont().getSize();
             titleComponent.text=textField.getText();
             titleComponent.width=textField.getWidth();
             titleComponent.height=textField.getHeight();
