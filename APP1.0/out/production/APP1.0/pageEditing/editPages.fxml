@@ -111,7 +111,7 @@
                                     <HBox>
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#addVideoPlayer" text="Video" />
-                                          <Button layoutX="20.0" layoutY="20.0" mnemonicParsing="false" text="Audio" />
+                                          <Button mnemonicParsing="false" onAction="#addAudioPlayer" text="Audio" />
                                        </children>
                                     </HBox>
                                  </content>

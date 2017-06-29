@@ -173,7 +173,6 @@ public class EditPages implements Initializable{
             ((Node)e.getSource()).setCursor(Cursor.OPEN_HAND);
         });
     }
-
     public static void disableMovable(Node n){
         n.setOnMousePressed(anyEvent->{        });
         n.setOnMouseDragged(anyEvent->{        });
@@ -189,7 +188,6 @@ public class EditPages implements Initializable{
         }
         return pages;
     }
-
     public static ArrayList<AnchorPane> makePagesUneditable(ArrayList<AnchorPane> pages){
 //        ((AnchorPane) bottomright.getParent()).getChildren().removeAll(bottomright);
         for(AnchorPane each : pages){
@@ -202,6 +200,7 @@ public class EditPages implements Initializable{
         for(Node each : page.getChildren()){
             Node node= ((StackPane) each).getChildren().get(0);
             enableMovable(each);
+            each.setStyle("-fx-background-color: transparent;-fx-border-width: 1px");
             //System.out.println(each+" "+node);
             if(node.getClass()==TextField.class){
                 //System.out.println("making textfield editable");
@@ -215,7 +214,6 @@ public class EditPages implements Initializable{
         }
         return page;
     }
-
     private static AnchorPane makePageUneditable(AnchorPane page){
         for(Node each : page.getChildren()){
             if(each.getClass()==StackPane.class) {
@@ -243,14 +241,12 @@ public class EditPages implements Initializable{
         }
         topic.pages.clear();
     }
-
     public static void removeAllContents(AnchorPane page){
         for(Node each :page.getChildren()){
             removeContent(each);
         }
         page.getChildren().clear();
     }
-
     public static void removeContent(Node node){
         Node content=((StackPane)node).getChildren().get(0);
         if(content.getClass()==TextField.class || content.getClass()==TextArea.class){
@@ -271,6 +267,15 @@ public class EditPages implements Initializable{
             ((AnchorPane) selectedPane.getParent()).getChildren().remove(selectedPane);
             selectedPane = null;
         }
+    }
+    public void deletePage(){
+        display(-1);
+        ArrayList<AnchorPane> tmp=new ArrayList<>();
+        for(Integer each : (ObservableList<Integer>)pageList.getSelectionModel().getSelectedIndices()){
+            tmp.add(pages.get(each));
+        }
+        pages.removeAll(tmp);
+        pageList.getItems().removeAll(pageList.getSelectionModel().getSelectedItems());
     }
 
     public Region getNewRegion(){
@@ -561,10 +566,11 @@ public class EditPages implements Initializable{
             currentAnchorPane=null;
         }
         else {
-            System.out.println("display "+idx);
-            Group zoomGroup=new Group(pages.get(idx));
+//            System.out.println("display "+idx);
+            currentAnchorPane= pages.get(idx);
+            Group zoomGroup=new Group(currentAnchorPane);
             scaleBox.setOnAction(event -> {
-                System.out.println("scaleBoxAction"+ scaleBox.getText());
+//                System.out.println("scaleBoxAction"+ scaleBox.getText());
                 if(scaleBox.getText().equals("")){
                     System.out.print("empty"+scaleBox.getText());
                     scaleBox.setText("100");
@@ -585,14 +591,6 @@ public class EditPages implements Initializable{
         }
     }
 
-    public void deletePage(){
-        ArrayList<AnchorPane> tmp=new ArrayList<>();
-        for(Integer each : (ObservableList<Integer>)pageList.getSelectionModel().getSelectedIndices()){
-            tmp.add(pages.get(each));
-        }
-        pages.removeAll(tmp);
-        pageList.getItems().removeAll(pageList.getSelectionModel().getSelectedItems());
-    }
 
 //<editor-fold desc="Adding Components">
     @FXML public void addTextField(){
@@ -640,6 +638,21 @@ public class EditPages implements Initializable{
         File file = chooser.showOpenDialog(pageWindow.getScene().getWindow());
         if (file != null) {
             StackPane stackPane = getVideoBox(new Media(file.toURI().toString()),rec);
+
+            currentAnchorPane.getChildren().add(stackPane);
+            setSelectedPane(stackPane);
+        }
+    }
+
+    @FXML public void addAudioPlayer(){
+        addAudioPlayer(new Rectangle(0.0,0.0,400.0,40.0));
+    }
+    @FXML public void addAudioPlayer(Rectangle rec){
+        FileChooser chooser = new FileChooser();
+        chooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("Audio File","mp3","wav"));
+        File file = chooser.showOpenDialog(pageWindow.getScene().getWindow());
+        if (file != null) {
+            StackPane stackPane = getAudioBox(new Media(file.toURI().toString()),rec);
 
             currentAnchorPane.getChildren().add(stackPane);
             setSelectedPane(stackPane);
@@ -869,22 +882,7 @@ public class EditPages implements Initializable{
             ((AnchorPane) bottomright.getParent()).getChildren().removeAll(bottomright);
         }
         if(selectedPane!=null){
-            //AnchorPane.setTopAnchor(topleft,AnchorPane.getTopAnchor(selectedPane));
-            //AnchorPane.setLeftAnchor(topleft,AnchorPane.getLeftAnchor(selectedPane));
-            //<editor-fold desc="repeat for all regions">
-            /*AnchorPane.setTopAnchor(topcenter,AnchorPane.getTopAnchor(selectedPane)+1);
-            AnchorPane.setLeftAnchor(topcenter,AnchorPane.getLeftAnchor(selectedPane)+1);
-            AnchorPane.setTopAnchor(topright,AnchorPane.getTopAnchor(selectedPane)+1);
-            AnchorPane.setLeftAnchor(topright,AnchorPane.getLeftAnchor(selectedPane)+1);
-            AnchorPane.setTopAnchor(left,AnchorPane.getTopAnchor(selectedPane)+1);
-            AnchorPane.setLeftAnchor(left,AnchorPane.getLeftAnchor(selectedPane)+1);
-            AnchorPane.setTopAnchor(right,AnchorPane.getTopAnchor(selectedPane)+1);
-            AnchorPane.setLeftAnchor(right,AnchorPane.getLeftAnchor(selectedPane)+1);
-            AnchorPane.setTopAnchor(bottomleft,AnchorPane.getTopAnchor(selectedPane)+1);
-            AnchorPane.setLeftAnchor(bottomleft,AnchorPane.getLeftAnchor(selectedPane)+1);
-            AnchorPane.setTopAnchor(bottomcenter,AnchorPane.getTopAnchor(selectedPane)+1);
-            AnchorPane.setLeftAnchor(bottomcenter,AnchorPane.getLeftAnchor(selectedPane)+1);
-            */AnchorPane.setTopAnchor(bottomright,AnchorPane.getTopAnchor(selectedPane));
+            AnchorPane.setTopAnchor(bottomright,AnchorPane.getTopAnchor(selectedPane));
             AnchorPane.setLeftAnchor(bottomright,AnchorPane.getLeftAnchor(selectedPane));
             //</editor-fold>
 
@@ -1041,6 +1039,7 @@ public class EditPages implements Initializable{
         else if(child.getClass()==ImageView.class){
             //<editor-fold>
             ImageView imageView= (ImageView) selectedPane.getChildren().get(0);
+            System.out.println(" image "+imageView.getFitWidth()+" "+imageView.getFitHeight());
             widthBox.setText(String.valueOf(imageView.getFitWidth()));
             widthBox.setOnAction(event -> {
                 imageView.setFitWidth(Double.parseDouble(widthBox.getText()));

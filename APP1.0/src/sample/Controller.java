@@ -463,7 +463,6 @@ public class Controller implements Initializable{
         try {
             currentPage.setText("0");
             currentPage.fireEvent(new ActionEvent());
-            //ArrayList<AnchorPane> clonedPages=EditPages.clonePages(topic.pages);
             EditPages.pages = EditPages.makePagesEditable(topic.pages);
             Parent root = FXMLLoader.load(getClass().getResource("../pageEditing/editPages.fxml"));
             Stage newWindow = new Stage();

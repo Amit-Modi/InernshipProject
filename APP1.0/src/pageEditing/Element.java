@@ -143,7 +143,7 @@ public class Element {
         StackPane container=getContainer();
         container.getChildren().add(box);
 
-        box.setFitHeight(rec.getWidth());
+        box.setFitWidth(rec.getWidth());
         box.setFitHeight(rec.getHeight());
 
         AnchorPane.setLeftAnchor(container,rec.getX());
@@ -283,14 +283,13 @@ public class Element {
         container.getChildren().addAll(box,vBox);
         vBox.setVisible(false);
 
-        box.setFitHeight(rec.getWidth());
+        box.setFitWidth(rec.getWidth());
         box.setFitHeight(rec.getHeight());
 
         AnchorPane.setLeftAnchor(container,rec.getX());
         AnchorPane.setTopAnchor(container,rec.getY());
         return container;
     }
-
     private static Button getMediaButton() {
         Button button=new Button();
         button.setMaxHeight(30);
@@ -372,6 +371,14 @@ public class Element {
                         elapsedSeconds);
             }
         }
+    }
+
+    public static StackPane getAudioBox(Media media, Rectangle rec){
+        StackPane container =getVideoBox(media,rec);
+        container.setPadding(new Insets(5));
+        container.getChildren().get(0).setOnMouseMoved(null);
+        container.getChildren().get(1).setVisible(true);
+        return container;
     }
 
     public static StackPane getBrowser(File filePath){
