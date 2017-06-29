@@ -10,11 +10,5 @@ import java.io.Serializable;
 public class TextComponent extends PageComponent implements Serializable {
 
     public String text;
-    public String family;
-    public double size;
-    public int red;
-    public int green;
-    public int blue;
-    public int opacity;
-
+    public String style;
 }

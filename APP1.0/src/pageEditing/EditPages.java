@@ -93,6 +93,8 @@ public class EditPages implements Initializable{
     @FXML
     ComboBox fontFamilyBox;
     @FXML
+    ComboBox textAlignBox;
+    @FXML
     ColorPicker fontColorBox;
     @FXML
     TextField leftAnchorBox;
@@ -407,13 +409,25 @@ public class EditPages implements Initializable{
         fontSizeBox.textProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue.matches("[0-9]+(\\.[0-9]+)?")){
                 if (oldValue.matches("[0-9]+(\\.[0-9]+)?")) {
-                    topAnchorBox.setText(oldValue);
+                    fontSizeBox.setText(oldValue);
                 } else {
-                    topAnchorBox.setText("0");
+                    fontSizeBox.setText("0");
                 }
             }
             else {
-                topAnchorBox.setText(newValue);
+                fontSizeBox.setText(newValue);
+            }
+        });
+        scaleBox.textProperty().addListener((observable,oldValue,newValue) -> {
+            if(!newValue.matches("[0-9]+(\\.[0-9]+)?")){
+                if (oldValue.matches("[0-9]+(\\.[0-9]+)?")) {
+                    scaleBox.setText(oldValue);
+                } else {
+                    scaleBox.setText("100");
+                }
+            }
+            else {
+                scaleBox.setText(newValue);
             }
         });
 
@@ -442,6 +456,11 @@ public class EditPages implements Initializable{
         fontSizeBox.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if(oldValue==true && newValue==false){
                 fontSizeBox.fireEvent(actionEvent);
+            }
+        });
+        scaleBox.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if(oldValue==true && newValue==false){
+                scaleBox.fireEvent(actionEvent);
             }
         });
         //</editor-fold>
@@ -647,6 +666,116 @@ public class EditPages implements Initializable{
     }
 //</editor-fold>
 
+    public void changeTextColor(){
+        if(selectedPane!=null){
+            if(selectedPane.getChildren().get(0).getClass()==TextField.class){
+                TextField textField= (TextField) selectedPane.getChildren().get(0);
+                double red=fontColorBox.getValue().getRed()*255;
+                double green=fontColorBox.getValue().getGreen()*255;
+                double blue=fontColorBox.getValue().getBlue()*255;
+                String style=textField.getStyle();
+                if(style.contains("-fx-text-fill:"))
+                    style=style.replaceFirst("-fx-text-fill:[^;]*;","-fx-text-fill: rgb("+red+","+green+","+blue+");");
+                else
+                    style=style.concat("-fx-text-fill: rgb("+red+","+green+","+blue+");");
+                textField.setStyle(style);
+            }
+            else if(selectedPane.getChildren().get(0).getClass()==TextArea.class){
+                TextArea textArea= (TextArea) selectedPane.getChildren().get(0);
+                double red=fontColorBox.getValue().getRed()*255;
+                double green=fontColorBox.getValue().getGreen()*255;
+                double blue=fontColorBox.getValue().getBlue()*255;
+                String style=textArea.getStyle();
+                if(style.contains("-fx-text-fill:"))
+                    style=style.replaceFirst("-fx-text-fill:[^;]*;","-fx-text-fill: rgb("+red+","+green+","+blue+");");
+                else
+                    style=style.concat("-fx-text-fill: rgb("+red+","+green+","+blue+");");
+                textArea.setStyle(style);
+            }
+        }
+    }
+    public void changeTextSize(){
+        if(selectedPane!=null){
+            if(selectedPane.getChildren().get(0).getClass()==TextField.class){
+                TextField textField= (TextField) selectedPane.getChildren().get(0);
+                String style=textField.getStyle();
+                System.out.println("old: "+style);
+                if(style.contains("-fx-font-size"))
+                    style=style.replaceFirst("-fx-font-size:[^;]*;","-fx-font-size: "+fontSizeBox.getText()+";");
+                else
+                    style=style.concat("-fx-font-size: "+fontSizeBox.getText()+";");
+                System.out.println("new: "+style);
+                textField.setStyle(style);
+            }
+            else if(selectedPane.getChildren().get(0).getClass()==TextArea.class){
+                TextArea textArea= (TextArea) selectedPane.getChildren().get(0);
+                String style=textArea.getStyle();
+                if(style.contains("-fx-font-size"))
+                    style=style.replaceFirst("-fx-font-size:[^;]*;","-fx-font-size: "+fontSizeBox.getText()+";");
+                else
+                    style=style.concat("-fx-font-size: "+fontSizeBox.getText()+";");
+                textArea.setStyle(style);
+            }
+        }
+
+    }
+    public void changeTextFamily(){
+        if(selectedPane!=null){
+            String style2="-fx-font-family: \""+fontFamilyBox.getSelectionModel().getSelectedItem()+"\";";
+            if(selectedPane.getChildren().get(0).getClass()==TextField.class){
+                TextField textField= (TextField) selectedPane.getChildren().get(0);
+                String style=textField.getStyle();
+                System.out.println("old: "+style);
+                if(style.contains("-fx-font-family"))
+                    style=style.replaceFirst("-fx-font-family:[^;]*;",style2);
+                else
+                    style=style.concat(style2);
+                System.out.println("new: "+style);
+                textField.setStyle(style);
+            }
+            else if(selectedPane.getChildren().get(0).getClass()==TextArea.class){
+                TextArea textArea= (TextArea) selectedPane.getChildren().get(0);
+                String style=textArea.getStyle();
+//                String style2="-fx-font-family: "+fontFamilyBox.getSelectionModel().getSelectedItem()+";";
+                System.out.println("old: "+style);
+                if(style.contains("-fx-font-family"))
+                    style=style.replaceFirst("-fx-font-family:[^;]*;",style2);
+                else
+                    style=style.concat(style2);
+                textArea.setStyle(style);
+            }
+        }
+
+    }
+    public void changeTextAlignment(){
+        if(selectedPane!=null){
+            String style2="-fx-text-alignment: "+textAlignBox.getSelectionModel().getSelectedItem()+";";
+            if(selectedPane.getChildren().get(0).getClass()==TextField.class){
+                TextField textField= (TextField) selectedPane.getChildren().get(0);
+                String style=textField.getStyle();
+                System.out.println("old: "+style);
+                if(style.contains("-fx-text-alignment"))
+                    style=style.replaceFirst("-fx-text-alignment:[^;]*;",style2);
+                else
+                    style=style.concat(style2);
+                System.out.println("new: "+style);
+                textField.setStyle(style);
+            }
+            else if(selectedPane.getChildren().get(0).getClass()==TextArea.class){
+                TextArea textArea= (TextArea) selectedPane.getChildren().get(0);
+                String style=textArea.getStyle();
+//                String style2="-fx-font-family: "+fontFamilyBox.getSelectionModel().getSelectedItem()+";";
+                System.out.println("old: "+style);
+                if(style.contains("-fx-text-alignment: "))
+                    style=style.replaceFirst("-fx-text-alignment: [^;]*;",style2);
+                else
+                    style=style.concat(style2);
+                textArea.setStyle(style);
+            }
+        }
+    }
+
+
     public Document getDocument(){
         //playarea.contentProperty().unbind();
         //playarea.contentProperty().bind(image);
@@ -814,6 +943,12 @@ public class EditPages implements Initializable{
         });
 //</editor-fold >
 
+        boolean flag=false;
+        if(aspectRatio.isSelected()){
+            flag=true;
+            aspectRatio.setSelected(false);
+        }
+
         Node child=selectedPane.getChildren().get(0);
         if(child.getClass()==TextField.class){
             //<editor-fold>
@@ -833,31 +968,31 @@ public class EditPages implements Initializable{
                 textField.setMinHeight(Double.parseDouble(heightBox.getText()));
             });
 
-            fontSizeBox.setText(String.valueOf(textField.getFont().getSize()));
-            fontSizeBox.setOnAction(event -> {
-                if(fontSizeBox.getText().equals("")){
-                    fontSizeBox.setText(String.valueOf(textField.getFont().getSize()));
-                }
-                else {
-                    textField.setFont(javafx.scene.text.Font.font(
-                            textField.getFont().getFamily(),
-                            Double.parseDouble(fontSizeBox.getText())
-                    ));
-                }
-            });
+//            fontSizeBox.setText(String.valueOf(textField.getFont().getSize()));
+//            fontSizeBox.setOnAction(event -> {
+//                if(fontSizeBox.getText().equals("")){
+//                    fontSizeBox.setText(String.valueOf(textField.getFont().getSize()));
+//                }
+//                else {
+//                    textField.setFont(javafx.scene.text.Font.font(
+//                            textField.getFont().getFamily(),
+//                            Double.parseDouble(fontSizeBox.getText())
+//                    ));
+//                }
+//            });
 
-            if(fontFamilyBox.getItems().contains(textField.getFont().getFamily())) {
-                fontFamilyBox.getSelectionModel().select(textField.getFont().getFamily());
-            }
-            else{
-                fontFamilyBox.getSelectionModel().clearSelection();
-            }
-            fontFamilyBox.setOnAction(event -> {
-                textField.setFont(javafx.scene.text.Font.font(
-                        (String) fontFamilyBox.getSelectionModel().getSelectedItem(),
-                        textField.getFont().getSize()
-                ));
-            });
+//            if(fontFamilyBox.getItems().contains(textField.getFont().getFamily())) {
+//                fontFamilyBox.getSelectionModel().select(textField.getFont().getFamily());
+//            }
+//            else{
+//                fontFamilyBox.getSelectionModel().clearSelection();
+//            }
+//            fontFamilyBox.setOnAction(event -> {
+//                textField.setFont(javafx.scene.text.Font.font(
+//                        (String) fontFamilyBox.getSelectionModel().getSelectedItem(),
+//                        textField.getFont().getSize()
+//                ));
+//            });
             //</editor-fold>
         }
         else if(child.getClass()==TextArea.class){
@@ -877,30 +1012,30 @@ public class EditPages implements Initializable{
                 textArea.setMaxHeight(Double.parseDouble(heightBox.getText()));
                 textArea.setMinHeight(Double.parseDouble(heightBox.getText()));
             });
-            fontSizeBox.setText(String.valueOf(textArea.getFont().getSize()));
-            fontSizeBox.setOnAction(event -> {
-                if(fontSizeBox.getText().equals("")){
-                    fontSizeBox.setText(String.valueOf(textArea.getFont().getSize()));
-                }
-                else {
-                    textArea.setFont(javafx.scene.text.Font.font(
-                            textArea.getFont().getFamily(),
-                            Double.parseDouble(fontSizeBox.getText())
-                    ));
-                }
-            });
-            if(fontFamilyBox.getItems().contains(textArea.getFont().getFamily())) {
-                fontFamilyBox.getSelectionModel().select(textArea.getFont().getFamily());
-            }
-            else{
-                fontFamilyBox.getSelectionModel().clearSelection();
-            }
-            fontFamilyBox.setOnAction(event -> {
-                textArea.setFont(javafx.scene.text.Font.font(
-                        (String) fontFamilyBox.getSelectionModel().getSelectedItem(),
-                        textArea.getFont().getSize()
-                ));
-            });
+//            fontSizeBox.setText(String.valueOf(textArea.getFont().getSize()));
+//            fontSizeBox.setOnAction(event -> {
+//                if(fontSizeBox.getText().equals("")){
+//                    fontSizeBox.setText(String.valueOf(textArea.getFont().getSize()));
+//                }
+//                else {
+//                    textArea.setFont(javafx.scene.text.Font.font(
+//                            textArea.getFont().getFamily(),
+//                            Double.parseDouble(fontSizeBox.getText())
+//                    ));
+//                }
+//            });
+//            if(fontFamilyBox.getItems().contains(textArea.getFont().getFamily())) {
+//                fontFamilyBox.getSelectionModel().select(textArea.getFont().getFamily());
+//            }
+//            else{
+//                fontFamilyBox.getSelectionModel().clearSelection();
+//            }
+//            fontFamilyBox.setOnAction(event -> {
+//                textArea.setFont(javafx.scene.text.Font.font(
+//                        (String) fontFamilyBox.getSelectionModel().getSelectedItem(),
+//                        textArea.getFont().getSize()
+//                ));
+//            });
             //</editor-fold>
         }
         else if(child.getClass()==ImageView.class){
@@ -932,6 +1067,10 @@ public class EditPages implements Initializable{
                 mediaView.setFitHeight(Double.parseDouble(heightBox.getText()));
             });
             //</editor-fold>
+        }
+
+        if(flag){
+            aspectRatio.setSelected(true);
         }
     }
 

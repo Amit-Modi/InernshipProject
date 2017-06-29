@@ -51,8 +51,12 @@ public class Element {
 
     public static StackPane getTextBox(Rectangle rec){
         TextArea textArea = new TextArea();
-        textArea.setStyle("-fx-background-color: transparent; ");
+        textArea.setStyle("-fx-background-color: transparent;");
         StackPane.setMargin(textArea,margin);
+        textArea.setFont(javafx.scene.text.Font.font(
+                textArea.getFont().getFamily(),
+                18
+        ));
         textArea=enableEdit(textArea);
 
         StackPane container=getContainer();
@@ -90,7 +94,11 @@ public class Element {
     public static StackPane getTitleBox(Rectangle rec){
         TextField box = new TextField();
         StackPane.setMargin(box,margin);
-        box.setStyle("-fx-background-color: transparent");
+        box.setStyle("-fx-background-color: transparent;");
+        box.setFont(javafx.scene.text.Font.font(
+                box.getFont().getFamily(),
+                32
+        ));
         box=enableEdit(box);
 
         StackPane container=getContainer();

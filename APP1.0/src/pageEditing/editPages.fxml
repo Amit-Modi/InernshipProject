@@ -10,6 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.collections.FXCollections?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pageEditing.EditPages">
    <children>
       <VBox layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -297,15 +298,26 @@
                                                                  <rowConstraints>
                                                                    <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                                    <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                   <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                   <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                                  </rowConstraints>
                                                                   <children>
                                                                      <Label text="Font" />
                                                                      <Label text="Size" GridPane.rowIndex="1" />
-                                                                     <ComboBox fx:id="fontFamilyBox"  GridPane.columnIndex="1" />
-                                                                     <TextField fx:id="fontSizeBox" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                                  <Label layoutX="10.0" layoutY="48.0" text="Color" GridPane.rowIndex="2" />
-                                                                  <ColorPicker fx:id="fontColorBox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                                     <ComboBox fx:id="fontFamilyBox"  onAction="#changeTextFamily" GridPane.columnIndex="1" />
+                                                                     <TextField fx:id="fontSizeBox" onAction="#changeTextSize" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                                     <Label layoutX="10.0" layoutY="48.0" text="Color" GridPane.rowIndex="2" />
+                                                                     <ColorPicker fx:id="fontColorBox" onAction="#changeTextColor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                                     <ComboBox fx:id="textAlignBox"  onAction="#changeTextAlignment" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                                        <items>
+                                                                           <FXCollections fx:factory="observableArrayList">
+                                                                              <String fx:value="left" />
+                                                                              <String fx:value="center" />
+                                                                              <String fx:value="right" />
+                                                                              <String fx:value="justify" />
+                                                                           </FXCollections>
+                                                                        </items>
+                                                                     </ComboBox>
                                                                   </children>
                                                                </GridPane>
                                                             </children>

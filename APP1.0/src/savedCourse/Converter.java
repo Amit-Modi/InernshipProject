@@ -99,8 +99,7 @@ public class Converter {
             rec.setHeight(textComponent.height);
             StackPane textBox= Element.getTextBox(rec);
             ((TextArea)textBox.getChildren().get(0)).setText(textComponent.text);
-            Font font=Font.font(textComponent.family,textComponent.size);
-            ((TextArea)textBox.getChildren().get(0)).setFont(font);
+            ((TextArea)textBox.getChildren().get(0)).setStyle(textComponent.style);
 
             return textBox;
         }
@@ -113,8 +112,7 @@ public class Converter {
             rec.setHeight(titleComponent.height);
             StackPane titleBox= Element.getTitleBox(rec);
             ((TextField)titleBox.getChildren().get(0)).setText(titleComponent.text);
-            Font font=Font.font(titleComponent.family,titleComponent.size);
-            ((TextField)titleBox.getChildren().get(0)).setFont(font);
+            ((TextField)titleBox.getChildren().get(0)).setStyle(titleComponent.style);
             return titleBox;
         }
         else if(each.getClass()==ImageComponent.class){
@@ -234,8 +232,7 @@ public class Converter {
         if(component.getClass()==TextArea.class){
             TextArea textArea= (TextArea) component;
             TextComponent textComponent=new TextComponent();
-            textComponent.family=textArea.getFont().getFamily();
-            textComponent.size=textArea.getFont().getSize();
+            textComponent.style=textArea.getStyle();
             textComponent.text=textArea.getText();
             textComponent.width=textArea.getWidth();
             textComponent.height=textArea.getHeight();
@@ -246,8 +243,7 @@ public class Converter {
         else if(component.getClass()==TextField.class){
             TextField textField= (TextField) component;
             TitleComponent titleComponent=new TitleComponent();
-            titleComponent.family=textField.getFont().getFamily();
-            titleComponent.size=textField.getFont().getSize();
+            titleComponent.style=textField.getStyle();
             titleComponent.text=textField.getText();
             titleComponent.width=textField.getWidth();
             titleComponent.height=textField.getHeight();
