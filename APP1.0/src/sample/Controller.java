@@ -36,6 +36,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Scale;
+import javafx.scene.transform.Transform;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -150,8 +152,6 @@ public class Controller implements Initializable{
 
     @FXML
     Button nextButton;
-    @FXML
-    TextField scaleBox;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -228,13 +228,7 @@ public class Controller implements Initializable{
                 addTopicMenuItem(idx,eachTopic);
             }
         }
-        try{
-            Group zoomGroup=new Group();
-            zoomGroup.getChildren().add(Main.course.chapters.get(0).topics.get(0).pages.get(0));
-            Group contentGroup=new Group();
-            contentGroup.getChildren().add(zoomGroup);
-            playarea.setContent(contentGroup);
-        }catch (Exception e){}
+        display(Main.course.chapters.get(0).topics.get(0));
     }
 
     public void showChapterContextMenu(){
@@ -359,7 +353,6 @@ public class Controller implements Initializable{
 
         label.setText(PopUp.getName(label.getText()));
     }
-
     private Label addTopicMenuItem(Integer idx,Topic topic){
 
         MenuItem menuItem=new MenuItem();
@@ -433,7 +426,6 @@ public class Controller implements Initializable{
             }
         }
     }
-
     private Chapter removeChapter(Chapter chapter){
         playarea.setContent(null);
         chapter.media=null;
@@ -441,8 +433,8 @@ public class Controller implements Initializable{
             mediaView.getMediaPlayer().dispose();
         for(Topic each : chapter.topics){
             removeTopic(each);
-            chapter.topics.remove(each);
         }
+        chapter.topics.clear();
         int idx=Main.course.chapters.indexOf(chapter);
         leftMenu.getItems().remove(idx);
         Main.course.chapters.remove(chapter);
@@ -498,7 +490,7 @@ public class Controller implements Initializable{
         try {
             if(value<0 || value>=Main.currentTopic.pages.size()){
                 StackPane stackPane=new StackPane(new Text("No pages to display"));
-                stackPane.setPrefSize(1024,768);
+                stackPane.setPrefSize(playarea.getWidth(),playarea.getHeight());
                 Group zoomGroup=new Group();
                 zoomGroup.getChildren().add(stackPane);
                 Group contentGroup=new Group();
@@ -506,16 +498,32 @@ public class Controller implements Initializable{
                 playarea.setContent(contentGroup);
             }
             else {
-                Group zoomGroup=new Group();
-                zoomGroup.getChildren().add(Main.currentTopic.pages.get(value));
-                Group contentGroup=new Group();
-                contentGroup.getChildren().add(zoomGroup);
+                Group zoomGroup=new Group(Main.currentTopic.pages.get(value));
+                Group contentGroup=new Group(zoomGroup);
                 playarea.setContent(contentGroup);
+                final double minscale=(playarea.getWidth()-10)/Main.currentTopic.pages.get(value).getWidth();
+                scaleWindow(zoomGroup,0.0,0.0,minscale);
+                zoomGroup.setOnScroll(event -> {
+                    if(event.isControlDown()){
+                        event.consume();
+                        final double zoomFactor=Math.max(minscale,((Scale) zoomGroup.getTransforms().get(0)).getX()+event.getDeltaY()/1600.0);
+                        scaleWindow(zoomGroup,event.getX(),event.getY(),zoomFactor);
+                    }
+                });
             }
             Main.currentPage=value;
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+    public void scaleWindow(Group zoomGroup,Double pivotX,Double pivotY,Double scaleValue){
+        Scale scale = new Scale();
+        scale.setPivotX(0.5);
+        scale.setPivotY(0.5);
+        scale.setX( scaleValue);
+        scale.setY( scaleValue);
+        zoomGroup.getTransforms().clear();
+        zoomGroup.getTransforms().add(scale);
     }
 
     public void newCourse(){

@@ -68,18 +68,6 @@ import static pageEditing.Element.*;
  */
 public class EditPages implements Initializable{
 
-    private static BooleanProperty selectePaneChanged;
-    public static Pane selectedPane;
-
-    public static double orgSceneX;
-    public static double orgSceneY;
-    public static double orgLeftAnchor;
-    public static double orgTopAnchor;
-    public static File file;
-
-    public static ArrayList<AnchorPane> pages;
-    public int checkifpdf=0;
-    public Document document;
     @FXML
     ListView pageList;
     @FXML
@@ -115,21 +103,25 @@ public class EditPages implements Initializable{
     @FXML
     MenuButton addPageButton;
 
-    static Region topleft;
-    static Region topcenter;
-    static Region topright;
-    static Region left;
-    static Region right;
-    static Region bottomleft;
-    static Region bottomcenter;
     static Region bottomright;
-    static Region rotation;
-
 
     private ChangeListener<String> widthListner;
     private ChangeListener<String> heightListner;
     private AnchorPane currentAnchorPane;
     private Rectangle pdfrec;
+
+    private static BooleanProperty selectePaneChanged;
+    public static Pane selectedPane;
+
+    public static double orgSceneX;
+    public static double orgSceneY;
+    public static double orgLeftAnchor;
+    public static double orgTopAnchor;
+    public static File file;
+
+    public static ArrayList<AnchorPane> pages;
+    public int checkifpdf=0;
+    public Document document;
 
     public static void setToFront(Node n){
         try {
@@ -145,6 +137,7 @@ public class EditPages implements Initializable{
         }
         catch (Exception e){
             PopUp.display("Error!",e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -189,7 +182,9 @@ public class EditPages implements Initializable{
         return pages;
     }
     public static ArrayList<AnchorPane> makePagesUneditable(ArrayList<AnchorPane> pages){
-//        ((AnchorPane) bottomright.getParent()).getChildren().removeAll(bottomright);
+        if(bottomright!=null && bottomright.getParent()!=null){
+            ((AnchorPane) bottomright.getParent()).getChildren().removeAll(bottomright);
+        }
         for(AnchorPane each : pages){
             each=makePageUneditable(each);
         }
@@ -320,6 +315,7 @@ public class EditPages implements Initializable{
             }
         });
 //</editor-fold>
+
         pageList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         for(AnchorPane each : pages){
             Button indexButton=getIndexButton(pages.indexOf(each));
@@ -569,23 +565,6 @@ public class EditPages implements Initializable{
 //            System.out.println("display "+idx);
             currentAnchorPane= pages.get(idx);
             Group zoomGroup=new Group(currentAnchorPane);
-            scaleBox.setOnAction(event -> {
-//                System.out.println("scaleBoxAction"+ scaleBox.getText());
-                if(scaleBox.getText().equals("")){
-                    System.out.print("empty"+scaleBox.getText());
-                    scaleBox.setText("100");
-                    scaleBox.fireEvent(new ActionEvent());
-                }
-                else{
-                    Scale scale=new Scale();
-                    scale.setPivotX(0);
-                    scale.setPivotY(0);
-                    scale.setX(Double.parseDouble(scaleBox.getText())/100.0);
-                    scale.setY(Double.parseDouble(scaleBox.getText())/100.0);
-                    zoomGroup.getTransforms().clear();
-                    zoomGroup.getTransforms().add(scale);
-                }
-            });
             Group contentGroup=new Group(zoomGroup);
             pageWindow.setContent(contentGroup);
         }
@@ -635,6 +614,7 @@ public class EditPages implements Initializable{
     }
     @FXML public void addVideoPlayer(Rectangle rec){
         FileChooser chooser = new FileChooser();
+        chooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("Video File","mp4"));
         File file = chooser.showOpenDialog(pageWindow.getScene().getWindow());
         if (file != null) {
             StackPane stackPane = getVideoBox(new Media(file.toURI().toString()),rec);
@@ -663,6 +643,7 @@ public class EditPages implements Initializable{
         addPdfViewer(new Rectangle(0.0,0.0,0.0,0.0));
     }
     @FXML public void addPdfViewer(Rectangle rec) {
+        pdfrec=rec;
         checkifpdf=1;
         Image pdf=showpdf(0);
         if(rec.getWidth()==0.0){
@@ -784,6 +765,25 @@ public class EditPages implements Initializable{
                 else
                     style=style.concat(style2);
                 textArea.setStyle(style);
+            }
+        }
+    }
+
+    public void changeScale(){
+        if(currentAnchorPane!=null) {
+//                System.out.println("scaleBoxAction"+ scaleBox.getText());
+            if (scaleBox.getText().equals("")) {
+                System.out.print("empty" + scaleBox.getText());
+                scaleBox.setText("100");
+                scaleBox.fireEvent(new ActionEvent());
+            } else {
+                Scale scale = new Scale();
+                scale.setPivotX(0);
+                scale.setPivotY(0);
+                scale.setX(Double.parseDouble(scaleBox.getText()) / 100.0);
+                scale.setY(Double.parseDouble(scaleBox.getText()) / 100.0);
+                currentAnchorPane.getParent().getTransforms().clear();
+                currentAnchorPane.getParent().getTransforms().add(scale);
             }
         }
     }

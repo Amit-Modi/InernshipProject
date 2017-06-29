@@ -155,6 +155,7 @@ public class Element {
         StackPane container=getContainer();
         MediaPlayer mediaPlayer=new MediaPlayer(media);
         MediaView box = new MediaView(mediaPlayer);
+        box.setPreserveRatio(false);
         StackPane.setMargin(box,margin);
         box.setStyle("-fx-background-color: transparent");
 

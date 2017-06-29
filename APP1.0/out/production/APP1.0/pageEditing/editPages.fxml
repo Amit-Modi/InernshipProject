@@ -50,7 +50,7 @@
                                  <content>
                                     <HBox>
                                        <children>
-                                          <TextField fx:id="scaleBox" />
+                                          <TextField fx:id="scaleBox" onAction="#changeScale" />
                                        </children>
                                     </HBox>
                                  </content>

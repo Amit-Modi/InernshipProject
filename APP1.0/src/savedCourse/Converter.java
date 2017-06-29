@@ -15,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import pageEditing.Element;
+import pageEditing.Layout;
 import sample.PopUp;
 
 import javax.imageio.ImageIO;
@@ -45,23 +46,27 @@ public class Converter {
             topic.parent=chapter;
             chapter.topics.add(topic);
         }
-
-        ByteArrayInputStream s=new ByteArrayInputStream(savedChapter.chapterVideo);
-        try {
-            File file = File.createTempFile(savedChapter.fileName, savedChapter.fileType);
-            FileOutputStream fos = new FileOutputStream(file);
-            byte[] buf = new byte[1024];
-            int n;
-            while ((n = s.read(buf)) > 0) {
-                fos.write(buf, 0, n);
+        if(savedChapter.chapterVideo!=null) {
+            ByteArrayInputStream s = new ByteArrayInputStream(savedChapter.chapterVideo);
+            try {
+                File file = File.createTempFile(savedChapter.fileName, savedChapter.fileType);
+                FileOutputStream fos = new FileOutputStream(file);
+                byte[] buf = new byte[1024];
+                int n;
+                while ((n = s.read(buf)) > 0) {
+                    fos.write(buf, 0, n);
+                }
+                s.close();
+                fos.close();
+                chapter.media = new javafx.scene.media.Media(file.toURI().toString());
+                file.deleteOnExit();
+            } catch (IOException e) {
+                e.printStackTrace();
+                PopUp.display("Error!", e.toString());
             }
-            s.close();
-            fos.close();
-            chapter.media = new javafx.scene.media.Media(file.toURI().toString());
-            file.deleteOnExit();
-        }catch(IOException e){
-            e.printStackTrace();
-            PopUp.display("Error!",e.toString());
+        }
+        else {
+            chapter.media=null;
         }
         return chapter;
     }
@@ -77,7 +82,7 @@ public class Converter {
     }
 
     private static AnchorPane convertToAnchorPane(Page savedPage) {
-        AnchorPane anchorPane=new AnchorPane();
+        AnchorPane anchorPane= new Layout();
         anchorPane.setMaxSize(savedPage.width,savedPage.height);
         anchorPane.setMinSize(savedPage.width,savedPage.height);
         anchorPane.setStyle(savedPage.style);
@@ -180,25 +185,31 @@ public class Converter {
         for(course.Topic each : chapter.topics){
             savableChapter.topics.add(convertToSavableTopic(each));
         }
+        if(chapter.media!=null) {
+            String filePath = chapter.media.getSource();
 
-        String filePath=chapter.media.getSource();
+            File file = new File(filePath.split(":")[1]);
+            String[] strings = (file.getName().split("\\."));
+            savableChapter.fileName = strings[0];
+            savableChapter.fileType = strings[1];
+            savableChapter.chapterVideo = new byte[(int) file.length()];
+            try {
+                FileInputStream fis = new FileInputStream(file);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                int n;
+                while (-1 != (n = fis.read(buf)))
+                    baos.write(buf, 0, n);
+                savableChapter.chapterVideo = baos.toByteArray();
 
-        File file=new File(filePath.split(":")[1]);
-        String[] strings=(file.getName().split("\\."));
-        savableChapter.fileName=strings[0];
-        savableChapter.fileType=strings[1];
-        savableChapter.chapterVideo=new byte[(int)file.length()];
-        try{
-            FileInputStream fis=new FileInputStream(file);
-            ByteArrayOutputStream baos=new ByteArrayOutputStream();
-            byte[]buf = new byte[1024];
-            int n;
-            while(-1!=(n=fis.read(buf)))
-                baos.write(buf,0,n);
-            savableChapter.chapterVideo=baos.toByteArray();
-
-        }catch(IOException e) {
-            System.out.println(e.toString());
+            } catch (IOException e) {
+                System.out.println(e.toString());
+            }
+        }
+        else {
+            savableChapter.chapterVideo=null;
+            savableChapter.fileName=null;
+            savableChapter.fileType=null;
         }
         return savableChapter;
     }
