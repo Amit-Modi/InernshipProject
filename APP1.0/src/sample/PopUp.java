@@ -1,6 +1,7 @@
 package sample;
 
 
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -75,6 +76,42 @@ public class PopUp {
         textField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if(oldValue==true && newValue==false){
                 popUpStage.close();
+            }
+        });
+        popUpStage.showAndWait();
+        return string;
+    }
+
+    public static String getUrl(final String defaultName){
+        string=defaultName;
+        Stage popUpStage =new Stage();
+        popUpStage.initModality(Modality.APPLICATION_MODAL);
+        popUpStage.initStyle(StageStyle.UNDECORATED);
+        popUpStage.setMinWidth(200);
+        TextField textField=new TextField(defaultName);
+
+        textField.setOnAction(e->{
+            if(textField.getText().equals("")){
+                popUpStage.close();
+            }
+            else if (textField.getText().matches(".*")) {
+                string = textField.getText();
+                popUpStage.close();
+            } else {
+                PopUp.display("Warning!", "Not a valid url.");
+                textField.setStyle("-fx-border-color: red");
+                textField.clear();
+            }
+        });
+
+        Scene scene =new Scene(textField);
+        popUpStage.setScene(scene);
+        popUpStage.centerOnScreen();
+        textField.requestFocus();
+        textField.selectAll();
+        textField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if(oldValue==true && newValue==false){
+                textField.fireEvent(new ActionEvent());
             }
         });
         popUpStage.showAndWait();

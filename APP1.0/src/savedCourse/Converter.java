@@ -9,13 +9,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import pageEditing.Element;
-import pageEditing.Layout;
+import sample.Element;
+import sample.Layout;
 import sample.PopUp;
 
 import javax.imageio.ImageIO;

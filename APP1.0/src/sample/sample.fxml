@@ -31,7 +31,7 @@
                                     <children>
                                         <HBox fx:id="mediaContainer" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: black;" VBox.vgrow="ALWAYS">
                                             <children>
-                                                <MediaView fx:id="mediaView" fitHeight="350.0" fitWidth="430.0" HBox.hgrow="ALWAYS" />
+                                                <MediaView fx:id="mediaView" fitHeight="350.0" fitWidth="430.0" onContextMenuRequested="#showManual" HBox.hgrow="ALWAYS" />
                                             </children>
                                         </HBox>
                                         <HBox fx:id="progressContainer" maxHeight="10.0" minHeight="10.0" prefHeight="10.0">
@@ -77,6 +77,7 @@
                                 <ContextMenu>
                                     <items>
                                         <MenuItem mnemonicParsing="false" onAction="#addChapter" text="Add Chapter" />
+                              <MenuItem mnemonicParsing="false" onAction="#showManual" text="Help" />
                                     </items>
                                 </ContextMenu>
                             </contextMenu>

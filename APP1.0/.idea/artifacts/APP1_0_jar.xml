@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="APP1.0:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/APP1_0_jar</output-path>
+    <root id="archive" name="APP1.0.jar">
+      <element id="module-output" name="APP1.0" />
+      <element id="extracted-dir" path="$USER_HOME$/icepdf-core-4.3.3.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

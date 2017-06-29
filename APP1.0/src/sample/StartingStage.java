@@ -62,6 +62,7 @@ public class StartingStage implements Initializable{
 
     public void showCourse() throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+
         Main.window.setTitle(Main.course.courseName);
         Main.window.setResizable(true);
         Scene s=new Scene(root,1200,600);

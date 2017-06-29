@@ -2,6 +2,8 @@ package course;
 
 import javafx.beans.property.StringProperty;
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 
 import java.io.Serializable;
 import java.util.ArrayList;

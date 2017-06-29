@@ -24,6 +24,10 @@
 
 
 }
+.menu-button:selected{
+    -fx-border-width: 2px;
+    -fx-border-color: black;
+}
 .menu-button:hover{
     -fx-background-color: rgba(140,254,92,0.9);
 
@@ -42,6 +46,7 @@
     -fx-opacity: 100;
     -fx-effect: dropshadow(one-pass-box, burlywood, 5, 0, 3, 5);
 
+
 }
 
 
@@ -52,3 +57,8 @@
     -fx-border-width: 2px;
 
 }
+
+
+
+
+
