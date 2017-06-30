@@ -309,6 +309,9 @@ public class EditPages implements Initializable{
         });
 //</editor-fold>
         pageList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        pageList.setOnMouseClicked(event -> {
+            ((Button) pageList.getSelectionModel().getSelectedItem()).fire();
+        });
         for(AnchorPane each : pages){
             Button indexButton=getIndexButton(pages.indexOf(each));
             pageList.getItems().add(indexButton);
@@ -592,7 +595,7 @@ public class EditPages implements Initializable{
     @FXML public void addImageBox(Rectangle rec){
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image","png","jpg","ico","jpeg","bmp"),
+                new FileChooser.ExtensionFilter("Image File","*.png","*.jpg","*.ico","*.jpeg","bmp"),
                 new FileChooser.ExtensionFilter("All","*.*")
         );
         File file = chooser.showOpenDialog(pageWindow.getScene().getWindow());
@@ -610,7 +613,7 @@ public class EditPages implements Initializable{
     @FXML public void addVideoPlayer(Rectangle rec){
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Video File","*.mp4"),
+                new FileChooser.ExtensionFilter("Video File","*.mp4","*.flv"),
                 new FileChooser.ExtensionFilter("All","*.*")
         );
         File file = chooser.showOpenDialog(pageWindow.getScene().getWindow());
@@ -628,7 +631,7 @@ public class EditPages implements Initializable{
     @FXML public void addAudioPlayer(Rectangle rec){
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Audio File","mp3","wav"),
+                new FileChooser.ExtensionFilter("Audio File","*.mp3","*.wav"),
                 new FileChooser.ExtensionFilter("All","*.*")
         );
         File file = chooser.showOpenDialog(pageWindow.getScene().getWindow());

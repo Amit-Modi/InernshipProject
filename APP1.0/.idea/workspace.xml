@@ -67,8 +67,8 @@
       <file leaf-file-name="EditPages.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/EditPages.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="592" column="48" lean-forward="true" selection-start-line="592" selection-start-column="48" selection-end-line="592" selection-end-column="48" />
+            <state relative-caret-position="278">
+              <caret line="630" column="0" lean-forward="false" selection-start-line="630" selection-start-column="0" selection-end-line="630" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#setToFront#0;class#EditPages#0" expanded="false" />
@@ -90,12 +90,14 @@
                 <element signature="method#getNewRegion#0;class#EditPages#0" expanded="false" />
                 <element signature="method#initialize#0;class#EditPages#0" expanded="false" />
                 <element signature="e#10121#10172#0" expanded="false" />
+                <element signature="e#10960#11058#0" expanded="false" />
                 <element signature="method#addPage#0;class#EditPages#0" expanded="false" />
                 <element signature="method#addPage#1;class#EditPages#0" expanded="false" />
                 <element signature="method#getIndexButton#0;class#EditPages#0" expanded="false" />
                 <element signature="method#display#0;class#EditPages#0" expanded="false" />
                 <element signature="method#addTextField#1;class#EditPages#0" expanded="false" />
                 <element signature="method#addTitleField#1;class#EditPages#0" expanded="false" />
+                <element signature="method#addImageBox#1;class#EditPages#0" expanded="false" />
                 <element signature="method#addVideoPlayer#1;class#EditPages#0" expanded="false" />
                 <element signature="method#addAudioPlayer#1;class#EditPages#0" expanded="false" />
                 <element signature="method#addPdfViewer#1;class#EditPages#0" expanded="false" />
@@ -108,23 +110,23 @@
                 <element signature="method#getDocument#0;class#EditPages#0" expanded="false" />
                 <element signature="method#showpdf#0;class#EditPages#0" expanded="false" />
                 <element signature="method#showpdf1#0;class#EditPages#0" expanded="false" />
-                <element signature="e#33236#33262#0" expanded="false" />
+                <element signature="e#33397#33423#0" expanded="false" />
                 <element signature="method#setSelectedPane#0;class#EditPages#0" expanded="false" />
                 <element signature="method#regionstoSelectedPane#0;class#EditPages#0" expanded="false" />
                 <element signature="method#bindPropertiesToSelectedPane#0;class#EditPages#0" expanded="false" />
-                <element signature="e#36770#36807#0" expanded="false" />
-                <element signature="e#36929#37045#0" expanded="false" />
-                <element signature="e#37167#37281#0" expanded="false" />
-                <element signature="e#37611#37626#0" expanded="false" />
-                <element signature="e#37808#38152#0" expanded="false" />
-                <element signature="e#41231#41571#0" expanded="false" />
-                <element signature="e#41677#42017#0" expanded="false" />
-                <element signature="e#45377#45392#0" expanded="false" />
-                <element signature="e#45577#45761#0" expanded="false" />
-                <element signature="e#45871#46055#0" expanded="false" />
-                <element signature="e#46212#46227#0" expanded="false" />
-                <element signature="e#46401#46737#0" expanded="false" />
-                <element signature="e#46842#47178#0" expanded="false" />
+                <element signature="e#36931#36968#0" expanded="false" />
+                <element signature="e#37090#37206#0" expanded="false" />
+                <element signature="e#37328#37442#0" expanded="false" />
+                <element signature="e#37772#37787#0" expanded="false" />
+                <element signature="e#37969#38313#0" expanded="false" />
+                <element signature="e#41392#41732#0" expanded="false" />
+                <element signature="e#41838#42178#0" expanded="false" />
+                <element signature="e#45538#45553#0" expanded="false" />
+                <element signature="e#45738#45922#0" expanded="false" />
+                <element signature="e#46032#46216#0" expanded="false" />
+                <element signature="e#46373#46388#0" expanded="false" />
+                <element signature="e#46562#46898#0" expanded="false" />
+                <element signature="e#47003#47339#0" expanded="false" />
                 <element signature="method#tempFunction#0;class#EditPages#0" expanded="false" />
               </folding>
             </state>
@@ -1060,12 +1062,12 @@
       <workItem from="1498732702060" duration="7296000" />
       <workItem from="1498741278305" duration="24066000" />
       <workItem from="1498772092003" duration="8000" />
-      <workItem from="1498826879248" duration="6333000" />
+      <workItem from="1498826879248" duration="7227000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="315415000" />
+    <option name="totallyTimeSpent" value="316309000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1519,8 +1521,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/EditPages.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="592" column="48" lean-forward="true" selection-start-line="592" selection-start-column="48" selection-end-line="592" selection-end-column="48" />
+        <state relative-caret-position="278">
+          <caret line="630" column="0" lean-forward="false" selection-start-line="630" selection-start-column="0" selection-end-line="630" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#setToFront#0;class#EditPages#0" expanded="false" />
@@ -1542,12 +1544,14 @@
             <element signature="method#getNewRegion#0;class#EditPages#0" expanded="false" />
             <element signature="method#initialize#0;class#EditPages#0" expanded="false" />
             <element signature="e#10121#10172#0" expanded="false" />
+            <element signature="e#10960#11058#0" expanded="false" />
             <element signature="method#addPage#0;class#EditPages#0" expanded="false" />
             <element signature="method#addPage#1;class#EditPages#0" expanded="false" />
             <element signature="method#getIndexButton#0;class#EditPages#0" expanded="false" />
             <element signature="method#display#0;class#EditPages#0" expanded="false" />
             <element signature="method#addTextField#1;class#EditPages#0" expanded="false" />
             <element signature="method#addTitleField#1;class#EditPages#0" expanded="false" />
+            <element signature="method#addImageBox#1;class#EditPages#0" expanded="false" />
             <element signature="method#addVideoPlayer#1;class#EditPages#0" expanded="false" />
             <element signature="method#addAudioPlayer#1;class#EditPages#0" expanded="false" />
             <element signature="method#addPdfViewer#1;class#EditPages#0" expanded="false" />
@@ -1560,23 +1564,23 @@
             <element signature="method#getDocument#0;class#EditPages#0" expanded="false" />
             <element signature="method#showpdf#0;class#EditPages#0" expanded="false" />
             <element signature="method#showpdf1#0;class#EditPages#0" expanded="false" />
-            <element signature="e#33236#33262#0" expanded="false" />
+            <element signature="e#33397#33423#0" expanded="false" />
             <element signature="method#setSelectedPane#0;class#EditPages#0" expanded="false" />
             <element signature="method#regionstoSelectedPane#0;class#EditPages#0" expanded="false" />
             <element signature="method#bindPropertiesToSelectedPane#0;class#EditPages#0" expanded="false" />
-            <element signature="e#36770#36807#0" expanded="false" />
-            <element signature="e#36929#37045#0" expanded="false" />
-            <element signature="e#37167#37281#0" expanded="false" />
-            <element signature="e#37611#37626#0" expanded="false" />
-            <element signature="e#37808#38152#0" expanded="false" />
-            <element signature="e#41231#41571#0" expanded="false" />
-            <element signature="e#41677#42017#0" expanded="false" />
-            <element signature="e#45377#45392#0" expanded="false" />
-            <element signature="e#45577#45761#0" expanded="false" />
-            <element signature="e#45871#46055#0" expanded="false" />
-            <element signature="e#46212#46227#0" expanded="false" />
-            <element signature="e#46401#46737#0" expanded="false" />
-            <element signature="e#46842#47178#0" expanded="false" />
+            <element signature="e#36931#36968#0" expanded="false" />
+            <element signature="e#37090#37206#0" expanded="false" />
+            <element signature="e#37328#37442#0" expanded="false" />
+            <element signature="e#37772#37787#0" expanded="false" />
+            <element signature="e#37969#38313#0" expanded="false" />
+            <element signature="e#41392#41732#0" expanded="false" />
+            <element signature="e#41838#42178#0" expanded="false" />
+            <element signature="e#45538#45553#0" expanded="false" />
+            <element signature="e#45738#45922#0" expanded="false" />
+            <element signature="e#46032#46216#0" expanded="false" />
+            <element signature="e#46373#46388#0" expanded="false" />
+            <element signature="e#46562#46898#0" expanded="false" />
+            <element signature="e#47003#47339#0" expanded="false" />
             <element signature="method#tempFunction#0;class#EditPages#0" expanded="false" />
           </folding>
         </state>
