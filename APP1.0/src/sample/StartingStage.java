@@ -45,7 +45,10 @@ public class StartingStage implements Initializable{
 
     public void openExistingCourse(){
         FileChooser fileChooser=new FileChooser();
-        fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("Couser File","course"));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Course File","*.course"),
+                new FileChooser.ExtensionFilter("All","*.*")
+        );
         File file =fileChooser.showOpenDialog(Main.window);
         try{
             Main.courseFileLocation=file.getAbsolutePath();

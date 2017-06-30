@@ -253,7 +253,7 @@ public class EditPages implements Initializable{
         if(selectedPane!=null) {
             removeContent(selectedPane);
             ((AnchorPane) selectedPane.getParent()).getChildren().remove(selectedPane);
-            selectedPane = null;
+            setSelectedPane(null);
         }
     }
     public void deletePage(){
@@ -591,7 +591,10 @@ public class EditPages implements Initializable{
     }
     @FXML public void addImageBox(Rectangle rec){
         FileChooser chooser = new FileChooser();
-        chooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("Image","png","jpg","ico"));
+        chooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image","png","jpg","ico","jpeg","bmp"),
+                new FileChooser.ExtensionFilter("All","*.*")
+        );
         File file = chooser.showOpenDialog(pageWindow.getScene().getWindow());
         if(file!=null) {
             StackPane stackPane = getImageBox(new Image(file.toURI().toString()),rec);
@@ -606,7 +609,10 @@ public class EditPages implements Initializable{
     }
     @FXML public void addVideoPlayer(Rectangle rec){
         FileChooser chooser = new FileChooser();
-        chooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("Video File","mp4"));
+        chooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Video File","*.mp4"),
+                new FileChooser.ExtensionFilter("All","*.*")
+        );
         File file = chooser.showOpenDialog(pageWindow.getScene().getWindow());
         if (file != null) {
             StackPane stackPane = getVideoBox(new Media(file.toURI().toString()),rec);
@@ -621,7 +627,10 @@ public class EditPages implements Initializable{
     }
     @FXML public void addAudioPlayer(Rectangle rec){
         FileChooser chooser = new FileChooser();
-        chooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("Audio File","mp3","wav"));
+        chooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Audio File","mp3","wav"),
+                new FileChooser.ExtensionFilter("All","*.*")
+        );
         File file = chooser.showOpenDialog(pageWindow.getScene().getWindow());
         if (file != null) {
             StackPane stackPane = getAudioBox(new Media(file.toURI().toString()),rec);
@@ -804,6 +813,10 @@ public class EditPages implements Initializable{
         Document document = new Document();
         try {
             FileChooser chooser = new FileChooser();
+            chooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("PDF","*.pdf"),
+                    new FileChooser.ExtensionFilter("All","*.*")
+            );
             File file = chooser.showOpenDialog(pageWindow.getScene().getWindow());
             document.setFile(file.getAbsolutePath());
         } catch (PDFException | PDFSecurityException | IOException ex) {

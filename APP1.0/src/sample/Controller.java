@@ -154,10 +154,6 @@ public class Controller implements Initializable{
     Button nextButton;
 
 
-
-
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         refreshCourse();
@@ -519,13 +515,31 @@ public class Controller implements Initializable{
 
     private void display(Topic topic) {
         Main.currentTopic=topic;
-        if(topic==null || topic.pages.size()==0){
+        if(topic==null){
             totalPages.setText("/0");
             currentPage.setText("0");
         }
         else {
-            totalPages.setText("/"+topic.pages.size());
-            currentPage.setText("1");
+            if (topic.pages.size() == 0) {
+                totalPages.setText("/0");
+                currentPage.setText("0");
+            } else {
+                totalPages.setText("/" + topic.pages.size());
+                currentPage.setText("1");
+            }
+//            System.out.println(Main.course.chapters.get(Main.selectedChapter).topics.indexOf(topic));
+            if(Main.course.chapters.get(Main.selectedChapter).topics.indexOf(topic)==0){
+                prevTopic.setDisable(true);
+            }
+            else {
+                prevTopic.setDisable(false);
+            }
+            if(Main.course.chapters.get(Main.selectedChapter).topics.indexOf(topic)==Main.course.chapters.get(Main.selectedChapter).topics.size()-1){
+                nextTopic.setDisable(true);
+            }
+            else {
+                nextTopic.setDisable(false);
+            }
         }
         currentPage.fireEvent(new ActionEvent());
     }
@@ -578,7 +592,10 @@ public class Controller implements Initializable{
     }
     public void openCourse() throws  Exception{
         FileChooser fileChooser=new FileChooser();
-        fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("Couser File","course"));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Course File","*.course"),
+                new FileChooser.ExtensionFilter("All","*.*")
+        );
         File file=fileChooser.showOpenDialog(Main.window);
         if(file!=null){
             Main.courseFileLocation=file.getAbsolutePath();
@@ -592,7 +609,10 @@ public class Controller implements Initializable{
 
     public void saveAs() throws Exception{
         FileChooser fileChooser=new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Course File","course"));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Course File","*.course"),
+                new FileChooser.ExtensionFilter("All","*.*")
+        );
         File file=fileChooser.showSaveDialog(Main.window);
         if(file!=null) {
             Main.courseFileLocation = file.toString();
@@ -657,6 +677,10 @@ public class Controller implements Initializable{
             Document document1 = new Document();
             try {
                 FileChooser chooser = new FileChooser();
+                chooser.getExtensionFilters().addAll(
+                        new FileChooser.ExtensionFilter("PDF","*.pdf"),
+                        new FileChooser.ExtensionFilter("All","*.*")
+                );
                 File file = chooser.showOpenDialog(Main.window.getScene().getWindow());
                 document1.setFile(file.getAbsolutePath());
             } catch (PDFException | PDFSecurityException | IOException ex) {
@@ -957,75 +981,79 @@ public class Controller implements Initializable{
     }
 
     public void getNextTopic(ActionEvent event){
-        String pdf=null;
-        String video=null;
-        List list= new ArrayList(mapChapter.keySet());
-        ListIterator<MenuItem> it =list.listIterator();
-
-        MenuItem tempkey=null;
-
-        for(int i=0;i<list.size();){
-            if(temp==list.get(i)){
-                tempkey=(MenuItem) list.get(i+1);
-                temp=tempkey;
-                break;
-            }
-            else{
-                i++;
-            }
-        }
-
-
-
-        int pageno=mapChapter.get(tempkey).getKey();
-        MenuButton chapno= mapChapter.get(tempkey).getValue().getKey();
-        if(checkChapNo!=chapno){
-            checkChapNo.setStyle("-fx-background-color: white");
-            checkChapNo=chapno;
-        }
-        chapno.setStyle("-fx-background-color: rgba(119,255,47,0.42)");
-        video = mapChapter.get(tempkey).getValue().getValue();
-        pdf=chapterno.get(chapno).getKey();
-
-        document=getDocument(pdf);
-        currentPage.setText(String.valueOf(pageno +1));
-        currentPage.fireEvent(new ActionEvent());
-        showpdf(pageno);
-        //setVideo(video);
+//        System.out.println(Main.selectedChapter);
+        int newTopicIndex=Main.course.chapters.get(Main.selectedChapter).topics.indexOf(Main.currentTopic)+1;
+        display(Main.course.chapters.get(Main.selectedChapter).topics.get(newTopicIndex));
+//        String pdf=null;
+//        String video=null;
+//        List list= new ArrayList(mapChapter.keySet());
+//        ListIterator<MenuItem> it =list.listIterator();
+//
+//        MenuItem tempkey=null;
+//
+//        for(int i=0;i<list.size();){
+//            if(temp==list.get(i)){
+//                tempkey=(MenuItem) list.get(i+1);
+//                temp=tempkey;
+//                break;
+//            }
+//            else{
+//                i++;
+//            }
+//        }
+//
+//
+//
+//        int pageno=mapChapter.get(tempkey).getKey();
+//        MenuButton chapno= mapChapter.get(tempkey).getValue().getKey();
+//        if(checkChapNo!=chapno){
+//            checkChapNo.setStyle("-fx-background-color: white");
+//            checkChapNo=chapno;
+//        }
+//        chapno.setStyle("-fx-background-color: rgba(119,255,47,0.42)");
+//        video = mapChapter.get(tempkey).getValue().getValue();
+//        pdf=chapterno.get(chapno).getKey();
+//
+//        document=getDocument(pdf);
+//        currentPage.setText(String.valueOf(pageno +1));
+//        currentPage.fireEvent(new ActionEvent());
+//        showpdf(pageno);
+//        //setVideo(video);
 
     }
     public void getPrevTopic(ActionEvent event){
-        String pdf=null;
-        String video=null;
-        List list= new ArrayList(mapChapter.keySet());
-        ListIterator<MenuItem> it =list.listIterator();
-
-        MenuItem tempkey=null;
-
-        for(int i=0;i<list.size();i++){
-            if(temp==list.get(i)){
-                tempkey=(MenuItem) list.get(i-1);
-                temp=tempkey;
-            }
-        }
-
-
-        int pageno=mapChapter.get(tempkey).getKey();
-        MenuButton chapno= mapChapter.get(tempkey).getValue().getKey();
-        if(checkChapNo!=chapno){
-            checkChapNo.setStyle("-fx-background-color: white");
-            checkChapNo=chapno;
-        }
-        chapno.setStyle("-fx-background-color: rgba(119,255,47,0.42)");
-        video = mapChapter.get(tempkey).getValue().getValue();
-        pdf=chapterno.get(chapno).getKey();
-
-        document=getDocument(pdf);
-        currentPage.setText(String.valueOf(pageno +1));
-        currentPage.fireEvent(new ActionEvent());
-        showpdf(pageno);
-        //setVideo(video);
-
+        int newTopicIndex=Main.course.chapters.get(Main.selectedChapter).topics.indexOf(Main.currentTopic)-1;
+        display(Main.course.chapters.get(Main.selectedChapter).topics.get(newTopicIndex));
+//        String pdf=null;
+//        String video=null;
+//        List list= new ArrayList(mapChapter.keySet());
+//        ListIterator<MenuItem> it =list.listIterator();
+//
+//        MenuItem tempkey=null;
+//
+//        for(int i=0;i<list.size();i++){
+//            if(temp==list.get(i)){
+//                tempkey=(MenuItem) list.get(i-1);
+//                temp=tempkey;
+//            }
+//        }
+//
+//
+//        int pageno=mapChapter.get(tempkey).getKey();
+//        MenuButton chapno= mapChapter.get(tempkey).getValue().getKey();
+//        if(checkChapNo!=chapno){
+//            checkChapNo.setStyle("-fx-background-color: white");
+//            checkChapNo=chapno;
+//        }
+//        chapno.setStyle("-fx-background-color: rgba(119,255,47,0.42)");
+//        video = mapChapter.get(tempkey).getValue().getValue();
+//        pdf=chapterno.get(chapno).getKey();
+//
+//        document=getDocument(pdf);
+//        currentPage.setText(String.valueOf(pageno +1));
+//        currentPage.fireEvent(new ActionEvent());
+//        showpdf(pageno);
+//        //setVideo(video);
 
     }
 

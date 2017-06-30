@@ -58,18 +58,18 @@
                                     <Insets bottom="5.0" left="5.0" right="6.0" top="5.0" />
                                  </opaqueInsets>
                               </TitledPane>
-                              <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" layoutX="394.0" layoutY="10.0" text="Temp">
-                                 <content>
-                                    <HBox>
-                                       <children>
-                                          <Button mnemonicParsing="false" onAction="#tempFunction" text="temo" />
-                                       </children>
-                                    </HBox>
-                                 </content>
-                                 <opaqueInsets>
-                                    <Insets bottom="5.0" left="5.0" right="6.0" top="5.0" />
-                                 </opaqueInsets>
-                              </TitledPane>
+                              <!--<TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" layoutX="394.0" layoutY="10.0" text="Temp">-->
+                                 <!--<content>-->
+                                    <!--<HBox>-->
+                                       <!--<children>-->
+                                          <!--<Button mnemonicParsing="false" onAction="#tempFunction" text="temo" />-->
+                                       <!--</children>-->
+                                    <!--</HBox>-->
+                                 <!--</content>-->
+                                 <!--<opaqueInsets>-->
+                                    <!--<Insets bottom="5.0" left="5.0" right="6.0" top="5.0" />-->
+                                 <!--</opaqueInsets>-->
+                              <!--</TitledPane>-->
                            </children>
                            <opaqueInsets>
                               <Insets />
@@ -262,92 +262,6 @@
                                  </TitledPane>
                                  <StackPane fx:id="componentPropertyBox">
                                     <children>
-                                       <TitledPane animated="false" layoutX="10.0" layoutY="10.0" prefHeight="304.0" prefWidth="223.0" text="Properties: VideoProperty">
-                                          <content>
-                                             <VBox prefHeight="205.0" prefWidth="221.0">
-                                                <children>
-                                                   <VBox>
-                                                      <children>
-                                                         <Line endX="100.0" startX="-100.0" stroke="#0000004e" />
-                                                         <HBox>
-                                                            <children>
-                                                               <Region HBox.hgrow="ALWAYS" />
-                                                               <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Font" HBox.hgrow="ALWAYS" />
-                                                            </children>
-                                                         </HBox>
-                                                         <Line endX="100.0" startX="-100.0" stroke="#0000004f" />
-                                                         <HBox prefHeight="100.0" prefWidth="200.0">
-                                                            <children>
-                                                               <GridPane>
-                                                                  <children>
-                                                                     <Label text="Font" />
-                                                                     <Label text="Size" GridPane.rowIndex="1" />
-                                                                     <TextField text="0" GridPane.columnIndex="1" />
-                                                                     <TextField text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                                     <Label layoutX="10.0" layoutY="48.0" text="Color" GridPane.rowIndex="2" />
-                                                                     <ColorPicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                                  </children>
-                                                                  <columnConstraints>
-                                                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                                  </columnConstraints>
-                                                                  <rowConstraints>
-                                                                     <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                     <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                     <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  </rowConstraints>
-                                                               </GridPane>
-                                                            </children>
-                                                         </HBox>
-                                                      </children>
-                                                   </VBox>
-                                                </children>
-                                             </VBox>
-                                          </content>
-                                       </TitledPane>
-                                       <TitledPane animated="false" layoutX="10.0" layoutY="10.0" prefHeight="304.0" prefWidth="223.0" text="Properties: ImageProperty">
-                                          <content>
-                                             <VBox prefHeight="205.0" prefWidth="221.0">
-                                                <children>
-                                                   <VBox>
-                                                      <children>
-                                                         <Line endX="100.0" startX="-100.0" stroke="#0000004e" />
-                                                         <HBox>
-                                                            <children>
-                                                               <Region HBox.hgrow="ALWAYS" />
-                                                               <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Font" HBox.hgrow="ALWAYS" />
-                                                            </children>
-                                                         </HBox>
-                                                         <Line endX="100.0" startX="-100.0" stroke="#0000004f" />
-                                                         <HBox prefHeight="100.0" prefWidth="200.0">
-                                                            <children>
-                                                               <GridPane>
-                                                                  <children>
-                                                                     <Label text="Font" />
-                                                                     <Label text="Size" GridPane.rowIndex="1" />
-                                                                     <TextField text="0" GridPane.columnIndex="1" />
-                                                                     <TextField text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                                     <Label layoutX="10.0" layoutY="48.0" text="Color" GridPane.rowIndex="2" />
-                                                                     <ColorPicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                                  </children>
-                                                                  <columnConstraints>
-                                                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                                  </columnConstraints>
-                                                                  <rowConstraints>
-                                                                     <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                     <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                     <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  </rowConstraints>
-                                                               </GridPane>
-                                                            </children>
-                                                         </HBox>
-                                                      </children>
-                                                   </VBox>
-                                                </children>
-                                             </VBox>
-                                          </content>
-                                       </TitledPane>
                                        <TitledPane fx:id="textProperty" animated="false" prefHeight="304.0" prefWidth="223.0" text="Properties: TextProperty">
                                           <content>
                                              <VBox prefHeight="205.0" prefWidth="221.0">
@@ -382,16 +296,16 @@
                                                                      <TextField fx:id="fontSizeBox" onAction="#changeTextSize" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                                      <Label layoutX="10.0" layoutY="48.0" text="Color" GridPane.rowIndex="2" />
                                                                      <ColorPicker fx:id="fontColorBox" onAction="#changeTextColor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                                     <ComboBox fx:id="textAlignBox"  onAction="#changeTextAlignment" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                                                        <items>
-                                                                           <FXCollections fx:factory="observableArrayList">
-                                                                              <String fx:value="left" />
-                                                                              <String fx:value="center" />
-                                                                              <String fx:value="right" />
-                                                                              <String fx:value="justify" />
-                                                                           </FXCollections>
-                                                                        </items>
-                                                                     </ComboBox>
+                                                                     <!--<ComboBox fx:id="textAlignBox"  onAction="#changeTextAlignment" GridPane.columnIndex="1" GridPane.rowIndex="3">-->
+                                                                        <!--<items>-->
+                                                                           <!--<FXCollections fx:factory="observableArrayList">-->
+                                                                              <!--<String fx:value="left" />-->
+                                                                              <!--<String fx:value="center" />-->
+                                                                              <!--<String fx:value="right" />-->
+                                                                              <!--<String fx:value="justify" />-->
+                                                                           <!--</FXCollections>-->
+                                                                        <!--</items>-->
+                                                                     <!--</ComboBox>-->
                                                                   </children>
                                                                </GridPane>
                                                             </children>
