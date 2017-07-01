@@ -3,12 +3,16 @@ package manual;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Pagination;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import org.icepdf.core.exceptions.PDFException;
 import org.icepdf.core.exceptions.PDFSecurityException;
 import org.icepdf.core.pobjects.Document;
@@ -20,6 +24,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -30,24 +35,32 @@ public class Manual  implements Initializable {
     VBox index;
 
     @FXML
-    public ImageView manualView;
-
-    public ImageView imageView;
+    public Pagination manualPaginationView;
 
     //public static WritableImage image;
 
 
 
     public Stage newWindow;
+    private ArrayList<StackPane> pages;
+    private Integer each;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //imageView= new ImageView();
-        FileChooser choos = new FileChooser();
-        File file= choos.showOpenDialog(Main.window.getScene().getWindow());
-        imageView = new ImageView(new Image(file.toURI().toString()));
-        System.out.println(imageView);
-        manualView=imageView;
+
+        pages=showpdf();
+        int size=pages.size();
+        manualPaginationView.setMaxPageIndicatorCount(size);
+        manualPaginationView.setPageCount(size);
+        for(each=0; each<size;each++){
+            System.out.println(each+" ");
+            manualPaginationView.setPageFactory(new Callback<Integer, Node>() {
+                @Override
+                public Node call(Integer param) {
+                    return pages.get(param);
+                }
+            });
+        }
 
     }
 
@@ -55,40 +68,34 @@ public class Manual  implements Initializable {
 
 
 
-    public void showpdf(Integer page) {
+    public ArrayList<StackPane> showpdf() {
+        ArrayList<StackPane> result=new ArrayList<>();
+        Document document1 = new Document();
+        try {
+            FileChooser chooser = new FileChooser();
+            File file = chooser.showOpenDialog(Main.window);
+            System.out.println(file.getAbsolutePath());
+            document1.setFile(file.getAbsolutePath());
+        } catch (PDFException | PDFSecurityException | IOException ex) {
+            ex.printStackTrace();
+        }
+        // Paint each pages content to an image
 
-
-
-            Document document1 = new Document();
-            try {
-                FileChooser chooser = new FileChooser();
-                File file = chooser.showOpenDialog(Main.window.getScene().getWindow());
-                document1.setFile(file.getAbsolutePath());
-            } catch (PDFException | PDFSecurityException | IOException ex) {
-                System.out.println(ex.toString());
-            }
+        float scale = 1.0f;
+        float rotation = 0f;
+        int size=document1.getNumberOfPages();
+        for(int page=0;page<size;page++) {
             // Paint each pages content to an image
-
-            float scale = 1.0f;
-            float rotation = 0f;
-
-            // Paint each pages content to an image
-            BufferedImage image = (BufferedImage)document1.getPageImage(page,
-                    GraphicsRenderingHints.SCREEN, Page.BOUNDARY_CROPBOX, rotation, scale);
-
-            WritableImage fxImage = SwingFXUtils.toFXImage(image,null);
-            System.out.println(fxImage);
-
-            if (imageView != null) {
-                imageView.setImage(fxImage);
-            } else {
-                imageView= new ImageView(fxImage);
-            }
-            manualView=imageView;
+//            BufferedImage image = (BufferedImage) document1.getPageImage(page,
+//                    GraphicsRenderingHints.SCREEN, Page.BOUNDARY_CROPBOX, rotation, scale);
+//                System.out.println(fxImage);
+            result.add(new StackPane(new ImageView(SwingFXUtils.toFXImage((BufferedImage) document1.getPageImage(page,
+                    GraphicsRenderingHints.SCREEN, Page.BOUNDARY_CROPBOX, rotation, scale), null))));
 
             //Clean up
-            image.flush();
-        //return currentImage;
+            //return currentImage;
+        }
+        return result;
     }
 
 }

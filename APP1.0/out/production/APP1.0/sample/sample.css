@@ -50,14 +50,13 @@
 }
 
 
-/*.textbox{*/
-    /*-fx-background-color: floralwhite;*/
+.textbox{
+    -fx-background-color: floralwhite;
 
-    /*-fx-border-color: rgba(51,51,51,0.85);*/
-    /*-fx-border-width: 2px;*/
+    -fx-border-color: rgba(51,51,51,0.85);
+    -fx-border-width: 2px;
 
-/*}*/
-
+}
 
 
 

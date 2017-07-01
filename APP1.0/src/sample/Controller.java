@@ -154,12 +154,20 @@ public class Controller implements Initializable{
     Button nextButton;
 
 
+
+
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         refreshCourse();
         try {
-            image1 = new Image("file:///home/arnab/IdeaProjects/APP1.0/download.jpg");
-            image2 = new Image("file:///home/arnab/IdeaProjects/APP1.0/download%20(1).jpg");
+           // File file=new File("Next.jpg");
+           URL url=Controller.class.getResource("Next.jpg");
+//           System.out.println(url);
+            image1 = new Image(url.toURI().toString());
+            url=Controller.class.getResource("Previous.jpg");
+            image2 = new Image(url.toURI().toString());
 
             buttonImage1= new ImageView(image1);
             buttonImage1.setFitHeight(20.0);
@@ -217,27 +225,31 @@ public class Controller implements Initializable{
 
     }
 
-    public void refreshCourse(){
+    public void refreshCourse() {
         leftMenu.getItems().clear();
         playarea.setContent(null);
         Main.window.setTitle(Main.course.courseName);
-        for(Chapter eachChapter : Main.course.chapters){
-            MenuButton menuButton=getNewChapterMenuButton(eachChapter);
+        for (Chapter eachChapter : Main.course.chapters) {
+            MenuButton menuButton = getNewChapterMenuButton(eachChapter);
+            checkChapNo=menuButton;
             menuButton.textProperty().addListener((observable, oldValue, newValue) -> {
-                eachChapter.chapterName=newValue;
+                eachChapter.chapterName = newValue;
             });
-            Integer idx=leftMenu.getItems().size();
+            Integer idx = leftMenu.getItems().size();
             leftMenu.getItems().add(menuButton);
-            for(Topic eachTopic : eachChapter.topics){
-                eachTopic.pages=EditPages.makePagesUneditable(eachTopic.pages);
-                addTopicMenuItem(idx,eachTopic);
+            for (Topic eachTopic : eachChapter.topics) {
+                eachTopic.pages = EditPages.makePagesUneditable(eachTopic.pages);
+                addTopicMenuItem(idx, eachTopic);
             }
         }
-        if(Main.course!=null && !Main.course.chapters.isEmpty() && !Main.course.chapters.get(0).topics.isEmpty())
+        if (Main.course != null && !Main.course.chapters.isEmpty() && !Main.course.chapters.get(0).topics.isEmpty()) {
+            Main.selectedChapter = 0;
+            selectedChapter = leftMenu.getItems().get(0);
             display(Main.course.chapters.get(0).topics.get(0));
-        else
+        }
+        else {
             display(-1);
-
+        }
     }
 
     public void showChapterContextMenu(){
@@ -299,6 +311,11 @@ public class Controller implements Initializable{
         MenuItem addVideo= new MenuItem("Add Video");
         addVideo.setOnAction(e->{
             FileChooser fileChooser= new FileChooser();
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Video File","*.mp4","*.flv"),
+                    new FileChooser.ExtensionFilter("All File","*")
+            );
+
             File file= fileChooser.showOpenDialog(Main.window.getScene().getWindow());
             chapter.media=new Media(file.toURI().toString());
             if(chapter.media!=null) {
@@ -320,6 +337,14 @@ public class Controller implements Initializable{
         menuButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event) {
+
+                selectedChapter.setStyle("-fx-background-color: white");
+                selectedChapter=menuButton;
+                selectedChapter.setStyle("-fx-border-color: rgba(0,0,0,0.99);" +
+                        "-fx-border-width: 2px;" +
+                        "-fx-padding: 2px;" );
+                checkChapNo=menuButton;
+                getStudentNotes();
                 if(event.getButton()== MouseButton.PRIMARY){
                     //System.out.println((event.getSceneX()-leftMenu.getWidth()-playarea.getWidth())/mediaProgressBar.getWidth());
                     if(chapter.media!=null) {
@@ -331,16 +356,10 @@ public class Controller implements Initializable{
                         Main.currentTopic=null;
                     }
                     else {
-                        ((MenuItem) menuButton.getItems().get(0)).fire();
+                        display(Main.course.chapters.get(leftMenu.getSelectionModel().getSelectedIndex()).topics.get(0));
                     }
 
                 }
-                selectedChapter.setStyle("-fx-background-color: white");
-                selectedChapter=menuButton;
-                selectedChapter.setStyle("-fx-border-color: rgba(0,0,0,0.99);" +
-                        "-fx-border-width: 2px;" +
-                        "-fx-padding: 2px;" );
-                getStudentNotes();
 
             }
 
@@ -404,6 +423,8 @@ public class Controller implements Initializable{
         editTopic.setOnAction(ee->{
             try {
                 topic.pages=editPages(topic);
+                Main.selectedChapter=idx;
+                selectedChapter=leftMenu.getItems().get(idx);
                 display(topic);
                 //System.out.println("this is returned topic "+topic.pages);
             }catch (Exception exception){
@@ -435,13 +456,14 @@ public class Controller implements Initializable{
                 }
                 else{
                    // System.out.println("left mouse presse on "+topic);
+                    Main.selectedChapter=idx;
+                    selectedChapter=leftMenu.getItems().get(idx);
                     display(topic);
                 }
             }
         });
         menuItem.setGraphic(label);
         ((MenuButton)leftMenu.getItems().get(idx)).getItems().add(menuItem);
-
         return label;
     }
 
@@ -520,26 +542,25 @@ public class Controller implements Initializable{
             currentPage.setText("0");
         }
         else {
-            if (topic.pages.size() == 0) {
+            if(topic.pages.size()==0){
                 totalPages.setText("/0");
                 currentPage.setText("0");
-            } else {
+            }
+            else {
                 totalPages.setText("/" + topic.pages.size());
                 currentPage.setText("1");
             }
-//            System.out.println(Main.course.chapters.get(Main.selectedChapter).topics.indexOf(topic));
-            if(Main.course.chapters.get(Main.selectedChapter).topics.indexOf(topic)==0){
+
+            if(Main.course.chapters.get(Main.selectedChapter).topics.indexOf(topic)==0)
                 prevTopic.setDisable(true);
-            }
-            else {
+            else
                 prevTopic.setDisable(false);
-            }
-            if(Main.course.chapters.get(Main.selectedChapter).topics.indexOf(topic)==Main.course.chapters.get(Main.selectedChapter).topics.size()-1){
+
+            if(Main.course.chapters.get(Main.selectedChapter).topics.indexOf(topic)==Main.course.chapters.get(Main.selectedChapter).topics.size()-1)
                 nextTopic.setDisable(true);
-            }
-            else {
+            else
                 nextTopic.setDisable(false);
-            }
+
         }
         currentPage.fireEvent(new ActionEvent());
     }
@@ -593,8 +614,8 @@ public class Controller implements Initializable{
     public void openCourse() throws  Exception{
         FileChooser fileChooser=new FileChooser();
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Course File","*.course"),
-                new FileChooser.ExtensionFilter("All","*.*")
+                new FileChooser.ExtensionFilter("Couser File","*.course"),
+                new FileChooser.ExtensionFilter("All File","*")
         );
         File file=fileChooser.showOpenDialog(Main.window);
         if(file!=null){
@@ -610,8 +631,8 @@ public class Controller implements Initializable{
     public void saveAs() throws Exception{
         FileChooser fileChooser=new FileChooser();
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Course File","*.course"),
-                new FileChooser.ExtensionFilter("All","*.*")
+                new FileChooser.ExtensionFilter("Couser File","*.course"),
+                new FileChooser.ExtensionFilter("All File","*")
         );
         File file=fileChooser.showSaveDialog(Main.window);
         if(file!=null) {
@@ -644,18 +665,15 @@ public class Controller implements Initializable{
 
     public void onEntered(MenuButton menuButton){
 
-        try{
-            if(checkChapNo!=menuButton) {
-
-
+        if(checkChapNo!=menuButton) {
+            if(checkChapNo.isShowing())
                 checkChapNo.hide();
-                selectedChapter.hide();
-                if (checkChapNo != selectedChapter)
-                    //checkChapNo.hide();
-                    checkChapNo.setStyle("-fx-background-color: white");
-            }
+            //selectedChapter.hide();
+            if (checkChapNo != selectedChapter)
+                //checkChapNo.hide();
+                checkChapNo.setStyle("-fx-background-color: white");
         }
-        catch (Exception e1){}
+
         if(menuButton!=selectedChapter) {
 
             menuButton.setStyle("-fx-background-color: rgba(119,255,47,0.42)");
@@ -666,64 +684,10 @@ public class Controller implements Initializable{
                     "-fx-border-color: rgba(0,0,0,0.99);" +
                     "-fx-border-width: 2px;" +
                     "-fx-padding: 2px;");
+            checkChapNo=menuButton;
         }
     }
 
-    public  Image showpdf(Integer page) {
-        try {
-
-            float scale = 1.0f;
-            float rotation = 0f;
-            Document document1 = new Document();
-            try {
-                FileChooser chooser = new FileChooser();
-                chooser.getExtensionFilters().addAll(
-                        new FileChooser.ExtensionFilter("PDF","*.pdf"),
-                        new FileChooser.ExtensionFilter("All","*.*")
-                );
-                File file = chooser.showOpenDialog(Main.window.getScene().getWindow());
-                document1.setFile(file.getAbsolutePath());
-            } catch (PDFException | PDFSecurityException | IOException ex) {
-                System.out.println(ex.toString());
-            }
-            // Paint each pages content to an image
-
-            java.awt.Image image1 = document1.getPageImage(page,
-                    GraphicsRenderingHints.SCREEN,200, rotation, scale);
-            BufferedImage bufferedImage;
-            if(image1 instanceof BufferedImage){
-                bufferedImage= (BufferedImage) image1;
-            }
-            else{
-                bufferedImage=new BufferedImage(image1.getWidth(null),image1.getHeight(null),BufferedImage.TYPE_INT_ARGB);
-                Graphics2D bGr=bufferedImage.createGraphics();
-                bGr.drawImage(bufferedImage,0,0,null);
-                bGr.dispose();
-            }
-
-            return SwingFXUtils.toFXImage(bufferedImage,null);
-
-        }catch (Exception e){
-            System.out.println("show PDF "+e.toString());
-            e.printStackTrace();
-            return null;
-        }
-
-    }
-
-    private Document getDocument(String string){
-        playarea.contentProperty().unbind();
-        playarea.contentProperty().bind(image);
-        org.icepdf.core.pobjects.Document document = new Document();
-        try {
-            File file = new File(string);
-            document.setFile(file.getAbsolutePath());
-        } catch (PDFException | PDFSecurityException | IOException ex) {
-            System.out.println(ex.toString());
-        }
-        totalPages.setText("/"+String.valueOf(document.getNumberOfPages()));
-        return document;
-    }
 
     public void setVideo(Media media){
         if(mediaView.getMediaPlayer()!=null)
@@ -981,80 +945,13 @@ public class Controller implements Initializable{
     }
 
     public void getNextTopic(ActionEvent event){
-//        System.out.println(Main.selectedChapter);
-        int newTopicIndex=Main.course.chapters.get(Main.selectedChapter).topics.indexOf(Main.currentTopic)+1;
+        int newTopicIndex= Main.course.chapters.get(Main.selectedChapter).topics.indexOf(Main.currentTopic)+1;
         display(Main.course.chapters.get(Main.selectedChapter).topics.get(newTopicIndex));
-//        String pdf=null;
-//        String video=null;
-//        List list= new ArrayList(mapChapter.keySet());
-//        ListIterator<MenuItem> it =list.listIterator();
-//
-//        MenuItem tempkey=null;
-//
-//        for(int i=0;i<list.size();){
-//            if(temp==list.get(i)){
-//                tempkey=(MenuItem) list.get(i+1);
-//                temp=tempkey;
-//                break;
-//            }
-//            else{
-//                i++;
-//            }
-//        }
-//
-//
-//
-//        int pageno=mapChapter.get(tempkey).getKey();
-//        MenuButton chapno= mapChapter.get(tempkey).getValue().getKey();
-//        if(checkChapNo!=chapno){
-//            checkChapNo.setStyle("-fx-background-color: white");
-//            checkChapNo=chapno;
-//        }
-//        chapno.setStyle("-fx-background-color: rgba(119,255,47,0.42)");
-//        video = mapChapter.get(tempkey).getValue().getValue();
-//        pdf=chapterno.get(chapno).getKey();
-//
-//        document=getDocument(pdf);
-//        currentPage.setText(String.valueOf(pageno +1));
-//        currentPage.fireEvent(new ActionEvent());
-//        showpdf(pageno);
-//        //setVideo(video);
-
     }
-    public void getPrevTopic(ActionEvent event){
-        int newTopicIndex=Main.course.chapters.get(Main.selectedChapter).topics.indexOf(Main.currentTopic)-1;
-        display(Main.course.chapters.get(Main.selectedChapter).topics.get(newTopicIndex));
-//        String pdf=null;
-//        String video=null;
-//        List list= new ArrayList(mapChapter.keySet());
-//        ListIterator<MenuItem> it =list.listIterator();
-//
-//        MenuItem tempkey=null;
-//
-//        for(int i=0;i<list.size();i++){
-//            if(temp==list.get(i)){
-//                tempkey=(MenuItem) list.get(i-1);
-//                temp=tempkey;
-//            }
-//        }
-//
-//
-//        int pageno=mapChapter.get(tempkey).getKey();
-//        MenuButton chapno= mapChapter.get(tempkey).getValue().getKey();
-//        if(checkChapNo!=chapno){
-//            checkChapNo.setStyle("-fx-background-color: white");
-//            checkChapNo=chapno;
-//        }
-//        chapno.setStyle("-fx-background-color: rgba(119,255,47,0.42)");
-//        video = mapChapter.get(tempkey).getValue().getValue();
-//        pdf=chapterno.get(chapno).getKey();
-//
-//        document=getDocument(pdf);
-//        currentPage.setText(String.valueOf(pageno +1));
-//        currentPage.fireEvent(new ActionEvent());
-//        showpdf(pageno);
-//        //setVideo(video);
 
+    public void getPrevTopic(ActionEvent event){
+        int newTopicIndex= Main.course.chapters.get(Main.selectedChapter).topics.indexOf(Main.currentTopic)-1;
+        display(Main.course.chapters.get(Main.selectedChapter).topics.get(newTopicIndex));
     }
 
     public void previouseButtonAction(){
@@ -1067,18 +964,6 @@ public class Controller implements Initializable{
         currentPage.setText(String.valueOf(Main.currentPage + 1));
         currentPage.fireEvent(new ActionEvent());
     }
-
-
-    public void startExam() throws Exception{
-        FileInputStream fis=new FileInputStream(examFilePath);
-        ObjectInputStream ois=new ObjectInputStream(fis);
-        ExamSceneController.questions=(List<MCQ>) ois.readObject();
-        ExamSceneController.sourceScene=Main.window.getScene();
-        Scene examScene=new Scene(FXMLLoader.load(getClass().getResource("examScene.fxml")),Main.window.getScene().getWidth(),Main.window.getScene()    .getHeight());
-        Main.window.setScene(examScene);
-
-    }
-
 
     public void saveStudentNotes(ActionEvent event){
         try{
@@ -1125,6 +1010,12 @@ public class Controller implements Initializable{
         }
 
 
+
+    }
+
+    public void renameCourse(){
+        Main.course.courseName=PopUp.getName(Main.course.courseName);
+        Main.window.setTitle(Main.course.courseName);
 
     }
 

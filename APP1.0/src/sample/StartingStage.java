@@ -46,8 +46,8 @@ public class StartingStage implements Initializable{
     public void openExistingCourse(){
         FileChooser fileChooser=new FileChooser();
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Course File","*.course"),
-                new FileChooser.ExtensionFilter("All","*.*")
+                new FileChooser.ExtensionFilter("Couser File","*.course"),
+                new FileChooser.ExtensionFilter("All File","*")
         );
         File file =fileChooser.showOpenDialog(Main.window);
         try{
@@ -59,20 +59,25 @@ public class StartingStage implements Initializable{
         }
         catch (Exception e){
             System.out.println("following error occured while opening "+file+"\n");
+            PopUp.display("error",e.toString());
             e.printStackTrace();
         }
     }
 
     public void showCourse() throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
-        Main.window.setTitle(Main.course.courseName);
-        Main.window.setResizable(true);
-        Scene s=new Scene(root,1200,600);
-        Main.window.setX(100);
-        Main.window.setY(100);
-        Main.window.setWidth(1200);
-        Main.window.setHeight(600);
-        Main.window.setScene(s);
+            Main.window.setTitle(Main.course.courseName);
+            Main.window.setResizable(true);
+            Scene s = new Scene(root, 1200, 600);
+            Main.window.setX(100);
+            Main.window.setY(100);
+            Main.window.setWidth(1200);
+            Main.window.setHeight(600);
+            Main.window.setScene(s);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

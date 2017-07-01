@@ -562,6 +562,8 @@ public class EditPages implements Initializable{
             Group zoomGroup=new Group(currentAnchorPane);
             Group contentGroup=new Group(zoomGroup);
             pageWindow.setContent(contentGroup);
+            scaleBox.setText("55");
+            scaleBox.fireEvent(new ActionEvent());
         }
     }
 
@@ -596,7 +598,7 @@ public class EditPages implements Initializable{
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image File","*.png","*.jpg","*.ico","*.jpeg","bmp"),
-                new FileChooser.ExtensionFilter("All","*.*")
+                new FileChooser.ExtensionFilter("All","*")
         );
         File file = chooser.showOpenDialog(pageWindow.getScene().getWindow());
         if(file!=null) {
@@ -614,7 +616,7 @@ public class EditPages implements Initializable{
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Video File","*.mp4","*.flv"),
-                new FileChooser.ExtensionFilter("All","*.*")
+                new FileChooser.ExtensionFilter("All","*")
         );
         File file = chooser.showOpenDialog(pageWindow.getScene().getWindow());
         if (file != null) {
@@ -632,7 +634,7 @@ public class EditPages implements Initializable{
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Audio File","*.mp3","*.wav"),
-                new FileChooser.ExtensionFilter("All","*.*")
+                new FileChooser.ExtensionFilter("All","*")
         );
         File file = chooser.showOpenDialog(pageWindow.getScene().getWindow());
         if (file != null) {
@@ -818,7 +820,7 @@ public class EditPages implements Initializable{
             FileChooser chooser = new FileChooser();
             chooser.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("PDF","*.pdf"),
-                    new FileChooser.ExtensionFilter("All","*.*")
+                    new FileChooser.ExtensionFilter("All","*")
             );
             File file = chooser.showOpenDialog(pageWindow.getScene().getWindow());
             document.setFile(file.getAbsolutePath());
@@ -995,14 +997,14 @@ public class EditPages implements Initializable{
                 textField.setMinHeight(Double.parseDouble(heightBox.getText()));
             });
             String style=textField.getStyle();
-            System.out.println("style= "+style);
+//            System.out.println("style= "+style);
             String[] styleParts=style.split(";");
             for(String each :styleParts){
-                System.out.println("each= "+each);
+//                System.out.println("each= "+each);
                 String[] pair=each.split(" ",2);
-                for(String s:pair){
-                    System.out.println("s= "+s);
-                }
+//                for(String s:pair){
+//                    System.out.println("s= "+s);
+//                }
                 switch (pair[0]){
                     case "-fx-font-family:":
                         fontFamilyBox.getSelectionModel().select(pair[1].substring(1,pair[1].length()-1));
@@ -1063,14 +1065,14 @@ public class EditPages implements Initializable{
                 textArea.setMinHeight(Double.parseDouble(heightBox.getText()));
             });
             String style=textArea.getStyle();
-            System.out.println("style= "+style);
+//            System.out.println("style= "+style);
             String[] styleParts=style.split(";");
             for(String each :styleParts){
-                System.out.println("each= "+each);
+//                System.out.println("each= "+each);
                 String[] pair=each.split(" ",2);
-                for(String s:pair){
-                    System.out.println("s= "+s);
-                }
+//                for(String s:pair){
+//                    System.out.println("s= "+s);
+//                }
                 switch (pair[0]){
                     case "-fx-font-family:":
                         fontFamilyBox.getSelectionModel().select(pair[1].substring(1,pair[1].length()-1));
@@ -1169,10 +1171,10 @@ public class EditPages implements Initializable{
         }
     }
 
-    public void tempFunction(){
-        fontColorBox.setOnAction(event -> {
-            System.out.println(fontColorBox.getValue());
-        });
-        System.out.println(pages);
-    }
+//    public void tempFunction(){
+//        fontColorBox.setOnAction(event -> {
+//            System.out.println(fontColorBox.getValue());
+//        });
+//        System.out.println(pages);
+//    }
 }

@@ -64,11 +64,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="EditPages.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EditPages.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/EditPages.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="630" column="0" lean-forward="false" selection-start-line="630" selection-start-column="0" selection-end-line="630" selection-end-column="0" />
+            <state relative-caret-position="285">
+              <caret line="832" column="25" lean-forward="false" selection-start-line="832" selection-start-column="18" selection-end-line="832" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#setToFront#0;class#EditPages#0" expanded="false" />
@@ -94,7 +94,6 @@
                 <element signature="method#addPage#0;class#EditPages#0" expanded="false" />
                 <element signature="method#addPage#1;class#EditPages#0" expanded="false" />
                 <element signature="method#getIndexButton#0;class#EditPages#0" expanded="false" />
-                <element signature="method#display#0;class#EditPages#0" expanded="false" />
                 <element signature="method#addTextField#1;class#EditPages#0" expanded="false" />
                 <element signature="method#addTitleField#1;class#EditPages#0" expanded="false" />
                 <element signature="method#addImageBox#1;class#EditPages#0" expanded="false" />
@@ -107,27 +106,25 @@
                 <element signature="method#changeTextFamily#0;class#EditPages#0" expanded="false" />
                 <element signature="method#changeTextAlignment#0;class#EditPages#0" expanded="false" />
                 <element signature="method#changeScale#0;class#EditPages#0" expanded="false" />
-                <element signature="method#getDocument#0;class#EditPages#0" expanded="false" />
                 <element signature="method#showpdf#0;class#EditPages#0" expanded="false" />
                 <element signature="method#showpdf1#0;class#EditPages#0" expanded="false" />
-                <element signature="e#33397#33423#0" expanded="false" />
+                <element signature="e#33476#33502#0" expanded="false" />
                 <element signature="method#setSelectedPane#0;class#EditPages#0" expanded="false" />
                 <element signature="method#regionstoSelectedPane#0;class#EditPages#0" expanded="false" />
                 <element signature="method#bindPropertiesToSelectedPane#0;class#EditPages#0" expanded="false" />
-                <element signature="e#36931#36968#0" expanded="false" />
-                <element signature="e#37090#37206#0" expanded="false" />
-                <element signature="e#37328#37442#0" expanded="false" />
-                <element signature="e#37772#37787#0" expanded="false" />
-                <element signature="e#37969#38313#0" expanded="false" />
-                <element signature="e#41392#41732#0" expanded="false" />
-                <element signature="e#41838#42178#0" expanded="false" />
-                <element signature="e#45538#45553#0" expanded="false" />
-                <element signature="e#45738#45922#0" expanded="false" />
-                <element signature="e#46032#46216#0" expanded="false" />
-                <element signature="e#46373#46388#0" expanded="false" />
-                <element signature="e#46562#46898#0" expanded="false" />
-                <element signature="e#47003#47339#0" expanded="false" />
-                <element signature="method#tempFunction#0;class#EditPages#0" expanded="false" />
+                <element signature="e#37010#37047#0" expanded="false" />
+                <element signature="e#37169#37285#0" expanded="false" />
+                <element signature="e#37407#37521#0" expanded="false" />
+                <element signature="e#37851#37866#0" expanded="false" />
+                <element signature="e#38048#38392#0" expanded="false" />
+                <element signature="e#41481#41821#0" expanded="false" />
+                <element signature="e#41927#42267#0" expanded="false" />
+                <element signature="e#45637#45652#0" expanded="false" />
+                <element signature="e#45837#46021#0" expanded="false" />
+                <element signature="e#46131#46315#0" expanded="false" />
+                <element signature="e#46472#46487#0" expanded="false" />
+                <element signature="e#46661#46997#0" expanded="false" />
+                <element signature="e#47102#47438#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -137,7 +134,7 @@
         <entry file="file://$PROJECT_DIR$/src/sample/editPages.fxml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="200">
-              <caret line="83" column="24" lean-forward="true" selection-start-line="83" selection-start-column="24" selection-end-line="83" selection-end-column="24" />
+              <caret line="83" column="24" lean-forward="false" selection-start-line="83" selection-start-column="24" selection-end-line="83" selection-end-column="24" />
               <folding>
                 <element signature="n#TitledPane#0;n#children#0;n#VBox#0;n#children#0;n#AnchorPane#1;n#children#0;n#HBox#1;n#children#0;n#VBox#0;n#children#0;n#AnchorPane#0;n#!!top" expanded="false" />
                 <element signature="n#StackPane#0;n#children#0;n#VBox#0;n#children#0;n#AnchorPane#1;n#children#0;n#HBox#1;n#children#0;n#VBox#0;n#children#0;n#AnchorPane#0;n#!!top" expanded="false" />
@@ -149,35 +146,60 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="sample.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="136" column="22" lean-forward="true" selection-start-line="136" selection-start-column="22" selection-end-line="136" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="593" column="15" lean-forward="false" selection-start-line="593" selection-start-column="15" selection-end-line="593" selection-end-column="15" />
+            <state relative-caret-position="165">
+              <caret line="1005" column="0" lean-forward="false" selection-start-line="1005" selection-start-column="0" selection-end-line="1005" selection-end-column="0" />
               <folding>
-                <element signature="method#initialize#0;class#Controller#0" expanded="false" />
-                <element signature="method#refreshCourse#0;class#Controller#0" expanded="false" />
                 <element signature="method#showChapterContextMenu#0;class#Controller#0" expanded="false" />
                 <element signature="method#addChapter#0;class#Controller#0" expanded="false" />
-                <element signature="e#11909#11910#0" expanded="true" />
-                <element signature="e#11959#11960#0" expanded="true" />
+                <element signature="method#getNewChapterMenuButton#0;class#Controller#0" expanded="false" />
+                <element signature="e#12534#12535#0" expanded="true" />
+                <element signature="e#12584#12585#0" expanded="true" />
                 <element signature="method#addNewTopic#0;class#Controller#0" expanded="false" />
                 <element signature="method#addTopicMenuItem#0;class#Controller#0" expanded="false" />
                 <element signature="method#removeTopic#0;class#Controller#0" expanded="false" />
                 <element signature="method#removeChapter#0;class#Controller#0" expanded="false" />
                 <element signature="method#editPages#0;class#Controller#0" expanded="false" />
+                <element signature="method#display#0;class#Controller#0" expanded="false" />
                 <element signature="method#display#1;class#Controller#0" expanded="false" />
                 <element signature="method#scaleWindow#0;class#Controller#0" expanded="false" />
                 <element signature="method#newCourse#0;class#Controller#0" expanded="false" />
+                <element signature="method#openCourse#0;class#Controller#0" expanded="false" />
                 <element signature="method#saveAs#0;class#Controller#0" expanded="false" />
                 <element signature="method#saveCourse#0;class#Controller#0" expanded="false" />
                 <element signature="method#onExit#0;class#Controller#0" expanded="false" />
-                <element signature="method#onEntered#0;class#Controller#0" expanded="false" />
-                <element signature="method#showpdf#0;class#Controller#0" expanded="false" />
-                <element signature="method#getDocument#0;class#Controller#0" expanded="false" />
                 <element signature="method#setVideo#0;class#Controller#0" expanded="false" />
+                <element signature="e#23969#23970#0" expanded="true" />
+                <element signature="e#24020#24021#0" expanded="true" />
+                <element signature="e#24229#24230#0" expanded="true" />
+                <element signature="e#24287#24288#0" expanded="true" />
+                <element signature="e#24432#24433#0" expanded="true" />
+                <element signature="e#24532#24533#0" expanded="true" />
                 <element signature="method#playMedia#0;class#Controller#0" expanded="false" />
+                <element signature="e#25615#25616#0" expanded="true" />
+                <element signature="e#25659#25660#0" expanded="true" />
+                <element signature="e#25847#25848#0" expanded="true" />
+                <element signature="e#25891#25892#0" expanded="true" />
                 <element signature="method#pauseMedia#0;class#Controller#0" expanded="false" />
+                <element signature="e#26125#26126#0" expanded="true" />
+                <element signature="e#26168#26169#0" expanded="true" />
+                <element signature="e#26355#26356#0" expanded="true" />
+                <element signature="e#26398#26399#0" expanded="true" />
                 <element signature="method#stopMedia#0;class#Controller#0" expanded="false" />
                 <element signature="method#muteMedia#0;class#Controller#0" expanded="false" />
                 <element signature="method#showVolumeSlider#0;class#Controller#0" expanded="false" />
@@ -188,15 +210,38 @@
                 <element signature="method#updateMediaValue#0;class#Controller#0" expanded="false" />
                 <element signature="method#setProperties#0;class#Controller#0" expanded="false" />
                 <element signature="method#getNextTopic#0;class#Controller#0" expanded="false" />
-                <element signature="e#37166#37192#0" expanded="false" />
                 <element signature="method#getPrevTopic#0;class#Controller#0" expanded="false" />
-                <element signature="e#38582#38608#0" expanded="false" />
-                <element signature="method#previouseButtonAction#0;class#Controller#0" expanded="false" />
                 <element signature="method#nextButtonAction#0;class#Controller#0" expanded="false" />
-                <element signature="method#startExam#0;class#Controller#0" expanded="false" />
-                <element signature="method#saveStudentNotes#0;class#Controller#0" expanded="false" />
                 <element signature="method#getStudentNotes#0;class#Controller#0" expanded="false" />
-                <element signature="method#showManual#0;class#Controller#0" expanded="false" />
+                <element signature="method#renameCourse#0;class#Controller#0" expanded="false" />
+                <marker date="1498843928931" expanded="false" signature="35918:36069" ph="{...}" />
+                <marker date="1498843928931" expanded="false" signature="36313:36713" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="manual.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/manual/manual.fxml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="9" column="37" lean-forward="true" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Manual.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/manual/Manual.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="235">
+              <caret line="53" column="46" lean-forward="false" selection-start-line="53" selection-start-column="46" selection-end-line="53" selection-end-column="46" />
+              <folding>
+                <element signature="e#1673#1674#0" expanded="true" />
+                <element signature="e#1736#1737#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -205,24 +250,13 @@
       <file leaf-file-name="StartingStage.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/StartingStage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="46" column="19" lean-forward="false" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="19" />
+            <state relative-caret-position="276">
+              <caret line="79" column="32" lean-forward="false" selection-start-line="79" selection-start-column="32" selection-end-line="79" selection-end-column="32" />
               <folding>
                 <element signature="docComment;class#StartingStage#0" expanded="false" />
                 <element signature="method#initialize#0;class#StartingStage#0" expanded="false" />
                 <element signature="method#startNewCourse#0;class#StartingStage#0" expanded="false" />
-                <element signature="method#showCourse#0;class#StartingStage#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MCQ.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/MCQ.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -231,7 +265,7 @@
         <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
-              <caret line="40" column="5" lean-forward="true" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+              <caret line="40" column="5" lean-forward="false" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
               <folding>
                 <element signature="e#1063#1064#0" expanded="true" />
                 <element signature="e#1091#1092#0" expanded="true" />
@@ -263,26 +297,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="textfieldStyle.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/textfieldStyle.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="1" column="37" lean-forward="false" selection-start-line="1" selection-start-column="37" selection-end-line="1" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sample.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/sample.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -296,12 +310,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>font-family</find>
-      <find>fontFamilyBox</find>
-      <find>Font</find>
-      <find>pagewindow</find>
-      <find>audio</find>
-      <find>scaleboxaction</find>
       <find>true</find>
       <find>new AnchorPane</find>
       <find>popup</find>
@@ -320,12 +328,18 @@
       <find>removeCont</find>
       <find>selectedpane =</find>
       <find>selectedpane</find>
-      <find>temo</find>
       <find>open</find>
-      <find>Filechooser</find>
+      <find>filechooser</find>
       <find>filechooser</find>
       <find>filechos</find>
-      <find>filechooser</find>
+      <find>temo</find>
+      <find>Sys</find>
+      <find>system.out.pri</find>
+      <find>*.*</find>
+      <find>Filechooser</find>
+      <find>refres</find>
+      <find>showpdf</find>
+      <find>display</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/savedCourse</dir>
@@ -344,8 +358,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/sample/mediaViewer.fxml" />
-        <option value="$PROJECT_DIR$/src/sample/Options.java" />
         <option value="$PROJECT_DIR$/src/sample/ExamScene.java" />
         <option value="$PROJECT_DIR$/src/sample/StartExam.java" />
         <option value="$PROJECT_DIR$/src/sample/examScene.fxml" />
@@ -354,7 +366,6 @@
         <option value="$PROJECT_DIR$/src/sample/temperary.java" />
         <option value="$PROJECT_DIR$/src/sample/temp.java" />
         <option value="$PROJECT_DIR$/src/sample/ExamSceneController.java" />
-        <option value="$PROJECT_DIR$/src/sample/sample.fxml" />
         <option value="$PROJECT_DIR$/src/sample/startingStage.fxml" />
         <option value="$PROJECT_DIR$/src/course/Course.java" />
         <option value="$PROJECT_DIR$/src/course/SerializableStringProperty.java" />
@@ -392,9 +403,12 @@
         <option value="$PROJECT_DIR$/src/sample/editStyle.css" />
         <option value="$PROJECT_DIR$/src/sample/textfieldStyle.css" />
         <option value="$PROJECT_DIR$/src/sample/editPages.fxml" />
+        <option value="$PROJECT_DIR$/src/sample/sample.fxml" />
+        <option value="$PROJECT_DIR$/src/sample/EditPages.java" />
         <option value="$PROJECT_DIR$/src/sample/StartingStage.java" />
         <option value="$PROJECT_DIR$/src/sample/Controller.java" />
-        <option value="$PROJECT_DIR$/src/sample/EditPages.java" />
+        <option value="$PROJECT_DIR$/src/manual/manual.fxml" />
+        <option value="$PROJECT_DIR$/src/manual/Manual.java" />
       </list>
     </option>
   </component>
@@ -406,8 +420,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="75" />
-    <option name="y" value="34" />
+    <option name="x" value="64" />
+    <option name="y" value="45" />
     <option name="width" value="1301" />
     <option name="height" value="695" />
   </component>
@@ -476,6 +490,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="APP1.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="APP1.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manual" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -492,12 +524,12 @@
     <property name="dynamic.classpath" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../InernshipProject/src/pageEditing/EditPages.java" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Backup/APP1.0" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.16380091" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../InernshipProject/src/pageEditing/EditPages.java" />
+    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../InernshipProject/sample.fxml" />
     <property name="settings.editor.selected.configurable" value="http.proxy" />
   </component>
   <component name="RecentsManager">
@@ -1062,12 +1094,12 @@
       <workItem from="1498732702060" duration="7296000" />
       <workItem from="1498741278305" duration="24066000" />
       <workItem from="1498772092003" duration="8000" />
-      <workItem from="1498826879248" duration="7227000" />
+      <workItem from="1498826879248" duration="16284000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="316309000" />
+    <option name="totallyTimeSpent" value="325366000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1079,8 +1111,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="75" y="34" width="1301" height="695" extended-state="0" />
-    <editor active="true" />
+    <frame x="64" y="45" width="1301" height="695" extended-state="0" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1092,13 +1123,14 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29422066" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29422066" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16812749" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32749563" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1115,7 +1147,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1130,7 +1161,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="35" />
+      <option name="time" value="36" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1139,10 +1170,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/sample/MediaPane.java" />
-    <entry file="file://$PROJECT_DIR$/src/sample/MediaViewer.java" />
-    <entry file="file://$PROJECT_DIR$/src/sample/mediaViewer.fxml" />
-    <entry file="file://$PROJECT_DIR$/src/sample/Options.java" />
     <entry file="file://$PROJECT_DIR$/src/sample/StartExam.java" />
     <entry file="file://$PROJECT_DIR$/src/sample/Controller2.java" />
     <entry file="file://$PROJECT_DIR$/src/sample/temperary.java" />
@@ -1279,16 +1306,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="45" column="52" lean-forward="false" selection-start-line="45" selection-start-column="52" selection-end-line="45" selection-end-column="52" />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/savedCourse/PageComponent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
@@ -1326,11 +1343,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="24" column="31" lean-forward="false" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
-          <folding>
-            <element signature="e#1679#1680#0" expanded="false" />
-            <element signature="e#1707#1708#0" expanded="false" />
-            <element signature="method#changeProxySettings#0;class#temp#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1390,7 +1403,7 @@
     <entry file="file://$PROJECT_DIR$/src/sample/sample.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="307">
-          <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1409,20 +1422,6 @@
           <caret line="1" column="37" lean-forward="false" selection-start-line="1" selection-start-column="37" selection-end-line="1" selection-end-column="37" />
           <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/editPages.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="83" column="24" lean-forward="true" selection-start-line="83" selection-start-column="24" selection-end-line="83" selection-end-column="24" />
-          <folding>
-            <element signature="n#TitledPane#0;n#children#0;n#VBox#0;n#children#0;n#AnchorPane#1;n#children#0;n#HBox#1;n#children#0;n#VBox#0;n#children#0;n#AnchorPane#0;n#!!top" expanded="false" />
-            <element signature="n#StackPane#0;n#children#0;n#VBox#0;n#children#0;n#AnchorPane#1;n#children#0;n#HBox#1;n#children#0;n#VBox#0;n#children#0;n#AnchorPane#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/startingStage.fxml">
@@ -1447,7 +1446,7 @@
     <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
-          <caret line="40" column="5" lean-forward="true" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+          <caret line="40" column="5" lean-forward="false" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
           <folding>
             <element signature="e#1063#1064#0" expanded="true" />
             <element signature="e#1091#1092#0" expanded="true" />
@@ -1455,74 +1454,74 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/lang/System.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="109" column="36" lean-forward="false" selection-start-line="109" selection-start-column="36" selection-end-line="109" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/editPages.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="83" column="24" lean-forward="false" selection-start-line="83" selection-start-column="24" selection-end-line="83" selection-end-column="24" />
+          <folding>
+            <element signature="n#TitledPane#0;n#children#0;n#VBox#0;n#children#0;n#AnchorPane#1;n#children#0;n#HBox#1;n#children#0;n#VBox#0;n#children#0;n#AnchorPane#0;n#!!top" expanded="false" />
+            <element signature="n#StackPane#0;n#children#0;n#VBox#0;n#children#0;n#AnchorPane#1;n#children#0;n#HBox#1;n#children#0;n#VBox#0;n#children#0;n#AnchorPane#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/font.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="136" column="22" lean-forward="true" selection-start-line="136" selection-start-column="22" selection-end-line="136" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/StartingStage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="46" column="19" lean-forward="false" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="19" />
+        <state relative-caret-position="276">
+          <caret line="79" column="32" lean-forward="false" selection-start-line="79" selection-start-column="32" selection-end-line="79" selection-end-column="32" />
           <folding>
             <element signature="docComment;class#StartingStage#0" expanded="false" />
             <element signature="method#initialize#0;class#StartingStage#0" expanded="false" />
             <element signature="method#startNewCourse#0;class#StartingStage#0" expanded="false" />
-            <element signature="method#showCourse#0;class#StartingStage#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/manual/manual.fxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="593" column="15" lean-forward="false" selection-start-line="593" selection-start-column="15" selection-end-line="593" selection-end-column="15" />
-          <folding>
-            <element signature="method#initialize#0;class#Controller#0" expanded="false" />
-            <element signature="method#refreshCourse#0;class#Controller#0" expanded="false" />
-            <element signature="method#showChapterContextMenu#0;class#Controller#0" expanded="false" />
-            <element signature="method#addChapter#0;class#Controller#0" expanded="false" />
-            <element signature="e#11909#11910#0" expanded="true" />
-            <element signature="e#11959#11960#0" expanded="true" />
-            <element signature="method#addNewTopic#0;class#Controller#0" expanded="false" />
-            <element signature="method#addTopicMenuItem#0;class#Controller#0" expanded="false" />
-            <element signature="method#removeTopic#0;class#Controller#0" expanded="false" />
-            <element signature="method#removeChapter#0;class#Controller#0" expanded="false" />
-            <element signature="method#editPages#0;class#Controller#0" expanded="false" />
-            <element signature="method#display#1;class#Controller#0" expanded="false" />
-            <element signature="method#scaleWindow#0;class#Controller#0" expanded="false" />
-            <element signature="method#newCourse#0;class#Controller#0" expanded="false" />
-            <element signature="method#saveAs#0;class#Controller#0" expanded="false" />
-            <element signature="method#saveCourse#0;class#Controller#0" expanded="false" />
-            <element signature="method#onExit#0;class#Controller#0" expanded="false" />
-            <element signature="method#onEntered#0;class#Controller#0" expanded="false" />
-            <element signature="method#showpdf#0;class#Controller#0" expanded="false" />
-            <element signature="method#getDocument#0;class#Controller#0" expanded="false" />
-            <element signature="method#setVideo#0;class#Controller#0" expanded="false" />
-            <element signature="method#playMedia#0;class#Controller#0" expanded="false" />
-            <element signature="method#pauseMedia#0;class#Controller#0" expanded="false" />
-            <element signature="method#stopMedia#0;class#Controller#0" expanded="false" />
-            <element signature="method#muteMedia#0;class#Controller#0" expanded="false" />
-            <element signature="method#showVolumeSlider#0;class#Controller#0" expanded="false" />
-            <element signature="method#hideVolumeSlider#0;class#Controller#0" expanded="false" />
-            <element signature="method#setMediaToFullScreen#0;class#Controller#0" expanded="false" />
-            <element signature="method#exitMediaFromFullScreen#0;class#Controller#0" expanded="false" />
-            <element signature="method#formatTime#0;class#Controller#0" expanded="false" />
-            <element signature="method#updateMediaValue#0;class#Controller#0" expanded="false" />
-            <element signature="method#setProperties#0;class#Controller#0" expanded="false" />
-            <element signature="method#getNextTopic#0;class#Controller#0" expanded="false" />
-            <element signature="e#37166#37192#0" expanded="false" />
-            <element signature="method#getPrevTopic#0;class#Controller#0" expanded="false" />
-            <element signature="e#38582#38608#0" expanded="false" />
-            <element signature="method#previouseButtonAction#0;class#Controller#0" expanded="false" />
-            <element signature="method#nextButtonAction#0;class#Controller#0" expanded="false" />
-            <element signature="method#startExam#0;class#Controller#0" expanded="false" />
-            <element signature="method#saveStudentNotes#0;class#Controller#0" expanded="false" />
-            <element signature="method#getStudentNotes#0;class#Controller#0" expanded="false" />
-            <element signature="method#showManual#0;class#Controller#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="180">
+          <caret line="9" column="37" lean-forward="true" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
+          <folding />
         </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/EditPages.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="630" column="0" lean-forward="false" selection-start-line="630" selection-start-column="0" selection-end-line="630" selection-end-column="0" />
+        <state relative-caret-position="285">
+          <caret line="832" column="25" lean-forward="false" selection-start-line="832" selection-start-column="18" selection-end-line="832" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#setToFront#0;class#EditPages#0" expanded="false" />
@@ -1548,7 +1547,6 @@
             <element signature="method#addPage#0;class#EditPages#0" expanded="false" />
             <element signature="method#addPage#1;class#EditPages#0" expanded="false" />
             <element signature="method#getIndexButton#0;class#EditPages#0" expanded="false" />
-            <element signature="method#display#0;class#EditPages#0" expanded="false" />
             <element signature="method#addTextField#1;class#EditPages#0" expanded="false" />
             <element signature="method#addTitleField#1;class#EditPages#0" expanded="false" />
             <element signature="method#addImageBox#1;class#EditPages#0" expanded="false" />
@@ -1561,27 +1559,96 @@
             <element signature="method#changeTextFamily#0;class#EditPages#0" expanded="false" />
             <element signature="method#changeTextAlignment#0;class#EditPages#0" expanded="false" />
             <element signature="method#changeScale#0;class#EditPages#0" expanded="false" />
-            <element signature="method#getDocument#0;class#EditPages#0" expanded="false" />
             <element signature="method#showpdf#0;class#EditPages#0" expanded="false" />
             <element signature="method#showpdf1#0;class#EditPages#0" expanded="false" />
-            <element signature="e#33397#33423#0" expanded="false" />
+            <element signature="e#33476#33502#0" expanded="false" />
             <element signature="method#setSelectedPane#0;class#EditPages#0" expanded="false" />
             <element signature="method#regionstoSelectedPane#0;class#EditPages#0" expanded="false" />
             <element signature="method#bindPropertiesToSelectedPane#0;class#EditPages#0" expanded="false" />
-            <element signature="e#36931#36968#0" expanded="false" />
-            <element signature="e#37090#37206#0" expanded="false" />
-            <element signature="e#37328#37442#0" expanded="false" />
-            <element signature="e#37772#37787#0" expanded="false" />
-            <element signature="e#37969#38313#0" expanded="false" />
-            <element signature="e#41392#41732#0" expanded="false" />
-            <element signature="e#41838#42178#0" expanded="false" />
-            <element signature="e#45538#45553#0" expanded="false" />
-            <element signature="e#45738#45922#0" expanded="false" />
-            <element signature="e#46032#46216#0" expanded="false" />
-            <element signature="e#46373#46388#0" expanded="false" />
-            <element signature="e#46562#46898#0" expanded="false" />
-            <element signature="e#47003#47339#0" expanded="false" />
-            <element signature="method#tempFunction#0;class#EditPages#0" expanded="false" />
+            <element signature="e#37010#37047#0" expanded="false" />
+            <element signature="e#37169#37285#0" expanded="false" />
+            <element signature="e#37407#37521#0" expanded="false" />
+            <element signature="e#37851#37866#0" expanded="false" />
+            <element signature="e#38048#38392#0" expanded="false" />
+            <element signature="e#41481#41821#0" expanded="false" />
+            <element signature="e#41927#42267#0" expanded="false" />
+            <element signature="e#45637#45652#0" expanded="false" />
+            <element signature="e#45837#46021#0" expanded="false" />
+            <element signature="e#46131#46315#0" expanded="false" />
+            <element signature="e#46472#46487#0" expanded="false" />
+            <element signature="e#46661#46997#0" expanded="false" />
+            <element signature="e#47102#47438#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="1005" column="0" lean-forward="false" selection-start-line="1005" selection-start-column="0" selection-end-line="1005" selection-end-column="0" />
+          <folding>
+            <element signature="method#showChapterContextMenu#0;class#Controller#0" expanded="false" />
+            <element signature="method#addChapter#0;class#Controller#0" expanded="false" />
+            <element signature="method#getNewChapterMenuButton#0;class#Controller#0" expanded="false" />
+            <element signature="e#12534#12535#0" expanded="true" />
+            <element signature="e#12584#12585#0" expanded="true" />
+            <element signature="method#addNewTopic#0;class#Controller#0" expanded="false" />
+            <element signature="method#addTopicMenuItem#0;class#Controller#0" expanded="false" />
+            <element signature="method#removeTopic#0;class#Controller#0" expanded="false" />
+            <element signature="method#removeChapter#0;class#Controller#0" expanded="false" />
+            <element signature="method#editPages#0;class#Controller#0" expanded="false" />
+            <element signature="method#display#0;class#Controller#0" expanded="false" />
+            <element signature="method#display#1;class#Controller#0" expanded="false" />
+            <element signature="method#scaleWindow#0;class#Controller#0" expanded="false" />
+            <element signature="method#newCourse#0;class#Controller#0" expanded="false" />
+            <element signature="method#openCourse#0;class#Controller#0" expanded="false" />
+            <element signature="method#saveAs#0;class#Controller#0" expanded="false" />
+            <element signature="method#saveCourse#0;class#Controller#0" expanded="false" />
+            <element signature="method#onExit#0;class#Controller#0" expanded="false" />
+            <element signature="method#setVideo#0;class#Controller#0" expanded="false" />
+            <element signature="e#23969#23970#0" expanded="true" />
+            <element signature="e#24020#24021#0" expanded="true" />
+            <element signature="e#24229#24230#0" expanded="true" />
+            <element signature="e#24287#24288#0" expanded="true" />
+            <element signature="e#24432#24433#0" expanded="true" />
+            <element signature="e#24532#24533#0" expanded="true" />
+            <element signature="method#playMedia#0;class#Controller#0" expanded="false" />
+            <element signature="e#25615#25616#0" expanded="true" />
+            <element signature="e#25659#25660#0" expanded="true" />
+            <element signature="e#25847#25848#0" expanded="true" />
+            <element signature="e#25891#25892#0" expanded="true" />
+            <element signature="method#pauseMedia#0;class#Controller#0" expanded="false" />
+            <element signature="e#26125#26126#0" expanded="true" />
+            <element signature="e#26168#26169#0" expanded="true" />
+            <element signature="e#26355#26356#0" expanded="true" />
+            <element signature="e#26398#26399#0" expanded="true" />
+            <element signature="method#stopMedia#0;class#Controller#0" expanded="false" />
+            <element signature="method#muteMedia#0;class#Controller#0" expanded="false" />
+            <element signature="method#showVolumeSlider#0;class#Controller#0" expanded="false" />
+            <element signature="method#hideVolumeSlider#0;class#Controller#0" expanded="false" />
+            <element signature="method#setMediaToFullScreen#0;class#Controller#0" expanded="false" />
+            <element signature="method#exitMediaFromFullScreen#0;class#Controller#0" expanded="false" />
+            <element signature="method#formatTime#0;class#Controller#0" expanded="false" />
+            <element signature="method#updateMediaValue#0;class#Controller#0" expanded="false" />
+            <element signature="method#setProperties#0;class#Controller#0" expanded="false" />
+            <element signature="method#getNextTopic#0;class#Controller#0" expanded="false" />
+            <element signature="method#getPrevTopic#0;class#Controller#0" expanded="false" />
+            <element signature="method#nextButtonAction#0;class#Controller#0" expanded="false" />
+            <element signature="method#getStudentNotes#0;class#Controller#0" expanded="false" />
+            <element signature="method#renameCourse#0;class#Controller#0" expanded="false" />
+            <marker date="1498843928931" expanded="false" signature="35918:36069" ph="{...}" />
+            <marker date="1498843928931" expanded="false" signature="36313:36713" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/manual/Manual.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="53" column="46" lean-forward="false" selection-start-line="53" selection-start-column="46" selection-end-line="53" selection-end-column="46" />
+          <folding>
+            <element signature="e#1673#1674#0" expanded="true" />
+            <element signature="e#1736#1737#0" expanded="true" />
           </folding>
         </state>
       </provider>
