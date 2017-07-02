@@ -610,7 +610,7 @@ public class EditPages implements Initializable{
     }
 
     @FXML public void addVideoPlayer(){
-        addVideoPlayer(new Rectangle(0.0,0.0,0.0,0.0));
+        addVideoPlayer(new Rectangle(0.0,0.0,400.0,300.0));
     }
     @FXML public void addVideoPlayer(Rectangle rec){
         FileChooser chooser = new FileChooser();

@@ -22,6 +22,7 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -205,7 +206,6 @@ public class Element {
         controls.maxWidthProperty().bind(vBox.widthProperty());
 
         Button playpause =getMediaButton();
-        playpause.setText(">/||");
 /*        playpause.setOnAction(action->{
             playMedia(box,progressBar,controls);
         });
@@ -214,7 +214,6 @@ public class Element {
         });*/
 
         Button stop =getMediaButton();
-        stop.setText("STOP");
         stop.setOnAction(action->{
             stopMedia(box,progressBar,controls);
         });
@@ -226,7 +225,12 @@ public class Element {
         });
 
         Button mute =getMediaButton();
-        mute.setText("MUTE");
+//        mute.setText("MUTE");
+        try {
+            mute.setGraphic(new ImageView(new Image(Controller.class.getResource("unmute.png").toURI().toString())));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         mute.setOnAction(action->{
             muteMedia(box,progressBar,controls);
         });
@@ -279,18 +283,23 @@ public class Element {
 
         container.getChildren().addAll(box,vBox);
         vBox.setVisible(false);
+        box.setFitWidth(rec.getWidth());
+        box.setFitHeight(rec.getHeight());
 
-        if(rec.getWidth()==0.0 && rec.getHeight()==0.0){
-            box.setFitWidth(media.getWidth());
-            box.setFitHeight(media.getHeight());
-        }
-        else {
-            box.setFitWidth(rec.getWidth());
-            box.setFitHeight(rec.getHeight());
-        }
+        System.out.println(media.getHeight()+" "+media.getWidth());
 
+//        container.setMaxWidth(box.getFitWidth());
+//        container.setMinWidth(box.getFitWidth());
+//        container.setMaxHeight(box.getFitHeight());
+//        container.setMinHeight(box.getFitHeight());
         AnchorPane.setLeftAnchor(container,rec.getX());
         AnchorPane.setTopAnchor(container,rec.getY());
+
+        try {
+            stop.setGraphic(new ImageView(new Image(Controller.class.getResource("stop.png").toURI().toString())));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         return container;
     }
     private static Button getMediaButton() {
@@ -306,6 +315,11 @@ public class Element {
         mediaView.getMediaPlayer().play();
         Button playpause=(Button) controls.getChildren().get(0);
 //        playpause.setText("||");
+        try {
+            playpause.setGraphic(new ImageView(new Image(Controller.class.getResource("pause.png").toURI().toString())));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         playpause.setOnAction(action->{
             pauseMedia(mediaView,progressBar,controls);
         });
@@ -317,6 +331,11 @@ public class Element {
         mediaView.getMediaPlayer().pause();
         Button playpause=(Button) controls.getChildren().get(0);
 //        playpause.setText("play");
+        try {
+            playpause.setGraphic(new ImageView(new Image(Controller.class.getResource("play.png").toURI().toString())));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         playpause.setOnAction(action->{
             playMedia(mediaView,progressBar,controls);
         });
@@ -330,10 +349,21 @@ public class Element {
         //mediaView.getMediaPlayer().stop();
     }
     private static void muteMedia(MediaView mediaView,Slider progressBar,HBox controls){
+        Button volumeButton= (Button) controls.getChildren().get(2);
         if(mediaView.getMediaPlayer().isMute()){
+            try {
+                volumeButton.setGraphic(new ImageView(new Image(Controller.class.getResource("unmute.png").toURI().toString())));
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
             mediaView.getMediaPlayer().setMute(false);
         }
         else{
+            try {
+                volumeButton.setGraphic(new ImageView(new Image(Controller.class.getResource("mute.gif").toURI().toString())));
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
             mediaView.getMediaPlayer().setMute(true);
         }
     }

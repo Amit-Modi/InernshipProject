@@ -1009,8 +1009,6 @@ public class Controller implements Initializable{
             e.printStackTrace();
         }
 
-
-
     }
 
     public void renameCourse(){
